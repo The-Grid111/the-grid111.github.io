@@ -1,0 +1,37 @@
+{
+  "brand": "THE GRID",
+  "hero": {
+    "tagline": "Elite results. Zero friction. Mobile-first. Always learning.",
+    "primary":  { "label": "Get Access", "href": "#pricing" },
+    "secondary":{ "label": "See Pricing", "href": "#pricing" },
+    "badges": ["Ultra-light", "Self-updating", "UK-ready"]
+  },
+  "features": [
+    { "title": "Self‑updating", "body": "Content pulls from tiny JSON files. No rebuilds, no bloat." },
+    { "title": "Learning engine", "body": "With consent, we ingest small signals and keep only what improves results." },
+    { "title": "Payments today", "body": "Paste hosted checkout links. Upgrade to memberships later." }
+  ],
+  "pricing": {
+    "vatNote": "Prices include applicable VAT when charged by the processor.",
+    "plans": [
+      { "name": "Starter", "desc": "Explore core features", "price": 9, "period": "month",
+        "includes": ["Basics", "Email support"], "checkout": "https://buy.stripe.com/test_starter" },
+      { "name": "Creator", "desc": "Automation + content packs", "price": 29, "period": "month",
+        "includes": ["Automation", "Templates", "Priority support"], "checkout": "https://buy.stripe.com/test_creator" },
+      { "name": "Pro", "desc": "Everything + insights", "price": 79, "period": "month",
+        "includes": ["Advanced analytics", "Team seats", "Roadmap input"], "checkout": "https://buy.stripe.com/test_pro" }
+    ]
+  },
+  "payments": {
+    "stripe": "https://buy.stripe.com/test_XXXXXXXX",
+    "paypal": "https://www.paypal.com/checkoutnow?token=YOURTOKEN",
+    "bank": "",
+    "revolut_backup": "https://revolut.me/youralias"
+  },
+  "legal": {
+    "footer": "UK-based • GDPR-aware • Export & delete on request."
+  },
+  "intake": {
+    "webhook": "https://hooks.zapier.com/hooks/catch/XXXXXXXX/XXXXXXXX"
+  }
+}
