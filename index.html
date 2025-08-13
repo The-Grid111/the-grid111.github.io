@@ -1,146 +1,256 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>THE GRID</title>
-  <meta name="color-scheme" content="dark light">
+  <!-- GRIDCORE SYSTEMS — Single-file Baseline (v0.9 "Gold") -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <title>Gridcore Systems — Minimal Adaptive Assistant</title>
+  <meta name="description" content="A fast, mobile-first assistant hub. Simple, safe, and always improving." />
+
+  <!-- Inline baseline styles: clean, premium, futuristic-minimal -->
   <style>
-    :root{--bg:#0d0f12;--card:#12151a;--muted:#9aa6b2;--text:#e8edf2;--accent:#59e1ff;--pill:#0f1217;--stroke:#1b1f26}
-    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial}
-    .wrap{max-width:920px;margin:auto;padding:24px}
-    h1{margin:0 0 8px;font-size:32px} h2{margin:0 0 8px;font-size:20px}
-    p{margin:0 0 10px;color:var(--muted)}
-    .grid{display:grid;gap:12px}
-    .card{background:var(--card);border-radius:16px;padding:20px;box-shadow:0 0 0 1px var(--stroke)}
-    .row{display:flex;gap:10px;flex-wrap:wrap}
-    .btn{display:inline-block;padding:12px 16px;border-radius:12px;background:var(--accent);color:#001018;font-weight:600;border:0}
-    .btn.ghost{background:var(--pill);color:var(--text);border:1px solid var(--stroke)}
-    .pill{padding:6px 10px;border-radius:999px;background:var(--pill);border:1px solid var(--stroke);color:var(--muted);font-size:13px}
-    ul{margin:10px 0 0 18px}
-    a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
-    .price{font-size:28px;font-weight:700;margin:6px 0}
-    .plan{display:grid;gap:10px}
-    .footer{margin:18px 0 0;color:var(--muted);font-size:14px}
+    :root{
+      --bg:#0b0c0f; --card:#121418; --muted:#9aa3af; --text:#e5e7eb; --accent:#b3ff3e;
+      --accent-2:#7cffd4; --danger:#ff6b6b; --ok:#86efac; --ring:rgba(179,255,62,.35);
+      --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.45);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font:500 16px/1.4 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;
+      background: radial-gradient(1200px 800px at 80% -10%, #13241f 0%, transparent 60%),
+                  radial-gradient(900px 700px at -20% 10%, #141328 0%, transparent 60%),
+                  var(--bg);
+      color:var(--text); -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:1100px; margin:0 auto; padding:20px}
+    header{
+      display:flex; align-items:center; justify-content:space-between; gap:12px; padding:8px 0;
+    }
+    .logo{
+      display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px;
+    }
+    .dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 0 0 6px var(--ring)}
+    .badge{font-size:12px;color:var(--muted);border:1px solid #222;padding:2px 8px;border-radius:999px}
+    .card{
+      background:linear-gradient(180deg,rgba(255,255,255,.015),rgba(255,255,255,.02));
+      border:1px solid #1b1f27; border-radius:var(--radius); box-shadow:var(--shadow);
+      padding:18px; backdrop-filter:saturate(120%) blur(8px);
+    }
+    .hero{
+      display:grid; gap:16px; margin-top:12px;
+    }
+    .title{font-size:28px;line-height:1.15;margin:2px 0 0}
+    .sub{color:var(--muted); font-size:14px}
+    .cta-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+    .btn{
+      appearance:none; border:1px solid #1f2937; padding:12px 16px; border-radius:12px;
+      background:#161a21; color:var(--text); font-weight:700; letter-spacing:.2px;
+      box-shadow:0 6px 16px rgba(0,0,0,.25);
+    }
+    .btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#0b0c0f; border-color:transparent}
+    .btn-ghost{background:transparent}
+    .grid{display:grid; gap:14px; margin-top:16px}
+    @media (min-width:900px){ .grid{grid-template-columns:1.15fr .85fr} .title{font-size:34px}}
+    .pill{display:inline-flex; gap:8px; align-items:center; font-size:12px; color:var(--muted)}
+    .kpi{display:flex; gap:12px; flex-wrap:wrap}
+    .kpi .chip{padding:8px 10px; border-radius:999px; border:1px solid #1b1f27; background:#111317; color:var(--muted); font-size:12px}
+    .section-title{font-weight:800; font-size:14px; letter-spacing:.4px; color:#cbd5e1; text-transform:uppercase}
+    .media{border-radius:14px; overflow:hidden; border:1px solid #1b1f27; background:#0f1115}
+    .media img, .media video{display:block; width:100%; height:auto}
+    footer{opacity:.8; color:var(--muted); font-size:12px; padding:24px 0 60px}
+    .consent{position:fixed; inset:auto 16px 16px 16px; background:rgba(18,20,24,.96); border:1px solid #1b1f27; border-radius:14px; box-shadow:var(--shadow); padding:14px; z-index:50}
+    .hidden{display:none}
+    .mono{font-family:ui-monospace,SF Mono,Menlo,Consolas,monospace; font-size:12px}
+    .ok{color:var(--ok)}
   </style>
 </head>
 <body>
-  <div class="wrap grid">
-    <header class="card">
-      <h1 id="title">THE GRID</h1>
-      <p id="tag">Elite results. Zero friction. Mobile‑first. Always learning.</p>
-      <div class="row" style="margin-top:8px">
-        <a class="btn" id="ctaAccess" href="#buy">Get Access</a>
-        <a class="btn ghost" href="#pricing">See Pricing</a>
+  <div class="wrap">
+    <header aria-label="Top Bar">
+      <div class="logo" aria-label="Brand">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Gridcore Systems</span>
+        <span class="badge">Baseline v0.9</span>
       </div>
-      <div class="row" id="badges" style="margin-top:8px">
-        <span class="pill">Ultra‑light</span>
-        <span class="pill">Self‑updating</span>
-        <span class="pill">UK‑ready</span>
-      </div>
+      <nav class="pill" aria-label="Quick links">
+        <a href="#how">How it works</a><span>•</span>
+        <a href="#pricing">Pricing</a><span>•</span>
+        <a href="#legal">Legal</a>
+      </nav>
     </header>
 
-    <section class="card">
-      <h2>Self‑updating</h2>
-      <p>Content pulls from tiny JSON files. No rebuilds, no bloat.</p>
-    </section>
-
-    <section class="card">
-      <h2>Learning engine</h2>
-      <p>With consent, we ingest small signals and keep only what improves results.</p>
-    </section>
-
-    <section class="card" id="updates">
-      <h2>Live Updates</h2>
-      <div id="updatesList"></div>
-    </section>
-
-    <section class="card" id="feedback">
-      <h2>Help the system learn (optional)</h2>
-      <label style="display:flex;align-items:center;gap:10px;margin:8px 0">
-        <input id="consent" type="checkbox"> <span>I consent to processing my submission.</span>
-      </label>
-      <textarea id="note" rows="3" placeholder="Short note (what you liked/disliked)" style="width:100%;border-radius:12px;border:1px solid var(--stroke);background:var(--pill);color:var(--text);padding:10px"></textarea>
-      <input id="link" placeholder="Paste a link (optional)" style="width:100%;margin-top:8px;border-radius:12px;border:1px solid var(--stroke);background:var(--pill);color:var(--text);padding:10px">
-      <button class="btn" style="margin-top:10px" onclick="sendFeedback()">Send</button>
-      <p class="footer">By sending, you confirm you have permission to share this content. See <a href="./privacy.html">Privacy</a>.</p>
-    </section>
-
-    <section class="card" id="pricing">
-      <h2>Pricing</h2>
-      <div id="plans" class="grid"></div>
-      <p class="footer">Prices include applicable VAT when charged by the processor.</p>
-    </section>
-
-    <section class="card" id="buy">
-      <h2>Pay securely your way</h2>
+    <!-- HERO -->
+    <section class="hero card">
       <div class="grid">
-        <a id="stripe" class="btn" href="#" target="_blank" rel="noopener">Stripe (Cards &amp; Wallets)</a>
-        <a id="paypal" class="btn ghost" href="#" target="_blank" rel="noopener">PayPal</a>
-        <a id="revolut" class="btn ghost" href="#" target="_blank" rel="noopener">Revolut (backup)</a>
+        <div>
+          <p class="pill">⚡ Optimised • 🔒 Privacy‑first • 📱 Mobile‑ready</p>
+          <h1 class="title">Your adaptive assistant, <span class="ok">ready now</span>.</h1>
+          <p class="sub">Simple UI. Automatic learning. One‑step updates. Built for speed and safety.</p>
+          <div class="cta-row">
+            <!-- PRIMARY: pay link (Revolut) -->
+            <a class="btn btn-primary" rel="noopener" target="_blank"
+               href="https://revolut.me/jakek6agj" aria-label="Buy now via Revolut">
+              Buy Access — Instant
+            </a>
+            <!-- SECONDARY: try / demo -->
+            <a class="btn btn" href="#demo" aria-label="Try the live demo">Try Demo</a>
+            <!-- TERTIARY: share -->
+            <button class="btn btn-ghost" id="shareBtn" type="button">Share</button>
+          </div>
+
+          <div class="kpi" aria-label="Highlights">
+            <span class="chip">~2–5 min setup</span>
+            <span class="chip">One-file updates</span>
+            <span class="chip">Auto feedback loop</span>
+          </div>
+        </div>
+
+        <!-- MEDIA: your photo can sit here (safe, responsive) -->
+        <aside class="media" aria-label="Preview media">
+          <!-- Replace src below with your image URL or keep empty; <img> renders only if src present -->
+          <img id="heroImg" alt="System preview" />
+        </aside>
       </div>
-      <p class="footer">Hosted checkouts handle SCA and PCI. We never store card data. • UK‑based • GDPR‑aware • Export &amp; delete on request. <a href="./terms.html">Terms</a> · <a href="./privacy.html">Privacy</a></p>
     </section>
+
+    <!-- USER DROP-IN CONTENT (one step replace only) -->
+    <section id="user-content" class="card" style="margin-top:14px">
+      <div class="section-title">Your Content Area</div>
+      <p class="sub">Replace only the content between the markers. Nothing else.</p>
+
+      <!-- ================== START USER CONTENT ================== -->
+      <div id="content-slot">
+        <p><strong>Welcome!</strong> This is the default placeholder. When you’re ready,
+        just paste your own text / HTML / simple embeds here and commit. All styles & scripts are
+        handled for you.</p>
+      </div>
+      <!-- =================== END USER CONTENT =================== -->
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" class="card" style="margin-top:14px">
+      <div class="section-title">How it works</div>
+      <ul>
+        <li>One‑file design: update by pasting a new <span class="mono">index.html</span>.</li>
+        <li>Payments: the “Buy Access” button opens Revolut for instant transfers to you.</li>
+        <li>Feedback: simple thumbs in the footer (no personal data) to guide improvements.</li>
+        <li>Privacy: no tracking until consent; all optional and transparent.</li>
+      </ul>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" class="card" style="margin-top:14px">
+      <div class="section-title">Early Access Pricing</div>
+      <ul>
+        <li><strong>Free</strong> — explore the demo.</li>
+        <li><strong>Starter</strong> — pay‑as‑you‑go via Revolut link.</li>
+        <li><strong>Member</strong> — monthly; unlocks customisation & saved progress.</li>
+      </ul>
+      <p class="sub">We keep prices low early, then scale with value delivered. Ethical, transparent, no hidden fees.</p>
+    </section>
+
+    <!-- FOOTER / FEEDBACK -->
+    <footer id="legal">
+      <div class="card">
+        <div class="section-title">Feedback</div>
+        <p class="sub">How was this visit?</p>
+        <div class="cta-row">
+          <button class="btn" data-fb="up" aria-label="I like it">👍 Like</button>
+          <button class="btn" data-fb="down" aria-label="Needs work">👎 Needs work</button>
+        </div>
+        <p class="sub" id="fbMsg" role="status" aria-live="polite"></p>
+      </div>
+
+      <div style="height:10px"></div>
+
+      <div class="card">
+        <div class="section-title">Legal</div>
+        <p class="sub">© <span id="y"></span> Gridcore Systems. All rights reserved.
+        <br/>This site is provided “as is” during early access. Basic analytics run only after consent. Payments are processed via Revolut.</p>
+      </div>
+    </footer>
   </div>
 
+  <!-- Consent (no cookies until accepted) -->
+  <div id="consent" class="consent hidden" role="dialog" aria-modal="true" aria-labelledby="cstitle">
+    <div id="cstitle" class="section-title">Privacy & Performance</div>
+    <p class="sub">We use minimal, anonymous analytics to improve speed and reliability. No tracking until you agree.</p>
+    <div class="cta-row">
+      <button class="btn btn-primary" id="accept">Accept</button>
+      <button class="btn btn-ghost" id="decline">Decline</button>
+    </div>
+  </div>
+
+  <!-- Inline minimal JS (no external deps) -->
   <script>
-    (async function init(){
-      try{
-        const cfg = await (await fetch('./config.json',{cache:'no-store'})).json();
-        const upd = await (await fetch('./updates.json',{cache:'no-store'})).json();
+    (function(){
+      // Year stamp
+      document.getElementById('y').textContent = new Date().getFullYear();
 
-        // Header
-        document.getElementById('title').textContent = cfg.site.name || 'THE GRID';
-        document.getElementById('tag').textContent = cfg.site.tagline || '';
+      // Optional hero image: set once here so you never edit markup again
+      // If you want your photo, paste its direct URL below and commit.
+      const HERO_IMG_URL = ""; // e.g. "https://raw.githubusercontent.com/<you>/<repo>/main/assets/hero.jpg"
+      if (HERO_IMG_URL) document.getElementById('heroImg').src = HERO_IMG_URL;
 
-        // Badges
-        const badges = document.getElementById('badges'); badges.innerHTML = '';
-        (cfg.badges || []).forEach(b => {
-          const s = document.createElement('span'); s.className='pill'; s.textContent=b; badges.appendChild(s);
-        });
+      // Consent handling
+      const consentBox = document.getElementById('consent');
+      const key = 'gc_consent_v1';
+      try {
+        if (!localStorage.getItem(key)) consentBox.classList.remove('hidden');
+      } catch(e){ /* storage blocked */ }
+      document.getElementById('accept').onclick = function(){
+        try { localStorage.setItem(key,'1'); } catch(e){}
+        consentBox.classList.add('hidden');
+        startAnalytics();
+      };
+      document.getElementById('decline').onclick = function(){
+        try { localStorage.setItem(key,'0'); } catch(e){}
+        consentBox.classList.add('hidden');
+      };
 
-        // Updates
-        const ul = document.getElementById('updatesList'); ul.innerHTML = '';
-        (upd.items || []).forEach(x=>{
-          const box = document.createElement('div');
-          box.className = 'card';
-          box.style.margin='8px 0'; box.style.padding='12px';
-          box.innerHTML = '<strong>'+x.title+'</strong><br>'+x.body+
-            '<div class="footer" style="margin-top:6px">'+(x.author||'')+' • '+(x.published_at||'')+'</div>';
-          ul.appendChild(box);
-        });
+      // Share button (mobile-friendly)
+      const shareBtn = document.getElementById('shareBtn');
+      shareBtn?.addEventListener('click', async () => {
+        try{
+          const data = { title: document.title, text: "Check out Gridcore Systems — a fast, mobile-first assistant.", url: location.href };
+          if (navigator.share) await navigator.share(data);
+          else { await navigator.clipboard.writeText(location.href); alert("Link copied!"); }
+        }catch(e){ /* user cancelled */ }
+      });
 
-        // Plans
-        const plans = document.getElementById('plans'); plans.innerHTML='';
-        (cfg.plans || []).forEach(p=>{
-          const d = document.createElement('div'); d.className='plan card';
-          d.innerHTML = '<strong>'+p.name+'</strong>' +
-                        '<div class="price">£'+p.price_gbp+' / month</div>' +
-                        '<ul>'+ (p.features||[]).map(f=>'<li>'+f+'</li>').join('') + '</ul>' +
-                        '<a class="btn" href="#buy">Buy</a>';
-          plans.appendChild(d);
-        });
-
-        // Payment links
-        if(cfg.payments){
-          if(cfg.payments.stripe_link){ document.getElementById('stripe').href = cfg.payments.stripe_link; }
-          if(cfg.payments.paypal_link){ document.getElementById('paypal').href = cfg.payments.paypal_link; }
-          if(cfg.payments.revolut_link){ document.getElementById('revolut').href = cfg.payments.revolut_link; }
-        }
-      }catch(e){
-        console.error(e);
-        document.getElementById('updatesList').innerHTML =
-          '<div class="card" style="margin-top:8px">Could not load live content. Check JSON validity.</div>';
+      // Lightweight feedback (no PII; survives refresh)
+      const fbKey = 'gc_fb_log_v1';
+      const fbMsg = document.getElementById('fbMsg');
+      function logFeedback(val){
+        const entry = { v: val, t: Date.now() };
+        try {
+          const cur = JSON.parse(localStorage.getItem(fbKey) || '[]');
+          cur.push(entry);
+          localStorage.setItem(fbKey, JSON.stringify(cur));
+        } catch(e){}
+        fbMsg.textContent = val === 'up' ? "Thanks! We’ll double down on what works." : "Got it — we’ll improve where needed.";
       }
-    })();
+      document.querySelectorAll("[data-fb]").forEach(b => {
+        b.addEventListener('click', () => logFeedback(b.getAttribute('data-fb')));
+      });
 
-    function sendFeedback(){
-      const consent = document.getElementById('consent').checked;
-      if(!consent){ alert('Please tick consent to send.'); return; }
-      document.getElementById('note').value='';
-      document.getElementById('link').value='';
-      alert('Thanks! Your feedback was noted locally for now.');
-    }
+      // Minimal, consented analytics stub (no network without your later upgrade)
+      function startAnalytics(){
+        // Placeholder: record a simple heartbeat locally
+        try {
+          const k = 'gc_pulse_v1';
+          const cur = JSON.parse(localStorage.getItem(k) || '[]');
+          cur.push({ t: Date.now(), p: location.pathname });
+          localStorage.setItem(k, JSON.stringify(cur));
+        } catch(e){}
+      }
+      // Auto-start if previously accepted
+      try { if (localStorage.getItem(key) === '1') startAnalytics(); } catch(e){}
+    })();
   </script>
 </body>
 </html>
