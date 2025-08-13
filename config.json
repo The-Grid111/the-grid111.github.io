@@ -1,24 +1,35 @@
 {
-  "siteName": "THE GRID",
-  "tagline": "Elite results. Zero friction. Mobile-first. Always learning.",
+  "brand": "THE GRID",
+  "tagline": "Elite results. Zero friction. Mobile‑first. Always learning.",
   "payments": {
-    "currency": "GBP",
-    "vatIncluded": true,
-    "stripeLink": "https://buy.stripe.com/test_XXXXXXXXXXXX",
-    "paypalLink": "https://www.paypal.com/checkoutnow?token=XXXX",
-    "revolutLink": "https://revolut.me/your-handle"
+    "stripe": "https://example.com/stripe",
+    "paypal": "https://example.com/paypal",
+    "revolut": "https://revolut.me/your-handle"
   },
-  "plans": [
-    { "id": "starter", "name": "Starter", "price": 9, "period": "month" },
-    { "id": "creator", "name": "Creator", "price": 29, "period": "month" },
-    { "id": "pro", "name": "Pro", "price": 79, "period": "month" }
-  ],
-  "legal": {
-    "termsPath": "terms.html",
-    "privacyPath": "privacy.html"
-  },
-  "ui": {
-    "accent": "#49e1ff",
-    "theme": "dark"
-  }
+  "pricing": [
+    {
+      "id": "starter",
+      "name": "Starter",
+      "priceGBP": 9,
+      "period": "month",
+      "features": ["Core tools", "Email support"],
+      "buyHref": "https://example.com/checkout/starter"
+    },
+    {
+      "id": "creator",
+      "name": "Creator",
+      "priceGBP": 29,
+      "period": "month",
+      "features": ["Automation", "Templates", "Priority support"],
+      "buyHref": "https://example.com/checkout/creator"
+    },
+    {
+      "id": "pro",
+      "name": "Pro",
+      "priceGBP": 79,
+      "period": "month",
+      "features": ["Advanced analytics", "Team seats", "Roadmap input"],
+      "buyHref": "https://example.com/checkout/pro"
+    }
+  ]
 }
