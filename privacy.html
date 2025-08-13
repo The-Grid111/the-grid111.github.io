@@ -1,22 +1,59 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Privacy • THE GRID</title><meta name="color-scheme" content="dark light">
-<style>body{margin:0;background:#0d0f12;color:#e7edf3;font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto}
-main{max-width:940px;margin:0 auto;padding:24px}.card{background:#12151a;border-radius:18px;padding:22px;box-shadow:0 10px 40px rgba(0,0,0,.35);margin:18px 0}
-a{color:#7dd3fc;text-decoration:none}small{color:#aab3c2}</style></head>
-<body><main>
-  <a href="/" style="color:#7dd3fc;text-decoration:none">← Back</a>
-  <div class="card">
-    <h1>Privacy Notice</h1>
-    <p>We collect the minimum necessary to operate and improve the service. Learning intake is optional and consent‑based.</p>
-    <h2>Data we process</h2>
-    <ul>
-      <li>Account & operational data (performance, errors).</li>
-      <li>Payments via processors (Stripe/PayPal/Revolut) — we do not store card data.</li>
-      <li>Optional feedback you submit (text/links; media only if you upload and consent).</li>
-    </ul>
-    <h2>Your rights (UK/GDPR)</h2>
-    <p>Access, export, correction, deletion, objection/restriction, and withdraw consent. Contact: <a href="mailto:owner@example.com">owner@example.com</a></p>
-    <small>Last updated: 13 Aug 2025</small>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Privacy • THE GRID</title>
+  <meta name="color-scheme" content="dark light">
+  <style>
+    :root{--bg:#0d0f12;--card:#12151a;--text:#e8edf2;--muted:#9aa6b2;--accent:#59e1ff}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial}
+    a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+    .wrap{max-width:920px;margin:auto;padding:24px}
+    .card{background:var(--card);border-radius:16px;padding:24px;margin:16px 0;box-shadow:0 0 0 1px #1b1f26}
+    h1{margin:0 0 12px;font-size:28px}h2{margin:24px 0 8px;font-size:18px}
+    ul{margin:8px 0 0 18px}
+    .topnav{display:flex;gap:12px;margin-bottom:8px}
+    .topnav a{padding:8px 12px;background:#0f1217;border-radius:10px;border:1px solid #1b1f26}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="topnav">
+      <a href="./">Home</a>
+      <a href="./terms.html">Terms</a>
+    </nav>
+    <div class="card">
+      <h1>Privacy Notice</h1>
+      <p class="muted">Last updated: 13 Aug 2025</p>
+      <p>We are UK‑based and process personal data in accordance with the UK GDPR and Data Protection Act 2018.</p>
+
+      <h2>What we collect</h2>
+      <ul>
+        <li>Account and contact details you submit.</li>
+        <li>Payment metadata (processed by our providers). We do not store card details.</li>
+        <li>Optional feedback you consent to share to improve the service.</li>
+      </ul>
+
+      <h2>Why we use it</h2>
+      <ul>
+        <li>To provide and improve the service.</li>
+        <li>To handle payments and billing.</li>
+        <li>To comply with legal obligations.</li>
+      </ul>
+
+      <h2>Lawful bases</h2>
+      <p>Performance of a contract, legitimate interests, consent (where requested), and legal obligation.</p>
+
+      <h2>Your rights</h2>
+      <p>You can request access, correction, deletion, restriction, or portability. You can object to certain processing and withdraw consent at any time.</p>
+
+      <h2>Data retention</h2>
+      <p>We keep data only as long as necessary for the purposes above, then delete or anonymise it.</p>
+
+      <h2>Contact</h2>
+      <p>Email: <a href="mailto:owner@example.com">owner@example.com</a></p>
+    </div>
   </div>
-</main></body></html>
+</body>
+</html>
