@@ -1,35 +1,32 @@
 {
-  "brand": "THE GRID",
-  "tagline": "Elite results. Zero friction. Mobile‑first. Always learning.",
-  "payments": {
-    "stripe": "https://example.com/stripe",
-    "paypal": "https://example.com/paypal",
-    "revolut": "https://revolut.me/your-handle"
+  "site": {
+    "name": "THE GRID",
+    "tagline": "Elite results. Zero friction. Mobile‑first. Always learning."
   },
-  "pricing": [
+  "badges": ["Ultra-light", "Self-updating", "UK-ready"],
+  "payments": {
+    "stripe_link": "#",
+    "paypal_link": "#",
+    "revolut_link": "#"
+  },
+  "plans": [
     {
       "id": "starter",
       "name": "Starter",
-      "priceGBP": 9,
-      "period": "month",
-      "features": ["Core tools", "Email support"],
-      "buyHref": "https://example.com/checkout/starter"
+      "price_gbp": 9,
+      "features": ["Basics", "Email support"]
     },
     {
       "id": "creator",
       "name": "Creator",
-      "priceGBP": 29,
-      "period": "month",
-      "features": ["Automation", "Templates", "Priority support"],
-      "buyHref": "https://example.com/checkout/creator"
+      "price_gbp": 29,
+      "features": ["Automation", "Templates", "Priority support"]
     },
     {
       "id": "pro",
       "name": "Pro",
-      "priceGBP": 79,
-      "period": "month",
-      "features": ["Advanced analytics", "Team seats", "Roadmap input"],
-      "buyHref": "https://example.com/checkout/pro"
+      "price_gbp": 79,
+      "features": ["Advanced analytics", "Team seats", "Roadmap input"]
     }
   ]
 }
