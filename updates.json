@@ -1,8 +1,10 @@
-[
-  {
-    "title": "Pre‑launch live",
-    "body": "Stripe links active. Learning intake (opt‑in) is on.",
-    "author": "THE GRID",
-    "date": "2025-08-13T12:00:00Z"
-  }
-]
+{
+  "items": [
+    {
+      "title": "Pre‑launch live",
+      "body": "Stripe links active. Learning intake (opt‑in) is on.",
+      "author": "THE GRID",
+      "timestamp": "2025-08-13T13:00:00Z"
+    }
+  ]
+}
