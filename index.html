@@ -1,108 +1,146 @@
-<!-- START: YOUR CONTENT -->
-<section id="headline" class="card">
-  <h1>Your adaptive assistant, ready now.</h1>
-  <p class="lead">Simple UI. Automatic learning. One‑step updates. Built for speed and safety.</p>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Gridcore Systems — Baseline</title>
+<meta name="description" content="Your adaptive assistant. Simple UI. Automatic learning. One‑step updates." />
+<style>
+  :root{
+    --bg:#0b0f14;--panel:#10161d;--muted:#8aa0b3;--text:#e6f0f8;
+    --accent:#6ef7a6;--accent2:#232;--btn:#1aee7a;--btnText:#07120c;
+    --ring:#2b3a46;--card:#0f141a;--good:#25d366;--bad:#ff5964
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 600px at 50% -10%,#11202b 0,#0b0f14 50%),var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:960px;margin:0 auto;padding:24px}
+  .nav{display:flex;gap:12px;align-items:center;justify-content:space-between;margin:6px 0 18px}
+  .brand{display:flex;gap:10px;align-items:center;font-weight:700}
+  .dot{width:14px;height:14px;border-radius:4px;background:linear-gradient(180deg,#9bffbf,#39d98a);box-shadow:0 0 0 3px #1b2a22}
+  .tag{font-size:12px;color:var(--muted);background:#0d141a;border:1px solid #1a2831;border-radius:999px;padding:4px 10px}
+  .hero{background:linear-gradient(180deg,#0f171f,#0b1015);border:1px solid #1a2831;border-radius:18px;padding:20px;margin:6px 0 18px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  h1{font-size:28px;line-height:1.2;margin:12px 0 6px}
+  .sub{color:var(--muted);margin-bottom:16px}
+  .cta{display:flex;gap:10px;flex-wrap:wrap}
+  .btn{appearance:none;border:0;border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer}
+  .btn.buy{background:linear-gradient(180deg,#95ffc6,var(--btn));color:var(--btnText)}
+  .btn.ghost{background:#121a21;color:#d5e7f2;border:1px solid #1a2831}
+  .pills{display:flex;gap:10px;margin:14px 0;flex-wrap:wrap}
+  .pill{border:1px solid #1a2831;background:#0e151b;color:#bcd1df;font-size:12px;border-radius:999px;padding:6px 10px}
+  .card{background:var(--panel);border:1px solid #1a2831;border-radius:16px;padding:16px;margin:14px 0}
+  .h{font-weight:800;letter-spacing:.02em;font-size:14px;margin-bottom:8px;color:#cfe3f1}
+  .grid{display:grid;gap:12px}
+  .footer{display:grid;gap:12px;margin:14px 0 24px}
+  .row{display:flex;gap:10px}
+  .fb{display:flex;gap:10px}
+  .thumb{flex:1 1 140px;background:#0f151b;border:1px solid #1a2831;border-radius:12px;padding:12px;text-align:center;color:#cfe3f1;cursor:pointer}
+  .thumb.good{border-color:#1e3a2b}
+  .thumb.bad{border-color:#3a1e23}
+  .muted{color:var(--muted)}
+  .qr{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .qr img{width:140px;height:auto;border-radius:10px;border:1px solid #1a2831;background:#000}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px}
+  @media(min-width:700px){
+    .hero{padding:26px}
+    h1{font-size:36px}
+    .grid{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="nav">
+      <div class="brand"><span class="dot"></span><div>Gridcore<br/>Systems</div></div>
+      <div class="row" style="gap:8px">
+        <span class="tag">Baseline v0.9</span>
+        <a class="tag" href="#how">How it works</a>
+        <a class="tag" href="#pricing">Pricing</a>
+        <a class="tag" href="#legal">Legal</a>
+      </div>
+    </div>
 
-  <div class="cta-row">
-    <a class="btn btn-primary" id="buyBtn" href="https://revolut.me/jakek6agj" target="_blank" rel="noopener">Buy Access — Instant</a>
-    <button class="btn btn-ghost" id="demoBtn" data-open="demo">Try Demo</button>
+    <div class="hero">
+      <div class="pills">
+        <span class="pill">⚡ Optimised</span>
+        <span class="pill">🔒 Privacy‑first</span>
+        <span class="pill">📱 Mobile‑ready</span>
+      </div>
+      <h1>Your adaptive assistant,<br/>ready now.</h1>
+      <p class="sub">Simple UI. Automatic learning. One‑step updates. Built for speed and safety.</p>
+      <div class="cta">
+        <a class="btn buy" href="https://revolut.me/jakek6agj" target="_blank" rel="noopener">Buy Access — Instant</a>
+        <a class="btn ghost" href="#demo">Try Demo</a>
+      </div>
+
+      <div class="pills">
+        <span class="pill">Share</span>
+        <span class="pill">~2–5 min setup</span>
+        <span class="pill">One‑file updates</span>
+        <span class="pill">Auto feedback loop</span>
+      </div>
+
+      <div class="card">
+        <div class="h">Pay in seconds</div>
+        <div class="qr">
+          <!-- If IMG_6106.png exists in the repo root, it will show automatically -->
+          <img src="./IMG_6106.png" alt="Pay QR" onerror="this.style.display='none'">
+          <div>
+            <div class="muted">Tap the green button or scan the QR. Funds land instantly in my account.</div>
+            <p style="margin:.5rem 0 0"><a href="https://revolut.me/jakek6agj" target="_blank" rel="noopener">Open Revolut link</a> · <span class="muted mono">@jakek6agj</span></p>
+            <p class="muted mono" style="margin:.25rem 0 0">Need help? Email support@gridcoresystems.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="content" class="card">
+      <div class="h">Your content area</div>
+      <p class="muted">Replace only the section between the markers in future. Nothing else.</p>
+      <!-- === START CONTENT === -->
+      <p><strong>Welcome!</strong> This is the default placeholder. Paste your own text / simple embeds here when ready — all styles & scripts are handled for you.</p>
+      <!-- === END CONTENT === -->
+    </div>
+
+    <div id="how" class="card">
+      <div class="h">How it works</div>
+      <ul class="muted">
+        <li>One‑file design: update by pasting a new <span class="mono">index.html</span>.</li>
+        <li>Payments: the “Buy Access” button opens Revolut for instant transfers to you.</li>
+        <li>Feedback: simple thumbs in the footer (no personal data) to guide improvements.</li>
+        <li>Privacy: no tracking until consent; all optional and transparent.</li>
+      </ul>
+    </div>
+
+    <div id="pricing" class="card">
+      <div class="h">Early access pricing</div>
+      <ul class="muted">
+        <li><strong>Free</strong> — explore the demo.</li>
+        <li><strong>Starter</strong> — pay‑as‑you‑go via Revolut link.</li>
+        <li><strong>Member</strong> — monthly; unlocks customisation & saved progress.</li>
+      </ul>
+      <p class="muted">We keep prices low early, then scale with value delivered. Ethical, transparent, no hidden fees.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="h">Feedback</div>
+        <div class="fb">
+          <button class="thumb good" onclick="alert('Thanks! 👍')">👍 Like</button>
+          <button class="thumb bad"  onclick="alert('Thanks! We’ll improve. 👎')">👎 Needs work</button>
+        </div>
+      </div>
+
+      <div id="legal" class="card">
+        <div class="h">Legal</div>
+        <p class="muted">© 2025 Gridcore Systems. All rights reserved. This site is provided “as is” during early access. Basic analytics run only after consent. Payments are processed via Revolut.</p>
+      </div>
+    </div>
+
+    <div class="footer muted">
+      <div class="mono">index.html · one‑file baseline · v0.9</div>
+    </div>
   </div>
-
-  <ul class="chips">
-    <li>⚡ Optimised</li>
-    <li>🔒 Privacy‑first</li>
-    <li>📱 Mobile‑ready</li>
-  </ul>
-</section>
-
-<section id="pay" class="card">
-  <h2>Pay in seconds</h2>
-  <p>Tap the green button above or scan the QR. Funds land instantly in my account.</p>
-
-  <!-- Optional QR (use once you upload an image named pay-qr.jpg to the repo root) -->
-  <div class="qr-wrap">
-    <img id="payQR" src="pay-qr.jpg" alt="Revolut payment QR" onerror="this.style.display='none'">
-  </div>
-
-  <div class="stack gap">
-    <a class="btn btn-primary" href="https://revolut.me/jakek6agj" target="_blank" rel="noopener">Open Revolut Link</a>
-    <button class="btn" id="paidBtn">I’ve paid — unlock access</button>
-  </div>
-
-  <small class="muted">Need help? Email <a href="mailto:support@gridcoresystems.com?subject=Payment%20help">support@gridcoresystems.com</a></small>
-</section>
-
-<section id="content-area" class="card">
-  <h2>Your content area</h2>
-  <p>Replace this section with your own text/embeds when you’re ready. All styles & scripts are handled for you.</p>
-  <ul>
-    <li><strong>One‑file design</strong>: paste a new <code>index.html</code> and commit.</li>
-    <li><strong>Payments</strong>: Revolut for instant transfers.</li>
-    <li><strong>Feedback</strong>: thumbs below (no personal data).</li>
-  </ul>
-</section>
-
-<section id="pricing" class="card">
-  <h2>Early access pricing</h2>
-  <ul>
-    <li><strong>Free</strong> — explore the demo.</li>
-    <li><strong>Starter</strong> — pay‑as‑you‑go via Revolut link.</li>
-    <li><strong>Member</strong> — monthly; unlocks customisation & saved progress.</li>
-  </ul>
-  <p class="muted">We keep prices low early, then scale with value delivered. Ethical, transparent, no hidden fees.</p>
-</section>
-
-<section id="feedback" class="card">
-  <h2>Feedback</h2>
-  <p>How was this visit?</p>
-  <div class="thumbs">
-    <button class="thumb" data-fb="up">👍 Like</button>
-    <button class="thumb" data-fb="down">👎 Needs work</button>
-  </div>
-</section>
-
-<section id="legal" class="card">
-  <h2>Legal</h2>
-  <p class="muted">© 2025 Gridcore Systems. All rights reserved. Provided “as is” during early access. 
-  Basic analytics only after consent. Payments are processed via Revolut.</p>
-</section>
-
-<script>
-  // --- Minimal behavior (no external libs) ---
-  const PAY_URL = "https://revolut.me/jakek6agj";
-
-  // “I’ve paid” flow: open a lightweight confirmation panel and collect an email for follow‑up.
-  document.getElementById('paidBtn')?.addEventListener('click', () => {
-    const email = prompt("Thanks! Enter your email to receive your access & updates (optional):");
-    const ref = `rev-${Date.now()}`;
-    // Store locally so your next versions can read it (no server needed yet)
-    try {
-      const rec = JSON.parse(localStorage.getItem('gridcore_payments')||'[]');
-      rec.push({ref, email: (email||'').trim(), at: new Date().toISOString()});
-      localStorage.setItem('gridcore_payments', JSON.stringify(rec));
-    } catch(e){}
-    // Email handoff so you get a copy immediately
-    const mail = "support@gridcoresystems.com";
-    const subject = encodeURIComponent("Payment confirmation");
-    const body = encodeURIComponent(`I paid via Revolut.\nRef: ${ref}\nEmail: ${email||'(none)'}\nDevice: ${navigator.userAgent}`);
-    window.location.href = `mailto:${mail}?subject=${subject}&body=${body}`;
-  });
-
-  // Feedback buttons (saved locally + console log)
-  document.querySelectorAll('.thumb').forEach(b=>{
-    b.addEventListener('click', ()=>{
-      const val = b.dataset.fb;
-      try {
-        const rec = JSON.parse(localStorage.getItem('gridcore_feedback')||'[]');
-        rec.push({val, at: new Date().toISOString()});
-        localStorage.setItem('gridcore_feedback', JSON.stringify(rec));
-      } catch(e){}
-      alert(val === 'up' ? "Thanks! 👍" : "Got it — we’ll improve. 🙏");
-      console.log("Feedback:", val);
-    });
-  });
-
-  // Ensure both CTAs always go to your Revolut link
-  document.getElementById('buyBtn')?.setAttribute('href', PAY_URL);
-</script>
-<!-- END: YOUR CONTENT -->
+</body>
+</html>
