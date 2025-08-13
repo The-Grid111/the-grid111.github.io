@@ -1,37 +1,48 @@
 {
   "brand": "THE GRID",
-  "hero": {
-    "tagline": "Elite results. Zero friction. Mobile-first. Always learning.",
-    "primary":  { "label": "Get Access", "href": "#pricing" },
-    "secondary":{ "label": "See Pricing", "href": "#pricing" },
-    "badges": ["Ultra-light", "Self-updating", "UK-ready"]
-  },
-  "features": [
-    { "title": "Self‑updating", "body": "Content pulls from tiny JSON files. No rebuilds, no bloat." },
-    { "title": "Learning engine", "body": "With consent, we ingest small signals and keep only what improves results." },
-    { "title": "Payments today", "body": "Paste hosted checkout links. Upgrade to memberships later." }
-  ],
-  "pricing": {
-    "vatNote": "Prices include applicable VAT when charged by the processor.",
-    "plans": [
-      { "name": "Starter", "desc": "Explore core features", "price": 9, "period": "month",
-        "includes": ["Basics", "Email support"], "checkout": "https://buy.stripe.com/test_starter" },
-      { "name": "Creator", "desc": "Automation + content packs", "price": 29, "period": "month",
-        "includes": ["Automation", "Templates", "Priority support"], "checkout": "https://buy.stripe.com/test_creator" },
-      { "name": "Pro", "desc": "Everything + insights", "price": 79, "period": "month",
-        "includes": ["Advanced analytics", "Team seats", "Roadmap input"], "checkout": "https://buy.stripe.com/test_pro" }
-    ]
-  },
+  "tagline": "Elite results. Zero friction. Mobile‑first. Always learning.",
+  "contactEmail": "you@example.com",
+
   "payments": {
-    "stripe": "https://buy.stripe.com/test_XXXXXXXX",
-    "paypal": "https://www.paypal.com/checkoutnow?token=YOURTOKEN",
-    "bank": "",
-    "revolut_backup": "https://revolut.me/youralias"
+    "currency": "GBP",
+    "stripeCheckout": "https://buy.stripe.com/your_starter_link",
+    "paypalLink": "https://www.paypal.com/checkoutnow?token=YOURTOKEN",
+    "revolutLink": "https://revolut.me/yourhandle"
   },
+
+  "plans": [
+    {
+      "id": "starter",
+      "name": "Starter",
+      "priceMonthly": 9,
+      "features": ["Basics", "Email support"],
+      "checkout": "https://buy.stripe.com/your_starter_link"
+    },
+    {
+      "id": "creator",
+      "name": "Creator",
+      "priceMonthly": 29,
+      "features": ["Automation", "Templates", "Priority support"],
+      "checkout": "https://buy.stripe.com/your_creator_link"
+    },
+    {
+      "id": "pro",
+      "name": "Pro",
+      "priceMonthly": 79,
+      "features": ["Advanced analytics", "Team seats", "Roadmap input"],
+      "checkout": "https://buy.stripe.com/your_pro_link"
+    }
+  ],
+
   "legal": {
-    "footer": "UK-based • GDPR-aware • Export & delete on request."
+    "termsUrl": "/terms.html",
+    "privacyUrl": "/privacy.html",
+    "ukCompliant": true,
+    "gdprCompliant": true
   },
-  "intake": {
-    "webhook": "https://hooks.zapier.com/hooks/catch/XXXXXXXX/XXXXXXXX"
+
+  "integrations": {
+    "formEndpoint": "https://formspree.io/f/YOURCODE",
+    "plausibleDomain": "the-grid111.github.io"
   }
 }
