@@ -1,182 +1,166 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<meta name="color-scheme" content="dark light"/>
-<title>THE GRID — Coming Online</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>THE GRID — Elite results. Zero friction.</title>
 <style>
-:root{--bg:#0d0f12;--card:#12151a;--ink:#e8ecf1;--muted:#9aa3af;--acc:#37e3ff;--r:18px}
-@media (prefers-color-scheme:light){:root{--bg:#f6f8fb;--card:#fff;--ink:#111827;--muted:#4b5563}}
-*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial}
-.wrap{max-width:980px;margin:0 auto;padding:20px;display:grid;gap:16px}
-.card{background:var(--card);border:1px solid #1d2330;border-radius:var(--r);padding:16px;box-shadow:0 6px 26px rgba(0,0,0,.25)}
-h1{margin:.2rem 0 0;font-size:clamp(26px,5vw,42px)} .muted{color:var(--muted)} .tiny{font-size:12px;color:var(--muted)}
-.btn{display:inline-block;background:var(--acc);color:#001018;text-decoration:none;font-weight:800;border-radius:12px;padding:12px 16px}
-.btn.alt{background:transparent;color:var(--ink);border:1px solid #263042}
-.grid{display:grid;gap:12px}
-.cols-3{grid-template-columns:repeat(3,1fr)}@media(max-width:900px){.cols-3{grid-template-columns:1fr}}
-input,textarea,select,button{border-radius:12px;border:1px solid #243042;background:transparent;color:var(--ink);padding:12px}
-footer{opacity:.8;text-align:center;padding:20px 0}
-.hide{display:none}
-.badge{display:inline-block;margin-right:6px;margin-top:6px;padding:6px 10px;border-radius:999px;background:#141b24;border:1px solid #273244;color:#b7c3d5;font:600 12px/1 system-ui}
+:root{--bg:#0d0f12;--card:#12151a;--tx:#e7edf3;--muted:#a8b2c0;--hi:#2be4ff;--ink:#01242b}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial}
+.wrap{max-width:940px;margin:0 auto;padding:22px}
+.hero{background:var(--card);border-radius:20px;padding:22px;box-shadow:0 10px 40px rgba(0,0,0,.35);margin:16px 0}
+h1{margin:0 0 6px;font-size:30px;letter-spacing:.2px}
+p{margin:0 0 12px;color:var(--muted)}
+.row{display:grid;gap:12px;margin:12px 0}
+.btn{display:inline-block;background:var(--hi);color:var(--ink);font-weight:700;padding:12px 16px;border-radius:12px;text-decoration:none}
+.btn.secondary{background:#1fc5da;color:#012126}
+.card{background:var(--card);border-radius:18px;padding:18px;box-shadow:0 10px 40px rgba(0,0,0,.35);margin:14px 0}
+small{color:var(--muted)}
+hr{border:0;border-top:1px solid rgba(255,255,255,.07);margin:14px 0}
+.badge{display:inline-block;background:rgba(43,228,255,.12);color:#9beeff;border:1px solid rgba(43,228,255,.45);padding:6px 10px;border-radius:12px;font-size:12px;margin-right:6px}
+.flex{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.price{font-weight:800}
+.plan{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.copy{font-size:12px;border:1px solid rgba(255,255,255,.15);padding:6px 8px;border-radius:8px;background:transparent;color:var(--tx)}
+.footer{opacity:.8;margin:26px 0 12px}
+.warn{background:#251a1a;border:1px solid #402; color:#f5b; padding:10px;border-radius:10px}
 </style>
 </head>
 <body>
-<main class="wrap">
-  <section class="card">
-    <h1 id="hero-title">THE GRID</h1>
-    <p class="muted" id="hero-tag">Futuristic, simple, always learning. Mobile‑first and payment‑ready.</p>
-    <p>
-      <a id="cta-primary" class="btn" target="_blank" rel="noopener">Get Access</a>
-      <a id="cta-secondary" class="btn alt" href="#pricing">See Pricing</a>
-    </p>
-    <div id="badges"></div>
-  </section>
-
-  <section id="features" class="grid cols-3"></section>
-
-  <section class="card">
-    <h2>Live Updates</h2>
-    <div id="updates" class="grid"></div>
-    <p id="updates-empty" class="tiny" style="display:none">No updates yet.</p>
-  </section>
-
-  <section class="card" id="contribute">
-    <h2>Help the system learn (optional)</h2>
-    <p class="tiny">Tick consent to let us process your submission to improve the system. We keep only what’s essential. <a href="privacy.html">Privacy</a>.</p>
-    <form id="ingest">
-      <label class="tiny"><input id="c-ok" type="checkbox" required/> I consent to processing my submission.</label>
-      <div class="grid">
-        <input id="note" maxlength="400" placeholder="Short note (what you liked/disliked)"/>
-        <select id="kind">
-          <option value="text">Text</option>
-          <option value="link">Link to image/video (Dropbox/Drive/YouTube)</option>
-        </select>
+  <div class="wrap">
+    <div class="hero">
+      <div class="flex">
+        <h1>THE GRID</h1>
+        <span class="badge">Mobile‑first</span>
+        <span class="badge">Self‑updating</span>
+        <span class="badge">UK‑ready</span>
       </div>
-      <input id="link" placeholder="Paste a link (optional for media)"/>
-      <button class="btn" type="submit">Send</button>
-      <span id="ingest-status" class="tiny"></span>
-    </form>
-  </section>
-
-  <section id="pricing" class="card">
-    <h2>Pricing</h2>
-    <div id="plans" class="grid cols-3"></div>
-    <p class="tiny muted" id="vat-note"></p>
-  </section>
-
-  <!-- Payment methods bar -->
-  <section class="card" aria-label="Payment methods" style="display:grid;gap:10px;margin-top:8px">
-    <h3>Pay securely your way</h3>
-    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
-      <a id="pm-stripe" class="btn" target="_blank" rel="noopener">Stripe (Cards & Wallets)</a>
-      <a id="pm-paypal" class="btn alt" target="_blank" rel="noopener">PayPal</a>
-      <a id="pm-bank" class="btn alt" target="_blank" rel="noopener">Bank (Open Banking)</a>
-      <a id="pm-revolut" class="btn alt" target="_blank" rel="noopener">Revolut (backup)</a>
+      <p>Elite results. Zero friction. Always learning.</p>
+      <div class="row">
+        <a class="btn" href="#pricing">Get Access</a>
+        <a class="btn secondary" href="#how">How it works</a>
+      </div>
+      <small id="stamp"></small>
     </div>
-    <p class="tiny muted">Hosted checkouts handle SCA and PCI. We never store card data.</p>
-  </section>
 
-  <footer class="tiny">
-    <div id="foot"></div>
-    <div><a href="terms.html">Terms</a> • <a href="privacy.html">Privacy</a></div>
-  </footer>
-</main>
+    <div id="how" class="card">
+      <h2>How it works</h2>
+      <p>Everything on this page pulls from two tiny JSON files: <code>updates.json</code> and <code>config.json</code>. To update the site, just delete & paste the new JSON and commit.</p>
+      <ul>
+        <li><b>Fast:</b> No frameworks. Pure HTML + a few lines of JS.</li>
+        <li><b>Stable:</b> No Jekyll processing (thanks to <code>.nojekyll</code>).</li>
+        <li><b>Simple:</b> Mobile‑friendly “delete → paste → commit” workflow.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Live Updates</h2>
+      <div id="updates">Loading…</div>
+    </div>
+
+    <div id="pricing" class="card">
+      <h2>Pricing</h2>
+      <div id="plans">Loading…</div>
+      <hr>
+      <div id="paylinks" class="flex"></div>
+      <small>Prices include UK VAT when charged by the processor.</small>
+    </div>
+
+    <div class="card">
+      <h2>Instant copy</h2>
+      <p>One‑tap copy of your hosted checkout links (when set in <code>config.json</code>).</p>
+      <div class="flex">
+        <button class="copy" data-copy="stripe">Copy Stripe link</button>
+        <button class="copy" data-copy="paypal">Copy PayPal link</button>
+        <button class="copy" data-copy="revolut">Copy Revolut link</button>
+      </div>
+      <small id="copyStatus"></small>
+    </div>
+
+    <div class="footer">
+      <small>© <span id="y"></span> THE GRID · <a class="btn secondary" style="padding:6px 10px;border-radius:8px" href="/terms.html">Terms</a> · <a class="btn secondary" style="padding:6px 10px;border-radius:8px" href="/privacy.html">Privacy</a></small>
+    </div>
+
+    <noscript><div class="warn">JavaScript is required to load pricing and updates.</div></noscript>
+  </div>
 
 <script>
 const $ = s => document.querySelector(s);
-const safe = s => String(s||'').replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const year = new Date().getFullYear();
+$('#y').textContent = year;
+$('#stamp').textContent = 'Built: ' + new Date().toLocaleString();
 
-async function boot(){
-  const cfg = await (await fetch('config.json?v='+Date.now(), {cache:'no-store'})).json();
+// Append cache-buster so your phone always fetches fresh JSON
+const cacheBust = '?v=' + Date.now();
 
-  // HERO
-  $('#hero-title').textContent = cfg.brand || 'THE GRID';
-  $('#hero-tag').textContent   = cfg.hero?.tagline || 'Instant, simple, evolving.';
-  $('#cta-primary').href       = cfg.hero?.primary?.href || '#pricing';
-  $('#cta-primary').textContent= cfg.hero?.primary?.label || 'Get Access';
-  $('#cta-secondary').href     = cfg.hero?.secondary?.href || '#pricing';
-  $('#cta-secondary').textContent = cfg.hero?.secondary?.label || 'See Pricing';
-  (cfg.hero?.badges||[]).forEach(b=> $('#badges').insertAdjacentHTML('beforeend', `<span class="badge">${safe(b)}</span>`));
+// Load updates
+(async () => {
+  try {
+    const u = await fetch('updates.json' + cacheBust, {cache:'no-store'});
+    const updates = await u.json();
+    const html = (Array.isArray(updates) ? updates : (updates.updates||[]))
+      .map(x => `
+        <div class="card" style="padding:12px;margin:10px 0">
+          <b>${x.title||'Update'}</b><br>
+          <small>${x.date ? new Date(x.date).toLocaleString() : ''}</small>
+          <p style="margin:6px 0 0">${x.body||x.message||''}</p>
+        </div>
+      `).join('') || '<small>No updates yet.</small>';
+    $('#updates').innerHTML = html;
+  } catch (e) {
+    $('#updates').innerHTML = '<small>Couldn’t load updates.json</small>';
+  }
+})();
 
-  // FEATURES
-  const feats = cfg.features||[];
-  const featsEl = $('#features'); featsEl.innerHTML = '';
-  feats.forEach(f=>{
-    featsEl.insertAdjacentHTML('beforeend', `
-      <div class="card">
-        <h3>${safe(f.title)}</h3>
-        <p class="muted">${safe(f.body)}</p>
-      </div>`);
-  });
+// Load config & pricing
+let CFG = {};
+(async () => {
+  try {
+    const c = await fetch('config.json' + cacheBust, {cache:'no-store'});
+    CFG = await c.json();
 
-  // PRICING
-  const plans = cfg.pricing?.plans || [];
-  const plansEl = $('#plans'); plansEl.innerHTML='';
-  plans.forEach(p=>{
-    plansEl.insertAdjacentHTML('beforeend', `
-      <div class="card">
-        <h3>${safe(p.name)}</h3>
-        <p class="muted">${safe(p.desc)}</p>
-        <p><strong>£${safe(p.price)}</strong> / ${safe(p.period||'month')}</p>
-        <div class="tiny muted">${(p.includes||[]).map(i=> '• '+safe(i)).join('<br/>')}</div>
-        <p><a class="btn" href="${safe(p.checkout)}" target="_blank" rel="noopener">Buy</a></p>
-      </div>`);
-  });
-  $('#vat-note').textContent = cfg.pricing?.vatNote || 'Prices may exclude VAT.';
+    // Plans
+    const plans = CFG.pricing || CFG.plans || [];
+    $('#plans').innerHTML = plans.map(p => `
+      <div class="plan card" style="margin:10px 0">
+        <div>
+          <div><b>${p.name}</b> · <span class="price">£${p.priceGBP ?? p.price}</span> / ${p.period||'month'}</div>
+          <small>${(p.features||[]).join(' • ')}</small>
+        </div>
+        <a class="btn" href="${p.buyHref || '#'}">Buy</a>
+      </div>
+    `).join('') || '<small>No plans configured.</small>';
 
-  // FOOTER
-  $('#foot').textContent = cfg.legal?.footer || `© ${new Date().getFullYear()} ${cfg.brand||'THE GRID'}. All rights reserved.`;
+    // Payment quick links
+    const pay = CFG.payments || {};
+    const payLinks = [];
+    if (pay.stripe) payLinks.push(`<a class="btn" href="${pay.stripe}">Stripe</a>`);
+    if (pay.paypal) payLinks.push(`<a class="btn" href="${pay.paypal}">PayPal</a>`);
+    if (pay.revolut) payLinks.push(`<a class="btn" href="${pay.revolut}">Revolut</a>`);
+    $('#paylinks').innerHTML = payLinks.join(' ') || '<small>Add hosted links in config.json to show buttons.</small>';
+  } catch (e) {
+    $('#plans').innerHTML = '<small>Couldn’t load config.json</small>';
+  }
+})();
 
-  // UPDATES
-  try{
-    const updates = await (await fetch('updates.json?v='+Date.now(), {cache:'no-store'})).json();
-    const box = $('#updates'); box.innerHTML='';
-    if(!updates.length){ $('#updates-empty').style.display='block'; }
-    updates.slice(0,8).forEach(u=>{
-      box.insertAdjacentHTML('beforeend', `
-        <div class="card">
-          <strong>${safe(u.title||'Update')}</strong>
-          <p class="muted">${safe(u.body||'')}</p>
-          <p class="tiny">${safe(u.author||cfg.brand||'THE GRID')} • ${new Date(u.date||Date.now()).toLocaleString()}</p>
-        </div>`);
-    });
-  }catch(_){ $('#updates-empty').style.display='block'; }
-
-  // INGEST (Learning) — consent required
-  const form = $('#ingest'); const status = $('#ingest-status');
-  form.addEventListener('submit', async (e)=>{
-    e.preventDefault(); status.textContent='';
-    if(!$('#c-ok').checked){ status.textContent='Consent required.'; return; }
-
-    const payload = {
-      note: ($('#note').value||'').slice(0,400),
-      kind: $('#kind').value,
-      link: ($('#link').value||'').slice(0,500),
-      ts: Date.now(),
-      ua: navigator.userAgent.slice(0,120)
-    };
-    Object.keys(payload).forEach(k=> (payload[k]===''||payload[k]==null) && delete payload[k]);
-
-    const url = cfg.intake?.webhook; if(!url){ status.textContent='(Owner intake webhook not set)'; return; }
-    try{
-      const r = await fetch(url, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
-      status.textContent = r.ok ? 'Thanks — received.' : 'Could not send. Try again.';
-      if(r.ok) form.reset();
-    }catch(_){ status.textContent='Network issue — try later.'; }
-  });
-
-  // Payment methods binding
-  const pm = cfg.payments || {};
-  const set = (id,url,label)=>{ const a=$(id); if(!a) return; if(url){ a.href=url; a.classList.remove('hide'); if(label) a.textContent=label; } else { a.classList.add('hide'); } };
-  set('#pm-stripe', pm.stripe, 'Stripe (Cards & Wallets)');
-  set('#pm-paypal', pm.paypal, 'PayPal');
-  set('#pm-bank', pm.bank, 'Bank (Open Banking)');
-  set('#pm-revolut', pm.revolut_backup, 'Revolut (backup)');
-}
-
-boot();
+// Copy buttons
+document.addEventListener('click', async (e) => {
+  const b = e.target.closest('.copy');
+  if (!b) return;
+  try {
+    const key = b.dataset.copy;
+    const val = (CFG.payments||{})[key];
+    if (!val) throw new Error('No link set in config.json');
+    await navigator.clipboard.writeText(val);
+    $('#copyStatus').textContent = key + ' link copied!';
+    setTimeout(()=>$('#copyStatus').textContent='', 1500);
+  } catch (err) {
+    $('#copyStatus').textContent = err.message;
+    setTimeout(()=>$('#copyStatus').textContent='', 2500);
+  }
+});
 </script>
 </body>
 </html>
