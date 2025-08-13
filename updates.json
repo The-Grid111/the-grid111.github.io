@@ -1,10 +1,18 @@
 {
-  "announcements": [
+  "updates": [
     {
+      "id": "prelaunch-live",
       "title": "Pre‑launch live",
-      "body": "Stripe links active. Learning intake (opt‑in) is on.",
+      "message": "Stripe links active. Learning intake (opt‑in) is on.",
       "author": "THE GRID",
       "timestamp": "2025-08-13T13:00:00Z"
+    },
+    {
+      "id": "autosave",
+      "title": "Autosave + rollbacks",
+      "message": "Every change is versioned and recoverable. No progress loss.",
+      "author": "THE GRID",
+      "timestamp": "2025-08-13T14:30:00Z"
     }
   ]
 }
