@@ -1,48 +1,24 @@
 {
-  "brand": "THE GRID",
-  "tagline": "Elite results. Zero friction. Mobile‑first. Always learning.",
-  "contactEmail": "you@example.com",
-
+  "siteName": "THE GRID",
+  "tagline": "Elite results. Zero friction. Mobile-first. Always learning.",
   "payments": {
     "currency": "GBP",
-    "stripeCheckout": "https://buy.stripe.com/your_starter_link",
-    "paypalLink": "https://www.paypal.com/checkoutnow?token=YOURTOKEN",
-    "revolutLink": "https://revolut.me/yourhandle"
+    "vatIncluded": true,
+    "stripeLink": "https://buy.stripe.com/test_XXXXXXXXXXXX",
+    "paypalLink": "https://www.paypal.com/checkoutnow?token=XXXX",
+    "revolutLink": "https://revolut.me/your-handle"
   },
-
   "plans": [
-    {
-      "id": "starter",
-      "name": "Starter",
-      "priceMonthly": 9,
-      "features": ["Basics", "Email support"],
-      "checkout": "https://buy.stripe.com/your_starter_link"
-    },
-    {
-      "id": "creator",
-      "name": "Creator",
-      "priceMonthly": 29,
-      "features": ["Automation", "Templates", "Priority support"],
-      "checkout": "https://buy.stripe.com/your_creator_link"
-    },
-    {
-      "id": "pro",
-      "name": "Pro",
-      "priceMonthly": 79,
-      "features": ["Advanced analytics", "Team seats", "Roadmap input"],
-      "checkout": "https://buy.stripe.com/your_pro_link"
-    }
+    { "id": "starter", "name": "Starter", "price": 9, "period": "month" },
+    { "id": "creator", "name": "Creator", "price": 29, "period": "month" },
+    { "id": "pro", "name": "Pro", "price": 79, "period": "month" }
   ],
-
   "legal": {
-    "termsUrl": "/terms.html",
-    "privacyUrl": "/privacy.html",
-    "ukCompliant": true,
-    "gdprCompliant": true
+    "termsPath": "terms.html",
+    "privacyPath": "privacy.html"
   },
-
-  "integrations": {
-    "formEndpoint": "https://formspree.io/f/YOURCODE",
-    "plausibleDomain": "the-grid111.github.io"
+  "ui": {
+    "accent": "#49e1ff",
+    "theme": "dark"
   }
 }
