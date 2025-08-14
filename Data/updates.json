@@ -1,0 +1,39 @@
+{
+  "sections": [
+    {
+      "title": "Now Shipping",
+      "items": [
+        {
+          "label": "Hero video support",
+          "detail": "Add assets/video/hero.mp4 to enable autoplay banner video.",
+          "date": "2025-08-12"
+        },
+        {
+          "label": "Signature Niches gallery",
+          "detail": "Drop images named grid_* into assets/images to populate cards.",
+          "date": "2025-08-12"
+        }
+      ]
+    },
+    {
+      "title": "In Progress",
+      "items": [
+        {
+          "label": "Admin invites",
+          "detail": "Owner can paste invite codes from Data/thegrid-admin-invites.json.",
+          "date": "2025-08-13"
+        }
+      ]
+    },
+    {
+      "title": "Planned",
+      "items": [
+        {
+          "label": "Interactive menus + micro-animations",
+          "detail": "Smooth slide/fade transitions with prefers-reduced-motion support.",
+          "date": "2025-08-15"
+        }
+      ]
+    }
+  ]
+}
