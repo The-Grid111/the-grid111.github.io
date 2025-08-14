@@ -1,300 +1,417 @@
-<!-- ===== START OF GRIDCORE INDEX.HTML (GOLD EDITION) ===== -->
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>GridCore Systems — Premium Personal AI</title>
-  <meta name="description" content="A premium, evolving personal-AI workflow that learns with you. Simple. Fast. Secure.">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <!-- =========================================
+  THEGRID / GRIDCORE SYSTEMS – SINGLE-FILE BASELINE
+  MODE: FULL DELETE + PASTE (safe to replace entire file)
+  ============================================== -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GRIDCORE Systems</title>
+  <meta name="description" content="Human-grade AI workflows that learn, adapt, and stay simple.">
+  <meta name="theme-color" content="#0b0b0e" />
+
+  <!-- =================== START: VARIABLES (EDIT THESE ONLY) =================== -->
+  <script>
+    window.GRIDCORE_CONFIG = {
+      brand: {
+        siteName: "GRIDCORE Systems",
+        shortName: "GRIDCORE",
+        tagline: "Human-grade AI workflows — simple, fast, evolving.",
+        // Paste a logo data URL or an https image here (leave "" to use placeholder mark):
+        logoSrc: "",   // e.g. "https://.../logo.png"  or "data:image/png;base64,AAAA..."
+        // Optional wordmark text if no logo image provided:
+        wordmark: "GRIDCORE"
+      },
+      theme: {
+        // Core colours — tweak to taste (kept simple, premium, ‘real gold’ highlight)
+        bg: "#0b0b0e",
+        panel: "#121218",
+        text: "#f5f7ff",
+        subtext: "#c8cbe0",
+        gold: "#d6b06d",
+        goldDeep: "#b38a3f",
+        accent: "#6aa6ff",
+        // Background motion look
+        bgGrainOpacity: 0.12,
+        // Golden brushed gradient for “real gold” impressions
+        goldGradientA: "#f2d38a",
+        goldGradientB: "#b5883b"
+      },
+      callsToAction: {
+        primaryText: "Join Early Access",
+        // Your Revolut link here (you gave: https://revolut.me/jakek6agj)
+        supportLink: "https://revolut.me/jakek6agj",
+        supportText: "Tip / Support via Revolut"
+      },
+      proof: {
+        // A hero background image or video (optional). Put a public image/video URL or leave empty
+        heroImage: "", // e.g. "https://.../hero.jpg"
+        heroVideo: "", // e.g. "https://.../hero.mp4"
+        // Optional QR code image to the Revolut link (hosted URL or data URL). Leave blank to hide.
+        qrSrc: ""
+      },
+      // Prompt Library (quick examples users can copy). Add/edit freely.
+      prompts: [
+        { title: "Daily Focus Booster", body: "Summarise my top 3 goals for today and generate a 25‑minute sprint plan with 5‑minute breaks." },
+        { title: "Weekly Review", body: "Turn this week’s notes into wins, lessons, blockers, and next actions." },
+        { title: "Human‑Mode Response", body: "Draft a warm, natural reply with concise empathy; close with one actionable suggestion." },
+        { title: "Creative Mode", body: "Give 5 punchy content hooks based on these bullet points, in under 60 seconds." }
+      ],
+      // Video slot (You can paste a TikTok/YouTube link later; for now use mp4 if you have one)
+      demoVideo: {
+        src: "",   // e.g. "https://.../gridcore-demo.mp4"
+        caption: "See GRIDCORE’s live workflow in 20 seconds."
+      },
+      // Footer
+      legal: {
+        company: "Gridcore Systems Ltd",    // placeholder for when you formalise
+        email: "hello@gridcore.systems",    // change when ready
+        locale: "UK",
+        // Placeholder legal lines — update when you register officially
+        termsUrl: "#",
+        privacyUrl: "#"
+      }
+    };
+  </script>
+  <!-- =================== END: VARIABLES (EDIT THESE ONLY) ===================== -->
 
   <style>
-    :root{
-      --bg:#0c0c0e;
-      --ink:#e5e7eb;
-      --ink-dim:#bfc3cb;
-      --gold-1:#f7d774;
-      --gold-2:#f1c24b;
-      --gold-3:#d6a43a;
-      --gold-4:#8a6a2a;
-      --accent:#8f7bff;
-      --card:#141417cc;
-      --glass: rgba(255,255,255,0.06);
-      --ok:#22c55e;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      color:var(--ink); background:var(--bg); overflow-x:hidden;
+    /* =================== START: THEME (auto-reads CONFIG) =================== */
+    :root {
+      --bg: #0b0b0e;
+      --panel: #121218;
+      --text: #f5f7ff;
+      --subtext: #c8cbe0;
+      --gold: #d6b06d;
+      --gold-deep: #b38a3f;
+      --accent: #6aa6ff;
+      --goldA: #f2d38a;
+      --goldB: #b5883b;
+
+      --radius: 18px;
+      --pad: clamp(16px, 3vw, 28px);
+      --inner: min(1100px, 92vw);
+      --shadow: 0 10px 40px rgba(0,0,0,.35);
+      --grain-opacity: .12; /* overwritten by JS */
     }
 
-    /* ===== GOLD, LAYERED, ANIMATED BACKGROUND ===== */
-    .gold-bg{
-      position:fixed; inset:0; z-index:-3;
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background: var(--bg);
+      overflow-x: hidden;
+    }
+
+    /* Premium “real gold” accents */
+    .gold {
+      background: linear-gradient(135deg, var(--goldA), var(--goldB));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 1px 0 rgba(0,0,0,.15);
+    }
+    .goldchip {
+      background: linear-gradient(135deg, var(--goldA), var(--goldB));
+      color: #1b1407;
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: var(--shadow);
+    }
+    .panel {
+      background: radial-gradient(1200px 600px at 100% -10%, rgba(214,176,109,.08), transparent 50%),
+                  radial-gradient(1200px 600px at -10% 100%, rgba(107,146,255,.08), transparent 50%),
+                  linear-gradient(180deg, rgba(255,255,255,.02), transparent 30%),
+                  var(--panel);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    /* Animated layered background */
+    .bgfx {
+      position: fixed; inset: 0; z-index: -2;
       background:
-        radial-gradient(1200px 600px at 10% 10%, #1a1a1c 0 40%, transparent 60%),
-        radial-gradient(1000px 600px at 90% 20%, rgba(255,255,255,0.04), transparent 60%),
-        radial-gradient(800px 500px at 70% 80%, rgba(255,255,255,0.03), transparent 60%),
-        linear-gradient(135deg, #0c0c0e 0%, #111114 60%, #0d0d10 100%);
-      filter:saturate(1.1) contrast(1.02);
+        radial-gradient(1000px 600px at 60% -10%, rgba(214,176,109,.10), transparent 50%),
+        radial-gradient(1000px 600px at -20% 90%, rgba(106,166,255,.10), transparent 50%),
+        linear-gradient(180deg, rgba(255,255,255,.02), transparent 40%),
+        var(--bg);
+      filter: saturate(1.06);
     }
-    .gold-sheen{
-      position:fixed; inset:-50%; z-index:-2; pointer-events:none; opacity:.35;
-      background:
-        radial-gradient(60% 20% at 20% 10%, var(--gold-1), transparent 70%),
-        radial-gradient(40% 15% at 70% 20%, var(--gold-2), transparent 70%),
-        radial-gradient(30% 12% at 60% 70%, var(--gold-3), transparent 70%);
-      mix-blend-mode:overlay;
-      animation:floatSheen 18s ease-in-out infinite alternate;
+    .grain {
+      position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      opacity: var(--grain-opacity);
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><filter id="n"><feTurbulence baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)"/></svg>');
+      mix-blend-mode: overlay;
+      animation: drift 14s linear infinite;
     }
-    @keyframes floatSheen{
-      0%{transform:translate3d(-2%, -1%, 0) rotate(0.2deg)}
-      100%{transform:translate3d(2%, 1%, 0) rotate(-0.2deg)}
+    @keyframes drift { to { transform: translate3d(2%,2%,0); } }
+
+    header {
+      width: 100%;
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(10,10,12,.7), rgba(10,10,12,0));
+      border-bottom: 1px solid rgba(255,255,255,.05);
     }
-    .gold-noise{
-      position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.08;
-      background-image: repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0 1px, transparent 1px 2px),
-                        repeating-linear-gradient(90deg, rgba(255,255,255,.04) 0 1px, transparent 1px 3px);
-      mix-blend-mode:soft-light;
-      animation:grain 12s steps(6) infinite;
+    .nav { margin: 0 auto; width: var(--inner); padding: .6rem var(--pad); display: flex; align-items: center; gap: 14px; }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+    .brand img { width: 34px; height: 34px; object-fit: contain; border-radius: 10px; }
+    .brand .name { font-weight: 700; letter-spacing: .3px; }
+    .cta { margin-left: auto; display: flex; gap: 10px; }
+
+    .btn {
+      appearance: none; border: 1px solid rgba(255,255,255,.12);
+      padding: .72rem 1rem; border-radius: 14px; color: var(--text);
+      background: rgba(255,255,255,.02); cursor: pointer;
+      transition: .2s ease; text-decoration: none; font-weight: 600;
     }
-    @keyframes grain{
-      0%{transform:translate(0,0)}
-      25%{transform:translate(-3%, 2%)}
-      50%{transform:translate(2%, -3%)}
-      75%{transform:translate(-2%, 3%)}
-      100%{transform:translate(0,0)}
+    .btn:hover { transform: translateY(-1px); border-color: rgba(255,255,255,.25); }
+    .btn.primary {
+      background: linear-gradient(135deg, var(--goldA), var(--goldB));
+      color: #1b1407; border-color: rgba(255,255,255,.22);
     }
 
-    /* ===== LAYOUT ===== */
-    .wrap{max-width:1100px; margin:0 auto; padding:24px}
-    header{
-      position:sticky; top:0; backdrop-filter:saturate(140%) blur(10px);
-      background:linear-gradient(to bottom, rgba(10,10,12,.85), rgba(10,10,12,.35));
-      border-bottom:1px solid rgba(255,255,255,.06);
-      z-index:10;
-    }
-    .brand{
-      display:flex; align-items:center; gap:12px; padding:14px 24px;
-    }
-    .logo{
-      width:36px; height:36px; border-radius:10px;
-      background: conic-gradient(from 120deg, var(--gold-2), var(--gold-1), var(--gold-3), var(--gold-2));
-      display:grid; place-items:center; font-weight:800; color:#101012; letter-spacing:.5px;
-      box-shadow: 0 0 0 1px rgba(255,255,255,.15) inset, 0 6px 18px rgba(0,0,0,.4);
-    }
-    .brand h1{margin:0; font-size:18px; font-weight:800}
-    .badge{
-      margin-left:auto; font-size:12px; padding:4px 8px; border-radius:999px;
-      background:rgba(34,197,94,.15); color:#86efac; border:1px solid rgba(22,163,74,.4);
-    }
+    main { margin: 0 auto; width: var(--inner); padding: calc(var(--pad) * 1.2) var(--pad) 80px; display: grid; gap: 28px; }
 
-    .hero{
-      display:grid; gap:18px; grid-template-columns:1fr; margin-top:18px;
-    }
-    @media(min-width:860px){
-      .hero{grid-template-columns:1.2fr .8fr; align-items:stretch}
-    }
-    .panel{
-      background:linear-gradient(180deg, var(--card), rgba(20,20,23,.6));
-      border:1px solid rgba(255,255,255,.07);
-      border-radius:16px; padding:22px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
-    }
-    .title{margin:.1rem 0 .4rem; font-size:clamp(24px, 4vw, 40px); line-height:1.1}
-    .subtitle{margin:.2rem 0 1rem; color:var(--ink-dim)}
-    .cta-row{display:flex; gap:10px; flex-wrap:wrap}
-    .btn{
-      text-decoration:none; color:#0d0d10; font-weight:800;
-      background:linear-gradient(135deg, var(--gold-1), var(--gold-2) 50%, var(--gold-3));
-      padding:12px 16px; border-radius:12px;
-      box-shadow:0 8px 18px rgba(214,164,58,.25), 0 1px 0 rgba(255,255,255,.25) inset;
-      border:1px solid rgba(255,255,255,.2);
-      transition:transform .15s ease, filter .15s ease;
-    }
-    .btn:hover{transform:translateY(-1px); filter:saturate(1.1)}
+    .hero { display: grid; gap: 18px; align-items: center; }
+    .hero h1 { font-size: clamp(28px, 4.6vw, 48px); line-height: 1.04; margin: 0; letter-spacing: .2px; }
+    .hero p { margin: 0; color: var(--subtext); font-size: clamp(14px, 2.6vw, 18px); }
+    .hero .row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
 
-    /* QR / PAY TILE (no image file needed) */
-    .qr-wrap{display:grid; place-items:center; text-align:center}
-    .qr-card{
-      width:min(340px, 95%); background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      border:1px solid rgba(255,255,255,.09); border-radius:16px; padding:18px 16px;
+    .grid {
+      display: grid; gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     }
-    .qr-box{
-      aspect-ratio:1/1; width:100%; border-radius:10px; display:grid; place-items:center;
-      background:
-        conic-gradient(from 180deg at 50% 50%, #000 0 25%, #fff 0 50%, #000 0 75%, #fff 0 100%),
-        repeating-linear-gradient(0deg, #000 0 6px, #fff 6px 12px),
-        repeating-linear-gradient(90deg, #000 0 6px, #fff 6px 12px);
-      background-blend-mode: multiply;
-      box-shadow: 0 0 0 1px rgba(255,255,255,.2) inset;
-      position:relative; overflow:hidden;
-    }
-    .qr-overlay{
-      position:absolute; inset:0; background:
-        radial-gradient(120px 40px at 50% 0%, rgba(255,255,255,.08), transparent 70%);
-      pointer-events:none;
-    }
-    .qr-below{
-      margin-top:10px; font-size:13px; color:var(--ink-dim)
-    }
-    .pay-row{display:flex; gap:8px; margin-top:12px}
-    .copy{
-      background:var(--glass); border:1px solid rgba(255,255,255,.12);
-      color:var(--ink); border-radius:10px; padding:10px 12px; cursor:pointer; flex:1; font-weight:600;
-    }
-    .copy:hover{background:rgba(255,255,255,.1)}
-    .success{display:none; color:#86efac; font-size:12px; margin-top:6px}
+    .card { padding: 16px; }
 
-    /* Cards / sections */
-    h2.section{margin:30px 0 10px; font-size:clamp(20px, 3vw, 28px)}
-    .cards{display:grid; gap:14px; grid-template-columns:1fr}
-    @media(min-width:760px){ .cards{grid-template-columns:1fr 1fr} }
-    .card{
-      padding:16px; border-radius:14px; background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
-      border:1px solid rgba(255,255,255,.08)
+    .media {
+      aspect-ratio: 16/9; width: 100%; overflow: hidden; border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.02);
     }
-    .muted{color:var(--ink-dim)}
-    .footer{margin:28px 0 40px; text-align:center; color:var(--ink-dim); font-size:12px}
-    .chip{
-      display:inline-flex; gap:8px; align-items:center; padding:6px 10px; border-radius:999px;
-      background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); font-size:12px;
-    }
-    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace}
-    .pill{
-      display:inline-block; padding:2px 8px; border-radius:999px; background:rgba(143,123,255,.15);
-      border:1px solid rgba(143,123,255,.35); color:#cfd0ff; font-size:11px; font-weight:700; letter-spacing:.4px
-    }
+    .media img, .media video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-    /* Helpers for EDIT markers */
-    .hint{font-size:12px; color:var(--ink-dim)}
-    .edit{outline:1px dashed rgba(255,255,255,.2); border-radius:10px; padding:8px}
+    .prompt { padding: 14px; border: 1px dashed rgba(255,255,255,.18); border-radius: 14px; background: rgba(255,255,255,.02); }
+    .prompt h4 { margin: 0 0 6px; font-size: 14px; color: var(--gold); }
+    .prompt p { margin: 0; color: var(--subtext); font-size: 14px; }
+    .prompt .copy { margin-top: 8px; font-size: 12px; opacity: .8; }
+
+    footer { margin: 0 auto; width: var(--inner); padding: 36px var(--pad) 80px; color: var(--subtext); display: grid; gap: 12px; font-size: 13px;}
+    footer a { color: var(--subtext); }
+    /* =================== END: THEME =================== */
   </style>
 </head>
 <body>
-  <div class="gold-bg"></div>
-  <div class="gold-sheen"></div>
-  <div class="gold-noise"></div>
+  <div class="bgfx"></div>
+  <div class="grain"></div>
 
-  <!-- ===== HEADER ===== -->
+  <!-- =================== START: HEADER =================== -->
   <header>
-    <div class="brand wrap">
-      <div class="logo">GC</div>
-      <h1>GridCore Systems</h1>
-      <span class="badge">LIVE</span>
-    </div>
-  </header>
-
-  <!-- ===== HERO ===== -->
-  <main class="wrap hero">
-    <section class="panel">
-      <div class="pill">PREMIUM • FAST • SECURE</div>
-      <h1 class="title">Your AI, always getting better.</h1>
-      <p class="subtitle">
-        A personal system that learns with you. One‑click updates. Bank‑level privacy.
-        Designed for speed, clarity, and real results.
-      </p>
-
-      <!-- ===== EDIT: MAIN CTA TEXT (safe to change) ===== -->
-      <div class="cta-row edit">
-        <a class="btn" href="https://revolut.me/jakek6agj" target="_blank" rel="noopener">
-          💳 Support / Subscribe (Instant)
-        </a>
-        <a class="btn" href="#prompts">⚡ Prompt Library</a>
+    <nav class="nav">
+      <a class="brand" href="#top">
+        <img id="logo" alt="Logo" />
+        <span class="name" id="brandName">GRIDCORE</span>
+      </a>
+      <div class="cta">
+        <a id="supportLink" class="btn" target="_blank" rel="noopener">Tip / Support</a>
+        <a href="#join" class="btn primary">Join Early Access</a>
       </div>
-      <p class="hint">Tip: You can change the button text/URL later. Look for “EDIT” comments.</p>
+    </nav>
+  </header>
+  <!-- =================== END: HEADER =================== -->
 
-      <div style="margin-top:12px" class="chip">
-        <span>Auto‑updates</span> • <span>Mobile‑first</span> • <span>Copy‑paste deploy</span>
+  <main id="top">
+    <!-- =================== START: HERO =================== -->
+    <section class="hero panel card">
+      <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+        <div class="goldchip" style="padding:.48rem .72rem; border-radius:12px; font-size:12px; font-weight:700; letter-spacing:.2px;">
+          <span>New • Self‑evolving Workflows</span>
+        </div>
+        <div style="opacity:.8; font-size:12px;">UK‑ready • Mobile‑first • Copy‑paste updates</div>
+      </div>
+
+      <h1><span class="gold" id="brandTitle">GRIDCORE Systems</span><br/><span id="brandTag">Human-grade AI workflows — simple, fast, evolving.</span></h1>
+      <p>Built for daily focus, weekly momentum, and safe, automatic learning from user feedback — without complexity.</p>
+
+      <div class="row">
+        <a id="ctaPrimary" href="#join" class="btn primary">Join Early Access</a>
+        <a id="ctaSupport" class="btn" target="_blank" rel="noopener">Tip / Support via Revolut</a>
       </div>
     </section>
+    <!-- =================== END: HERO =================== -->
 
-    <!-- ===== PAY / QR TILE (no image files required) ===== -->
-    <aside class="panel qr-wrap">
-      <div class="qr-card">
-        <div class="qr-box" id="qrBox" aria-label="QR style pay code (decorative)">
-          <div class="qr-overlay"></div>
+    <!-- =================== START: PROOF / MEDIA =================== -->
+    <section class="grid">
+      <div class="panel card">
+        <h3 style="margin:0 0 10px;">Live Glimpse</h3>
+        <div class="media" id="heroMedia">
+          <!-- image or video injected -->
         </div>
-        <div class="qr-below">Scan or tap to pay via Revolut</div>
-        <div class="pay-row">
-          <button class="copy" onclick="window.open('https://revolut.me/jakek6agj','_blank')">Open Payment</button>
-          <button class="copy" id="copyLink">Copy Link</button>
-        </div>
-        <div id="copied" class="success">Link copied ✔</div>
-        <div class="hint" style="margin-top:8px">
-          This uses your link directly and hides your surname. You can swap links any time.
+        <div style="display:flex; gap:10px; align-items:center; margin-top:10px;">
+          <img id="qr" alt="QR" style="width:84px;height:84px;border-radius:12px;border:1px solid rgba(255,255,255,.12); display:none;" />
+          <div style="font-size:13px; color:var(--subtext);">
+            Scan to support development & unlock extras.
+          </div>
         </div>
       </div>
-    </aside>
+
+      <div class="panel card">
+        <h3 style="margin:0 0 10px;">Why It Works</h3>
+        <ul style="margin:0; padding-left:16px; color:var(--subtext); line-height:1.5;">
+          <li>One‑step copy/paste updates (full delete‑swap safe).</li>
+          <li>Automatic pattern‑finding from feedback to improve fast.</li>
+          <li>Human‑mode replies that feel natural; Creative‑mode for speed.</li>
+          <li>UK‑compliant payment pathway (Revolut tip link now; Stripe later).</li>
+        </ul>
+      </div>
+    </section>
+    <!-- =================== END: PROOF / MEDIA =================== -->
+
+    <!-- =================== START: PROMPT LIBRARY =================== -->
+    <section class="panel card" id="library">
+      <h3 style="margin:0 0 8px;">Prompt Library</h3>
+      <p style="margin:0 0 12px; color:var(--subtext);">Copy any prompt. We’ll keep refining this from live usage.</p>
+      <div class="grid" id="promptList"><!-- prompts injected --></div>
+    </section>
+    <!-- =================== END: PROMPT LIBRARY =================== -->
+
+    <!-- =================== START: DEMO VIDEO =================== -->
+    <section class="panel card" id="demo">
+      <h3 style="margin:0 0 8px;">20‑Second Demo</h3>
+      <div class="media" id="demoMedia"><!-- demo injected --></div>
+      <div style="margin-top:6px; color:var(--subtext); font-size:13px;" id="demoCaption"></div>
+    </section>
+    <!-- =================== END: DEMO VIDEO =================== -->
+
+    <!-- =================== START: JOIN / PAYMENT =================== -->
+    <section class="panel card" id="join">
+      <h3 style="margin:0 0 8px;">Join / Support</h3>
+      <p style="margin:0 0 12px; color:var(--subtext);">
+        Early access is open. You can support development via Revolut now, and we’ll add subscriptions (Stripe) soon.
+      </p>
+      <div class="row">
+        <a id="joinPrimary" href="#join" class="btn primary">Request Invite</a>
+        <a id="supportLink2" class="btn" target="_blank" rel="noopener">Tip / Support via Revolut</a>
+      </div>
+    </section>
+    <!-- =================== END: JOIN / PAYMENT =================== -->
   </main>
 
-  <!-- ===== PROMPT LIBRARY ===== -->
-  <section id="prompts" class="wrap">
-    <h2 class="section">Prompt Library</h2>
-    <p class="muted">Curated, high‑signal prompts for faster results. Updated as the system learns.</p>
-    <div class="cards">
-      <article class="card edit">
-        <h3>Daily Focus (Personal)</h3>
-        <p class="muted">
-          “Based on my current goals, generate a 3‑point plan for today with 1 high‑impact task, 1 learning task, and 1 maintenance task. Keep it under 120 words.”
-        </p>
-      </article>
-      <article class="card edit">
-        <h3>Micro‑Feedback to Improvements</h3>
-        <p class="muted">
-          “Summarize user feedback into 3 themes and propose one change per theme. Label each change with impact (H/M/L) and effort (H/M/L).”
-        </p>
-      </article>
+  <!-- =================== START: FOOTER =================== -->
+  <footer>
+    <div style="display:flex; gap:10px; align-items:center;">
+      <strong id="footBrand">GRIDCORE Systems</strong>
+      <span aria-hidden="true" style="opacity:.6;">•</span>
+      <span id="footLocale">UK</span>
     </div>
-  </section>
-
-  <!-- ===== VIDEO SLOT (optional now, easy later) ===== -->
-  <section class="wrap">
-    <h2 class="section">See It in Action</h2>
-    <div class="card edit">
-      <p class="muted" style="margin-top:0">
-        Drop a short 20–30s walkthrough here later. For now this placeholder keeps the layout tight.
-      </p>
-      <video width="100%" controls poster="" style="border-radius:10px; border:1px solid rgba(255,255,255,.08)">
-        <!-- Replace YOUR_VIDEO.mp4 later (you can also link a hosted MP4) -->
-        <source src="" type="video/mp4">
-      </video>
+    <div>
+      <a id="footEmail" href="mailto:hello@gridcore.systems">hello@gridcore.systems</a>
+      <span aria-hidden="true" style="opacity:.6;">•</span>
+      <a id="footTerms" href="#" target="_blank" rel="noopener">Terms</a>
+      <span aria-hidden="true" style="opacity:.6;">•</span>
+      <a id="footPrivacy" href="#" target="_blank" rel="noopener">Privacy</a>
     </div>
-  </section>
-
-  <!-- ===== FOOTER ===== -->
-  <footer class="wrap footer">
-    <div>© <span id="year"></span> GridCore Systems. All rights reserved.</div>
-    <div style="margin-top:6px" class="muted">
-      Built for copy‑paste deploys. One file. Zero friction.
-    </div>
+    <div style="opacity:.7; font-size:12px;">© <span id="footCo">Gridcore Systems Ltd</span>. All rights reserved.</div>
   </footer>
+  <!-- =================== END: FOOTER =================== -->
 
-  <!-- ===== MIN JS (copy button + year + subtle QR pattern refresh) ===== -->
   <script>
-    // Year
-    document.getElementById('year').textContent = new Date().getFullYear();
+    // =================== START: RUNTIME BINDINGS ===================
+    (function applyConfig(cfg){
+      // Theme vars
+      const root = document.documentElement.style;
+      root.setProperty('--bg', cfg.theme.bg);
+      root.setProperty('--panel', cfg.theme.panel);
+      root.setProperty('--text', cfg.theme.text);
+      root.setProperty('--subtext', cfg.theme.subtext);
+      root.setProperty('--gold', cfg.theme.gold);
+      root.setProperty('--gold-deep', cfg.theme.goldDeep);
+      root.setProperty('--accent', cfg.theme.accent);
+      root.setProperty('--goldA', cfg.theme.goldGradientA);
+      root.setProperty('--goldB', cfg.theme.goldGradientB);
+      root.setProperty('--grain-opacity', String(cfg.theme.bgGrainOpacity ?? .12));
 
-    // Copy pay link
-    const btn = document.getElementById('copyLink');
-    const ok = document.getElementById('copied');
-    btn.addEventListener('click', async () => {
-      try{
-        await navigator.clipboard.writeText('https://revolut.me/jakek6agj');
-        ok.style.display='block';
-        setTimeout(()=> ok.style.display='none', 1800);
-      }catch(e){ alert('Copy not supported on this device'); }
-    });
+      // Brand
+      const $logo = document.getElementById('logo');
+      if (cfg.brand.logoSrc) {
+        $logo.src = cfg.brand.logoSrc;
+        $logo.alt = cfg.brand.siteName + " logo";
+      } else {
+        // Fallback: small gold square mark
+        const svg = encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop stop-color='${cfg.theme.goldGradientA}'/><stop offset='1' stop-color='${cfg.theme.goldGradientB}'/></linearGradient></defs><rect rx='22' ry='22' x='5' y='5' width='90' height='90' fill='url(%23g)' /></svg>`);
+        $logo.src = "data:image/svg+xml;utf8," + svg;
+        $logo.alt = "Logo";
+      }
+      document.getElementById('brandName').textContent = cfg.brand.shortName || cfg.brand.siteName;
+      document.getElementById('brandTitle').textContent = cfg.brand.siteName;
+      document.getElementById('brandTag').textContent = cfg.brand.tagline;
 
-    // Optional: lightly vary the “QR” pattern so it feels alive
-    const qr = document.getElementById('qrBox');
-    let t=0;
-    setInterval(()=>{ t+=1;
-      qr.style.filter = `contrast(1.${(t%5)+2}) brightness(1.${(t%3)+1})`;
-    }, 1200);
+      // CTAs / Links
+      const supportURL = cfg.callsToAction.supportLink;
+      const supportEls = [document.getElementById('supportLink'), document.getElementById('ctaSupport'), document.getElementById('supportLink2')];
+      supportEls.forEach(el => { if (el && supportURL) { el.href = supportURL; } });
+      document.getElementById('ctaPrimary').textContent = cfg.callsToAction.primaryText;
+
+      // Hero media
+      const heroMedia = document.getElementById('heroMedia');
+      if (cfg.proof.heroVideo) {
+        const v = document.createElement('video');
+        v.src = cfg.proof.heroVideo; v.playsInline = true; v.autoplay = true; v.muted = true; v.loop = true;
+        heroMedia.appendChild(v);
+      } else if (cfg.proof.heroImage) {
+        const i = document.createElement('img'); i.src = cfg.proof.heroImage; i.alt = "GRIDCORE hero";
+        heroMedia.appendChild(i);
+      } else {
+        // fallback gradient canvas
+        const i = document.createElement('div');
+        i.style.width = "100%"; i.style.height = "100%";
+        i.style.background = `linear-gradient(135deg, ${cfg.theme.goldGradientA}, ${cfg.theme.goldGradientB})`;
+        heroMedia.appendChild(i);
+      }
+
+      // Optional QR
+      const qr = document.getElementById('qr');
+      if (cfg.proof.qrSrc) { qr.src = cfg.proof.qrSrc; qr.style.display = 'block'; }
+
+      // Prompt Library
+      const list = document.getElementById('promptList');
+      cfg.prompts.forEach(p => {
+        const card = document.createElement('div');
+        card.className = "prompt";
+        card.innerHTML = `<h4>${p.title}</h4><p>${p.body}</p><div class="copy">Tap & hold to copy</div>`;
+        card.addEventListener('click', async () => {
+          try { await navigator.clipboard.writeText(p.body); card.querySelector('.copy').textContent = "Copied!"; setTimeout(()=>card.querySelector('.copy').textContent="Tap & hold to copy", 1500);} catch(e){}
+        });
+        list.appendChild(card);
+      });
+
+      // Demo video
+      if (cfg.demoVideo.src) {
+        const vid = document.createElement('video');
+        vid.src = cfg.demoVideo.src; vid.controls = true; vid.playsInline = true; vid.style.background = "rgba(255,255,255,.02)";
+        document.getElementById('demoMedia').appendChild(vid);
+      } else {
+        const ph = document.createElement('div');
+        ph.style.width = "100%"; ph.style.height = "100%";
+        ph.style.background = "linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.02))";
+        document.getElementById('demoMedia').appendChild(ph);
+      }
+      document.getElementById('demoCaption').textContent = cfg.demoVideo.caption || "";
+
+      // Footer
+      document.getElementById('footBrand').textContent = cfg.brand.siteName;
+      document.getElementById('footLocale').textContent = cfg.legal.locale;
+      const em = document.getElementById('footEmail');
+      em.href = `mailto:${cfg.legal.email}`; em.textContent = cfg.legal.email;
+      const tu = document.getElementById('footTerms'), pu = document.getElementById('footPrivacy');
+      if (cfg.legal.termsUrl) tu.href = cfg.legal.termsUrl;
+      if (cfg.legal.privacyUrl) pu.href = cfg.legal.privacyUrl;
+      document.getElementById('footCo').textContent = cfg.legal.company;
+    })(window.GRIDCORE_CONFIG || {});
+    // =================== END: RUNTIME BINDINGS ===================
   </script>
 </body>
 </html>
-<!-- ===== END OF GRIDCORE INDEX.HTML (GOLD EDITION) ===== -->
