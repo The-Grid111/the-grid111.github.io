@@ -1,146 +1,213 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Gridcore Systems — Baseline</title>
-<meta name="description" content="Your adaptive assistant. Simple UI. Automatic learning. One‑step updates." />
-<style>
-  :root{
-    --bg:#0b0f14;--panel:#10161d;--muted:#8aa0b3;--text:#e6f0f8;
-    --accent:#6ef7a6;--accent2:#232;--btn:#1aee7a;--btnText:#07120c;
-    --ring:#2b3a46;--card:#0f141a;--good:#25d366;--bad:#ff5964
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;background:radial-gradient(1200px 600px at 50% -10%,#11202b 0,#0b0f14 50%),var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial}
-  a{color:var(--accent);text-decoration:none}
-  a:hover{text-decoration:underline}
-  .wrap{max-width:960px;margin:0 auto;padding:24px}
-  .nav{display:flex;gap:12px;align-items:center;justify-content:space-between;margin:6px 0 18px}
-  .brand{display:flex;gap:10px;align-items:center;font-weight:700}
-  .dot{width:14px;height:14px;border-radius:4px;background:linear-gradient(180deg,#9bffbf,#39d98a);box-shadow:0 0 0 3px #1b2a22}
-  .tag{font-size:12px;color:var(--muted);background:#0d141a;border:1px solid #1a2831;border-radius:999px;padding:4px 10px}
-  .hero{background:linear-gradient(180deg,#0f171f,#0b1015);border:1px solid #1a2831;border-radius:18px;padding:20px;margin:6px 0 18px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
-  h1{font-size:28px;line-height:1.2;margin:12px 0 6px}
-  .sub{color:var(--muted);margin-bottom:16px}
-  .cta{display:flex;gap:10px;flex-wrap:wrap}
-  .btn{appearance:none;border:0;border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer}
-  .btn.buy{background:linear-gradient(180deg,#95ffc6,var(--btn));color:var(--btnText)}
-  .btn.ghost{background:#121a21;color:#d5e7f2;border:1px solid #1a2831}
-  .pills{display:flex;gap:10px;margin:14px 0;flex-wrap:wrap}
-  .pill{border:1px solid #1a2831;background:#0e151b;color:#bcd1df;font-size:12px;border-radius:999px;padding:6px 10px}
-  .card{background:var(--panel);border:1px solid #1a2831;border-radius:16px;padding:16px;margin:14px 0}
-  .h{font-weight:800;letter-spacing:.02em;font-size:14px;margin-bottom:8px;color:#cfe3f1}
-  .grid{display:grid;gap:12px}
-  .footer{display:grid;gap:12px;margin:14px 0 24px}
-  .row{display:flex;gap:10px}
-  .fb{display:flex;gap:10px}
-  .thumb{flex:1 1 140px;background:#0f151b;border:1px solid #1a2831;border-radius:12px;padding:12px;text-align:center;color:#cfe3f1;cursor:pointer}
-  .thumb.good{border-color:#1e3a2b}
-  .thumb.bad{border-color:#3a1e23}
-  .muted{color:var(--muted)}
-  .qr{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-  .qr img{width:140px;height:auto;border-radius:10px;border:1px solid #1a2831;background:#000}
-  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px}
-  @media(min-width:700px){
-    .hero{padding:26px}
-    h1{font-size:36px}
-    .grid{grid-template-columns:1fr 1fr}
-  }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Gridcore Systems — Plug‑in Intelligence</title>
+  <meta name="description" content="Gridcore Systems: a clean, fast, future-forward AI workflow that learns from your content and keeps improving—without overwhelming you." />
+  <link rel="preconnect" href="https://api.qrserver.com" />
+  <style>
+    :root{
+      --bg:#0b0b0f;
+      --card:#11121a;
+      --muted:#8f95b2;
+      --text:#e9ecff;
+      --brand:#ffd166; /* gold */
+      --brand-2:#f6c33f;
+      --ok:#5df2a5;
+      --danger:#ff6b6b;
+      --ring: 0 0 0 2px rgba(255,209,102,.25);
+      --max:1120px;
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,Apple Color Emoji,Segoe UI Emoji;
+      background:radial-gradient(1200px 600px at 70% -10%, #1a1b27 0%, #0b0b0f 55%),
+                 radial-gradient(900px 500px at -10% 120%, #141522 0%, #0b0b0f 60%);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin-inline:auto; padding:24px}
+    .nav{
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+      padding:12px 0;
+      position:sticky; top:0; backdrop-filter:saturate(140%) blur(8px);
+    }
+    .logo{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.4px}
+    .logo-badge{
+      width:34px; height:34px; border-radius:10px; display:grid; place-items:center;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2));
+      color:#111; font-weight:900;
+      box-shadow:0 6px 20px rgba(255,209,102,.25);
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:10px;
+      background:rgba(255,209,102,.1); color:var(--brand);
+      border:1px solid rgba(255,209,102,.25);
+      padding:8px 12px; border-radius:999px; font-size:12px;
+    }
+    .hero{
+      display:grid; gap:26px; align-items:center;
+      grid-template-columns:1.1fr; text-align:center; padding:18px 0 8px;
+    }
+    .title{font-size:clamp(28px,5vw,46px); line-height:1.1; font-weight:800; letter-spacing:.2px}
+    .lead{color:var(--muted); font-size:clamp(14px,2.5vw,18px)}
+    .cta{
+      display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:6px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; gap:10px; cursor:pointer;
+      border-radius:12px; padding:12px 16px; font-weight:700; border:1px solid transparent;
+      transition:transform .08s ease, box-shadow .2s ease, background .2s ease;
+      will-change:transform;
+    }
+    .btn:active{transform:translateY(1px)}
+    .btn-primary{
+      background:linear-gradient(180deg,var(--brand),var(--brand-2));
+      color:#1a1a1a; box-shadow:0 10px 24px rgba(255,209,102,.25);
+    }
+    .btn-secondary{
+      background:#151623; border-color:#2a2c44; color:var(--text);
+    }
+    .grid{
+      display:grid; gap:16px; grid-template-columns:1fr; margin-top:28px;
+    }
+    .card{
+      background:linear-gradient(180deg,#121321,#0e0f19);
+      border:1px solid #1f2134; border-radius:var(--radius); padding:18px;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
+    }
+    .card h3{margin:0 0 6px 0; font-size:18px}
+    .muted{color:var(--muted)}
+    .qr-wrap{
+      display:grid; gap:14px; justify-items:center; padding:16px; border-radius:var(--radius);
+      background:radial-gradient(400px 200px at 50% 0%, rgba(255,209,102,.12), transparent 60%),
+                 linear-gradient(180deg,#121321,#0e0f19);
+      border:1px dashed rgba(255,209,102,.35);
+    }
+    .qr-img{
+      width:min(280px,70vw); height:auto; border-radius:12px; background:#fff; padding:10px;
+      box-shadow:0 12px 30px rgba(0,0,0,.5);
+    }
+    .tiny{font-size:12px}
+    .section{margin-top:34px}
+    .list{
+      display:grid; gap:10px; margin:0; padding:0; list-style:none;
+    }
+    .list li{display:flex; gap:10px; align-items:flex-start}
+    .dot{width:8px; height:8px; border-radius:99px; background:var(--ok); margin-top:8px; flex:0 0 8px}
+    .footer{opacity:.7; text-align:center; font-size:12px; margin:40px 0 10px}
+    /* wider */
+    @media(min-width:880px){
+      .hero{grid-template-columns:1.15fr .85fr; text-align:left}
+      .cta{justify-content:flex-start}
+      .grid{grid-template-columns:repeat(3,1fr)}
+    }
+  </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="nav">
-      <div class="brand"><span class="dot"></span><div>Gridcore<br/>Systems</div></div>
-      <div class="row" style="gap:8px">
-        <span class="tag">Baseline v0.9</span>
-        <a class="tag" href="#how">How it works</a>
-        <a class="tag" href="#pricing">Pricing</a>
-        <a class="tag" href="#legal">Legal</a>
-      </div>
+  <header class="wrap nav">
+    <div class="logo">
+      <div class="logo-badge">G</div>
+      <div>Gridcore Systems</div>
     </div>
+    <a href="#pay" class="pill">Early Access • Live</a>
+  </header>
 
-    <div class="hero">
-      <div class="pills">
-        <span class="pill">⚡ Optimised</span>
-        <span class="pill">🔒 Privacy‑first</span>
-        <span class="pill">📱 Mobile‑ready</span>
-      </div>
-      <h1>Your adaptive assistant,<br/>ready now.</h1>
-      <p class="sub">Simple UI. Automatic learning. One‑step updates. Built for speed and safety.</p>
-      <div class="cta">
-        <a class="btn buy" href="https://revolut.me/jakek6agj" target="_blank" rel="noopener">Buy Access — Instant</a>
-        <a class="btn ghost" href="#demo">Try Demo</a>
-      </div>
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <div class="pill" style="margin-bottom:10px">Clean • Fast • Future‑forward</div>
+        <h1 class="title">Plug‑in intelligence that learns as you work.</h1>
+        <p class="lead">
+          A frictionless workflow that organizes your data, stays simple for everyday use, and
+          keeps improving itself from real‑world feedback—without overwhelming you.
+        </p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#pay" aria-label="Proceed to payment">Get Access</a>
+          <a class="btn btn-secondary" href="#how">How it works</a>
+        </div>
 
-      <div class="pills">
-        <span class="pill">Share</span>
-        <span class="pill">~2–5 min setup</span>
-        <span class="pill">One‑file updates</span>
-        <span class="pill">Auto feedback loop</span>
-      </div>
-
-      <div class="card">
-        <div class="h">Pay in seconds</div>
-        <div class="qr">
-          <!-- If IMG_6106.png exists in the repo root, it will show automatically -->
-          <img src="./IMG_6106.png" alt="Pay QR" onerror="this.style.display='none'">
-          <div>
-            <div class="muted">Tap the green button or scan the QR. Funds land instantly in my account.</div>
-            <p style="margin:.5rem 0 0"><a href="https://revolut.me/jakek6agj" target="_blank" rel="noopener">Open Revolut link</a> · <span class="muted mono">@jakek6agj</span></p>
-            <p class="muted mono" style="margin:.25rem 0 0">Need help? Email support@gridcoresystems.com</p>
+        <div class="grid section" id="how">
+          <div class="card">
+            <h3>01. Simple by default</h3>
+            <p class="muted">Daily & weekly focus up front. Everything else stays out of your way until you need it.</p>
+          </div>
+          <div class="card">
+            <h3>02. Learns from use</h3>
+            <p class="muted">Reads patterns in text, images, and videos to refine suggestions and flows.</p>
+          </div>
+          <div class="card">
+            <h3>03. One‑step updates</h3>
+            <p class="muted">When you’ve got an improvement, just paste the new save. No zips. No fuss.</p>
           </div>
         </div>
       </div>
-    </div>
 
-    <div id="content" class="card">
-      <div class="h">Your content area</div>
-      <p class="muted">Replace only the section between the markers in future. Nothing else.</p>
-      <!-- === START CONTENT === -->
-      <p><strong>Welcome!</strong> This is the default placeholder. Paste your own text / simple embeds here when ready — all styles & scripts are handled for you.</p>
-      <!-- === END CONTENT === -->
-    </div>
+      <!-- Payment + QR column -->
+      <div id="pay" class="card">
+        <h3 style="margin-top:0">Instant Access (Early)</h3>
+        <p class="muted" style="margin-top:6px">
+          Tap the button or scan the QR to send a contribution and unlock access.
+          Refunds are limited; please only pay if you’re happy with what’s on the page.
+        </p>
 
-    <div id="how" class="card">
-      <div class="h">How it works</div>
-      <ul class="muted">
-        <li>One‑file design: update by pasting a new <span class="mono">index.html</span>.</li>
-        <li>Payments: the “Buy Access” button opens Revolut for instant transfers to you.</li>
-        <li>Feedback: simple thumbs in the footer (no personal data) to guide improvements.</li>
-        <li>Privacy: no tracking until consent; all optional and transparent.</li>
-      </ul>
-    </div>
+        <div class="qr-wrap" style="margin-top:12px">
+          <!-- Live QR generated on the fly (no name embedded). -->
+          <img
+            class="qr-img"
+            src="https://api.qrserver.com/v1/create-qr-code/?size=520x520&data=https%3A%2F%2Frevolut.me%2Fjakek6agj"
+            alt="Scan to pay via Revolut"
+            loading="lazy"
+            decoding="async"
+          />
 
-    <div id="pricing" class="card">
-      <div class="h">Early access pricing</div>
-      <ul class="muted">
-        <li><strong>Free</strong> — explore the demo.</li>
-        <li><strong>Starter</strong> — pay‑as‑you‑go via Revolut link.</li>
-        <li><strong>Member</strong> — monthly; unlocks customisation & saved progress.</li>
-      </ul>
-      <p class="muted">We keep prices low early, then scale with value delivered. Ethical, transparent, no hidden fees.</p>
-    </div>
-
-    <div class="grid">
-      <div class="card">
-        <div class="h">Feedback</div>
-        <div class="fb">
-          <button class="thumb good" onclick="alert('Thanks! 👍')">👍 Like</button>
-          <button class="thumb bad"  onclick="alert('Thanks! We’ll improve. 👎')">👎 Needs work</button>
+          <a class="btn btn-primary" href="https://revolut.me/jakek6agj" target="_blank" rel="noopener">
+            Open Revolut Link
+          </a>
+          <div class="tiny muted">
+            Link: revolut.me/jakek6agj • Processes instantly to your Revolut.
+          </div>
         </div>
-      </div>
 
-      <div id="legal" class="card">
-        <div class="h">Legal</div>
-        <p class="muted">© 2025 Gridcore Systems. All rights reserved. This site is provided “as is” during early access. Basic analytics run only after consent. Payments are processed via Revolut.</p>
+        <ul class="list section">
+          <li><span class="dot"></span><span class="muted">Secure payment provided by Revolut. Your card data never touches this site.</span></li>
+          <li><span class="dot"></span><span class="muted">We keep things simple and transparent. What you see is what you get.</span></li>
+          <li><span class="dot"></span><span class="muted">Upgrades roll out via one‑paste saves—no account lock‑in.</span></li>
+        </ul>
       </div>
-    </div>
+    </section>
 
-    <div class="footer muted">
-      <div class="mono">index.html · one‑file baseline · v0.9</div>
-    </div>
-  </div>
+    <!-- Social proof / placeholder section ready for content -->
+    <section class="section">
+      <div class="card">
+        <h3 style="margin:0 0 10px 0">What you’ll get</h3>
+        <ul class="list">
+          <li><span class="dot"></span><span>Starter “Grid” that’s fast, minimal, and extendable.</span></li>
+          <li><span class="dot"></span><span>Automatic learning from real usage (privacy‑first patterns).</span></li>
+          <li><span class="dot"></span><span>Lifetime access to the early track while pricing adjusts with value.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <footer class="footer">
+      © <span id="y"></span> Gridcore Systems. All rights reserved.
+    </footer>
+  </main>
+
+  <script>
+    // Small helpers: dynamic year + smooth anchor scroll
+    document.getElementById('y').textContent = new Date().getFullYear();
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{
+        const id=a.getAttribute('href').slice(1);
+        const el=document.getElementById(id);
+        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth',block:'start'}); }
+      });
+    });
+  </script>
 </body>
 </html>
