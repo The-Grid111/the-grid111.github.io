@@ -1,323 +1,271 @@
+<!-- =========================  START: GRIDCORE ONE-PASTE UPDATE BLOCK v1.0  ========================= -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title id="pageTitle">GridCore Systems</title>
-  <meta name="description" content="An evolving, personalized AI workflow engine. Minimal effort. Maximum output." />
-
-  <style>
-    /* ===============================
-       START: DESIGN TOKENS (CSS VARS)
-       You rarely need to touch this block; change values only if you want deeper theming.
-       =============================== */
-    :root{
-      /* BRAND COLORS (hooked to the JS variables below on load) */
-      --bg: #0b0b0e;
-      --bg-accent: #111218;
-      --text: #efefef;
-      --muted: #c7c7d1;
-      --gold-1: #D4AF37;
-      --gold-2: #F5E6A6;
-      --gold-3: #AC8E2B;
-
-      /* Sizing & radii */
-      --container: 1100px;
-      --radius: 16px;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-
-      /* Motion */
-      --duration: 700ms;
-      --easing: cubic-bezier(.2,.7,.2,1);
-    }
-
-    /* Reset + base */
-    *,*::before,*::after{ box-sizing:border-box }
-    html,body{ margin:0; padding:0; background:var(--bg); color:var(--text); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, "Apple Color Emoji","Segoe UI Emoji"; }
-    a{ color:inherit; text-decoration:none }
-    img{ max-width:100%; height:auto; display:block }
-
-    /* Premium layered background (subtle motion, gold shimmer lines) */
-    .bg {
-      position: fixed; inset: 0; z-index: -2;
-      background:
-        radial-gradient(1200px 800px at 60% -20%, rgba(245,230,166,.08), transparent 60%),
-        radial-gradient(800px 600px at -10% 40%, rgba(212,175,55,.12), transparent 60%),
-        radial-gradient(1000px 700px at 120% 90%, rgba(172,142,43,.08), transparent 60%),
-        linear-gradient(180deg, var(--bg), var(--bg-accent) 60%, var(--bg));
-    }
-    .gold-lines{
-      position: fixed; inset: 0; z-index:-1; pointer-events:none; opacity:.22;
-      background:
-        repeating-linear-gradient( 75deg,
-          rgba(212,175,55,.0) 0px, rgba(212,175,55,.06) 2px, rgba(212,175,55,.0) 4px
-        );
-      filter: blur(0.6px);
-      animation: drift 28s linear infinite;
-    }
-    @keyframes drift{
-      from { transform: translate3d(-4%,0,0) }
-      to   { transform: translate3d( 4%,0,0) }
-    }
-
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>GridCore Systems — Hyper‑Adaptive AI Workflow</title>
+<meta name="description" content="GridCore: premium, fast, and endlessly adaptable AI workflow hub with live learning and simple copy‑paste updates." />
+<style>
+  /* =========================
+     VARIABLES — EDIT ONLY THIS BLOCK TO TUNE THE SITE
+     ========================= */
+  :root{
+    /* Brand */
+    --brand-name: "GridCore Systems";
+    --tagline: "Plug in. Evolve. Create.";
+    /* Colors */
+    --gold-1:#C68D2D;  /* deep gold */
+    --gold-2:#F5D48B;  /* pale gold */
+    --gold-3:#FFE9B1;  /* soft highlight */
+    --ink:#0B0B0D;     /* near black */
+    --mist:#F7F7F9;    /* off white */
+    --glass:#FFFFFF10; /* glass overlay */
+    /* Accents (tweak feel quickly) */
+    --accent:#A5B4FC;  /* soft indigo */
+    --accent-2:#67E8F9;/* aqua */
+    /* Typography */
+    --h1: clamp(2rem, 5vw, 3rem);
+    --h2: clamp(1.4rem, 3.2vw, 2rem);
+    --h3: clamp(1.1rem, 2.2vw, 1.35rem);
+    --body: clamp(0.98rem, 2.2vw, 1.05rem);
     /* Layout */
-    .wrap { max-width: var(--container); margin: 0 auto; padding: 24px; }
-    .card {
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(8px);
-    }
+    --maxw: 1120px;
+    --rad: 18px;
+    --pad: 18px;
+    /* Payment + Links */
+    --primary-cta-text: "Support the Build";
+    --primary-cta-link: "https://revolut.me/jakek6agj";
+    /* Hero media (optional). Put a public image/video URL here if you want a hero media. */
+    --hero-media-url: "";
+  }
 
-    /* Header / Nav */
-    header{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 0 24px }
-    .brand{ display:flex; align-items:center; gap:12px }
-    .brand img{ width:40px; height:40px; border-radius:12px; object-fit:cover; }
-    .brand h1{ font-size:18px; font-weight:700; letter-spacing:.4px; margin:0 }
-    .pill{ display:inline-flex; gap:8px; align-items:center; padding:8px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.2); color:var(--muted); font-size:12px }
+  /* =========================
+     BASE / RESETS
+     ========================= */
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#0b0b0d;color:var(--mist);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
+  a{color:inherit;text-decoration:none}
+  img,video{max-width:100%;height:auto;display:block;border-radius:var(--rad)}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:24px}
+  .grid{display:grid;gap:18px}
+  .btn{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:12px 18px;background:linear-gradient(135deg,var(--gold-2),var(--gold-1));color:#111;font-weight:700;box-shadow:0 6px 24px #00000055;border:1px solid #ffffff25}
+  .btn:hover{transform:translateY(-1px);filter:saturate(1.05);transition:150ms}
+  .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid #ffffff24;background:var(--glass);backdrop-filter:blur(10px);border-radius:999px;font-size:0.85rem}
+  .card{background:linear-gradient(180deg,#101013,#0b0b0d);border:1px solid #ffffff14;border-radius:var(--rad);padding:var(--pad);box-shadow:inset 0 1px 0 #ffffff0d,0 12px 40px #00000065}
 
-    /* Hero */
-    .hero{ padding: clamp(28px, 6vw, 64px); position:relative; overflow:hidden }
-    .hero h2{ font-size: clamp(28px, 5vw, 48px); margin:0 0 10px; line-height:1.1 }
-    .gradient-gold{
-      background: linear-gradient(90deg, var(--gold-2), var(--gold-1), var(--gold-3));
-      -webkit-background-clip: text; background-clip:text; color:transparent;
-      filter: drop-shadow(0 5px 18px rgba(212,175,55,.15));
-    }
-    .hero p{ color:var(--muted); margin:0 0 22px; font-size: clamp(14px, 2.2vw, 18px); }
-    .cta-row{ display:flex; flex-wrap:wrap; gap:12px }
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:10px;
-      padding: 12px 16px; border-radius: 12px; font-weight:700; letter-spacing:.3px;
-      border: 1px solid rgba(255,255,255,.1);
-      transition: transform var(--duration) var(--easing), opacity var(--duration) var(--easing), filter var(--duration) var(--easing);
-      user-select:none
-    }
-    .btn:hover{ transform: translateY(-1px) scale(1.01) }
-    .btn-primary{
-      background: linear-gradient(180deg, rgba(245,230,166,.25), rgba(212,175,55,.18));
-      color:#0b0b0e;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 6px 18px rgba(212,175,55,.25);
-    }
-    .btn-ghost{ background: rgba(255,255,255,.06); color:var(--text) }
+  /* =========================
+     PREMIUM BACKGROUND — animated layered gold weave
+     ========================= */
+  .stage{
+    position:fixed;inset:0;pointer-events:none;z-index:-1;
+    background:
+      radial-gradient(1200px 600px at -10% -20%, #2a1f08 0%, transparent 50%),
+      radial-gradient(1000px 500px at 110% 120%, #2a1f08 0%, transparent 50%),
+      linear-gradient(120deg, #0b0b0d 0%, #0f0b07 60%, #0b0b0d 100%);
+  }
+  .gold-weave{
+    position:absolute;inset:0;opacity:.18;mix-blend:screen;filter:blur(0.3px);
+    background:
+      repeating-conic-gradient(from 0deg at 50% 50%, var(--gold-3) 0 2deg, transparent 2deg 4deg);
+    -webkit-mask: radial-gradient(70% 70% at 50% 50%, #000 40%, transparent 75%);
+            mask: radial-gradient(70% 70% at 50% 50%, #000 40%, transparent 75%);
+    animation: drift 18s linear infinite;
+  }
+  .gold-sheen{
+    position:absolute;inset:-20% -40% -20% -40%;
+    background:
+      radial-gradient(40% 80% at 20% 30%, #FFE9B155 0%, transparent 70%),
+      radial-gradient(55% 95% at 80% 60%, #F5D48B55 0%, transparent 70%);
+    mix-blend:screen;opacity:.35;animation: floaty 26s ease-in-out infinite;
+  }
+  @keyframes drift{to{transform:rotate(360deg)}}
+  @keyframes floaty{50%{transform:translateY(-10px)}}
 
-    /* Sections */
-    section{ margin: 28px 0 }
-    .section-title{ font-size:20px; letter-spacing:.5px; opacity:.9; margin:0 0 12px }
-    .grid{ display:grid; gap:14px }
-    .grid.features{ grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
-    .item{ padding:16px; border-radius:12px; background: rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08) }
-    .item h3{ margin:0 0 6px; font-size:16px }
-    .item p{ margin:0; color:var(--muted); font-size:14px; line-height:1.5 }
+  /* =========================
+     HEADER / HERO
+     ========================= */
+  header{border-bottom:1px solid #ffffff12;background:linear-gradient(180deg,#0b0b0df5,#0b0b0dd9)}
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .logo{display:flex;align-items:center;gap:12px}
+  .brand{font-weight:800;letter-spacing:.3px}
+  .brand span{background:linear-gradient(135deg,var(--gold-3),var(--gold-1));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero{display:grid;gap:18px;padding:28px 0}
+  .hero h1{font-size:var(--h1);line-height:1.05;margin:0}
+  .hero p{font-size:var(--h3);opacity:.9;margin:0}
+  .hero-media{position:relative;border-radius:var(--rad);overflow:hidden;border:1px solid #ffffff18;background:#0e0e11}
+  .hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,.35));pointer-events:none}
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
 
-    /* Featured video placeholder */
-    .video-shell{
-      aspect-ratio: 16/9; border-radius:16px; overflow:hidden; position:relative;
-      background: radial-gradient(600px 300px at 50% 20%, rgba(245,230,166,.12), transparent 60%), rgba(255,255,255,.03);
-      border:1px solid rgba(255,255,255,.08)
-    }
-    .video-shell .overlay{
-      position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:14px;
-    }
+  /* =========================
+     SECTIONS
+     ========================= */
+  section h2{font-size:var(--h2);margin:0 0 10px}
+  .features{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+  .prompt-grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .sticky-foot{
+    position:sticky;bottom:0;margin-top:18px;border-top:1px solid #ffffff14;
+    background:linear-gradient(180deg,#0b0b0de6,#0b0b0dfc);backdrop-filter:blur(6px)
+  }
 
-    /* Footer */
-    footer{ padding: 32px 0 50px; color:var(--muted); font-size:12px; text-align:center }
-    .gold-divider{ height:1px; background: linear-gradient(90deg, transparent, rgba(212,175,55,.45), transparent); margin: 18px 0 }
-
-    /* Small helper badges */
-    .badge{
-      display:inline-flex; align-items:center; gap:8px; padding:8px 10px;
-      border: 1px dashed rgba(255,255,255,.18); border-radius:10px; color:var(--muted); font-size:12px
-    }
-  </style>
-
-  <!-- ============================================
-       START: VARIABLES SECTION (EDIT THESE ONLY)
-       Paste new values I give you here. Keep the structure.
-       ============================================ -->
-  <script>
-    const VARS = {
-      /* BRAND / TEXT */
-      siteName: "GridCore Systems",
-      tagline: "An evolving, personalized AI workflow engine. Minimal effort. Maximum output.",
-      heroTitle: "Build once. <span class='gradient-gold'>Scale forever.</span>",
-      heroSub: "Your AI workflow that learns from real usage and refines itself. Plug in, focus on outcomes, and let GridCore handle the rest.",
-      /* LINKS */
-      ctaPrimaryText: "Join & Support",
-      ctaPrimaryLink: "https://revolut.me/jakek6agj",      // your payment link
-      ctaSecondaryText: "See Live Demo",
-      ctaSecondaryLink: "#featured-video",
-      /* LOGO / IMAGES (use full URLs or data URLs) */
-      logoUrl: "",   // add a hosted image URL later; if empty, fallback monogram renders
-      /* THEME */
-      colors: {
-        background: "#0b0b0e",
-        backgroundAccent: "#111218",
-        text: "#efefef",
-        muted: "#c7c7d1",
-        gold1: "#D4AF37",
-        gold2: "#F5E6A6",
-        gold3: "#AC8E2B"
-      },
-      /* FEATURE CARDS (you can add/remove items safely) */
-      features: [
-        { title: "Auto‑Learning Core", text: "Ingests user interactions (with consent), finds patterns, and tunes flows without manual tinkering." },
-        { title: "One‑Paste Updates", text: "Update via a single variables section. No code editing. No regressions." },
-        { title: "Privacy‑First", text: "Granular consent, clear controls, compliant by design. Insights without invasive tracking." },
-        { title: "Scale‑Ready", text: "Edge‑friendly, static-first delivery to handle spikes without breaking a sweat." }
-      ],
-      /* PROMPT LIBRARY PREVIEW */
-      promptStarters: [
-        "Turn my idea into a 3‑step workflow.",
-        "Summarize user feedback and propose changes.",
-        "Draft a 20s TikTok launch script with CTA.",
-        "Generate a weekly learning report from usage."
-      ]
-    };
-  </script>
-  <!-- ============================================
-       END: VARIABLES SECTION (STOP EDITING ABOVE)
-       ============================================ -->
-
-  <script>
-    // Light binding of VARS → DOM + CSS variables
-    document.addEventListener("DOMContentLoaded", () => {
-      // Theme
-      const c = VARS.colors || {};
-      document.documentElement.style.setProperty("--bg", c.background || "#0b0b0e");
-      document.documentElement.style.setProperty("--bg-accent", c.backgroundAccent || "#111218");
-      document.documentElement.style.setProperty("--text", c.text || "#efefef");
-      document.documentElement.style.setProperty("--muted", c.muted || "#c7c7d1");
-      document.documentElement.style.setProperty("--gold-1", c.gold1 || "#D4AF37");
-      document.documentElement.style.setProperty("--gold-2", c.gold2 || "#F5E6A6");
-      document.documentElement.style.setProperty("--gold-3", c.gold3 || "#AC8E2B");
-
-      // Texts
-      const $ = (sel)=>document.querySelector(sel);
-      $("#siteName").textContent = VARS.siteName;
-      $("#pageTitle").textContent = VARS.siteName;
-      $("#tagline").textContent = VARS.tagline;
-      $("#heroTitle").innerHTML = VARS.heroTitle;
-      $("#heroSub").textContent = VARS.heroSub;
-
-      // CTAs
-      const primary = $("#ctaPrimary");
-      primary.textContent = VARS.ctaPrimaryText;
-      primary.href = VARS.ctaPrimaryLink;
-
-      const secondary = $("#ctaSecondary");
-      secondary.textContent = VARS.ctaSecondaryText;
-      secondary.href = VARS.ctaSecondaryLink;
-
-      // Logo
-      const logoEl = $("#logoImg");
-      const monogramEl = $("#logoFallback");
-      if (VARS.logoUrl) {
-        logoEl.src = VARS.logoUrl;
-        logoEl.hidden = false;
-        monogramEl.hidden = true;
-      } else {
-        // Monogram from site name initials
-        const initials = (VARS.siteName || "GC").split(/\s+/).map(s=>s[0]).join("").slice(0,3).toUpperCase();
-        monogramEl.textContent = initials;
-        logoEl.hidden = true;
-        monogramEl.hidden = false;
-      }
-
-      // Features
-      const featureWrap = document.getElementById("featuresWrap");
-      featureWrap.innerHTML = "";
-      (VARS.features||[]).forEach(f=>{
-        const div = document.createElement("div");
-        div.className = "item";
-        div.innerHTML = `<h3>${f.title}</h3><p>${f.text}</p>`;
-        featureWrap.appendChild(div);
-      });
-
-      // Prompt Library
-      const promptWrap = document.getElementById("promptWrap");
-      promptWrap.innerHTML = "";
-      (VARS.promptStarters||[]).forEach(p=>{
-        const d = document.createElement("div");
-        d.className = "badge";
-        d.textContent = p;
-        promptWrap.appendChild(d);
-      });
-    });
-  </script>
+  /* =========================
+     INLINE SVG LOGO (no external file)
+     ========================= */
+  .svgLogo{width:32px;height:32px}
+  .svgLogo path{fill:url(#g);filter:drop-shadow(0 2px 6px rgba(245,212,139,.3))}
+</style>
 </head>
-
 <body>
-  <div class="bg"></div>
-  <div class="gold-lines"></div>
+<div class="stage">
+  <div class="gold-weave"></div>
+  <div class="gold-sheen"></div>
+</div>
 
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <img id="logoImg" alt="Logo" hidden />
-        <div id="logoFallback" class="card" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-weight:800;background:linear-gradient(180deg, rgba(245,230,166,.28), rgba(212,175,55,.14)); color:#0b0b0e; border-radius:12px;">GC</div>
-        <div>
-          <h1 id="siteName">GridCore Systems</h1>
-          <div class="pill" id="tagline">An evolving, personalized AI workflow engine. Minimal effort. Maximum output.</div>
-        </div>
-      </div>
-      <a class="btn btn-ghost" href="#how">How it works</a>
-    </header>
-
-    <main class="card hero">
-      <h2 id="heroTitle">Build once. <span class="gradient-gold">Scale forever.</span></h2>
-      <p id="heroSub">Your AI workflow that learns from real usage and refines itself. Plug in, focus on outcomes, and let GridCore handle the rest.</p>
-      <div class="cta-row">
-        <a id="ctaPrimary" class="btn btn-primary" href="https://revolut.me/jakek6agj" target="_blank" rel="noopener">Join & Support</a>
-        <a id="ctaSecondary" class="btn btn-ghost" href="#featured-video">See Live Demo</a>
-      </div>
-    </main>
-
-    <section id="how">
-      <h3 class="section-title">What you get today</h3>
-      <div class="grid features" id="featuresWrap">
-        <!-- Filled from VARS.features -->
-      </div>
-    </section>
-
-    <section>
-      <h3 class="section-title">Prompt Library (starters)</h3>
-      <div class="grid" id="promptWrap">
-        <!-- Filled from VARS.promptStarters -->
-      </div>
-    </section>
-
-    <section id="featured-video">
-      <h3 class="section-title">Featured AI Video</h3>
-      <div class="video-shell">
-        <!-- Replace this iframe src later; you won’t touch code, I’ll give you the single variable line when you have a link -->
-        <div class="overlay">Video placeholder — drop a link when ready (YouTube, Loom, Drive).</div>
-      </div>
-    </section>
-
-    <section>
-      <h3 class="section-title">Roadmap / Updates</h3>
-      <div class="item">
-        <p class="item-text">
-          • Variable‑only updates (one paste).<br/>
-          • Auto‑learning (privacy‑first).<br/>
-          • Rapid theming (gold/onyx baseline).<br/>
-          • Live demos & community prompts incoming.
-        </p>
-      </div>
-    </section>
-
-    <div class="gold-divider"></div>
-    <footer>
-      <div>© <span id="year"></span> <span id="footName">GridCore Systems</span> — Future‑ready, human‑centered AI workflows.</div>
-    </footer>
+<header>
+  <div class="wrap nav">
+    <div class="logo">
+      <!-- Minimal monogram "GC" in gold -->
+      <svg class="svgLogo" viewBox="0 0 64 64" aria-hidden="true">
+        <defs>
+          <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0" stop-color="var(--gold-3)"/>
+            <stop offset="1" stop-color="var(--gold-1)"/>
+          </linearGradient>
+        </defs>
+        <path d="M32 6c14.4 0 26 11.6 26 26S46.4 58 32 58 6 46.4 6 32 17.6 6 32 6zm0 8c-10 0-18 8-18 18 0 9.9 8 18 18 18 7.4 0 13.9-4.4 16.6-10.9h-9.7a8 8 0 1 1 0-14.2h9.7C45.9 18.4 39.4 14 32 14z"/>
+      </svg>
+      <div class="brand"><span>GridCore</span> Systems</div>
+    </div>
+    <a class="pill" href="#pricing">Early access • free tier</a>
   </div>
+</header>
 
-  <script>
-    // Small footer year injection
-    document.getElementById("year").textContent = new Date().getFullYear();
-    document.getElementById("footName").textContent = VARS.siteName;
-  </script>
+<main class="wrap">
+  <section class="hero">
+    <h1><span style="background:linear-gradient(135deg,var(--gold-3),var(--gold-1));-webkit-background-clip:text;background-clip:text;color:transparent;">GridCore</span> — <em>the copy‑paste AI workspace</em> that learns from real use.</h1>
+    <p><strong><span id="tagline"></span></strong> Ultra‑simple updates (delete & paste), premium look, live feedback learning, and ethical monetisation baked in.</p>
+    <div class="cta-row">
+      <a class="btn" href="#" id="primaryCta"></a>
+      <a class="pill" href="#feature-video">Watch 20s demo</a>
+      <a class="pill" href="#prompts">Prompt Library</a>
+    </div>
+
+    <div class="hero-media" id="heroMediaSlot" aria-label="Hero media">
+      <!-- If you set --hero-media-url above, we’ll show it here automatically -->
+      <div style="aspect-ratio:16/9;display:grid;place-items:center;color:#bbb;font-size:.95rem;letter-spacing:.2px">
+        (Add hero image/video later — just set <code>--hero-media-url</code> in Variables)
+      </div>
+    </div>
+  </section>
+
+  <section id="breakthroughs" class="grid features">
+    <div class="card">
+      <h2>Why it feels different</h2>
+      <p>GridCore is designed around <strong>one‑step updates</strong>, <strong>live learning</strong> from safe feedback, and <strong>no overwhelm</strong>. You tell us tweaks in plain English; the site exposes simple variables; you paste once.</p>
+    </div>
+    <div class="card">
+      <h2>Live learning (opt‑in)</h2>
+      <p>Anonymous analytics + structured feedback summaries let the system improve prompts, layouts, and guidance—without storing personal content.</p>
+    </div>
+    <div class="card">
+      <h2>Premium visual engine</h2>
+      <p>Layered gold weave background, glass cards, and adaptive typography create a <em>future‑but‑tasteful</em> aesthetic. Fully mobile‑first.</p>
+    </div>
+    <div class="card">
+      <h2>Copy‑paste ops</h2>
+      <p>Major changes = replace this file. Minor tweaks = edit Variables. No extra folders, no assets required.</p>
+    </div>
+  </section>
+
+  <section id="prompts" style="margin-top:18px">
+    <h2>Prompt Library — quick wins</h2>
+    <div class="grid prompt-grid">
+      <div class="card">
+        <h3>Logo (Runway)</h3>
+        <p>Minimal “GC” monogram, molten brushed gold on soft‑black, depth, subtle glow, ultra‑clean negative space, luxury fintech, vector‑like clarity, 1:1.</p>
+      </div>
+      <div class="card">
+        <h3>Hero Background (Runway)</h3>
+        <p>Liquid gold ribbon on matte black, layered bokeh, tasteful shimmer, not noisy, wide 16:9, leaves generous text‑safe space.</p>
+      </div>
+      <div class="card">
+        <h3>Showcase Card (Runway)</h3>
+        <p>Glass card on dark, soft reflections, thin gold keyline, subtle inner glow, product screenshot placeholder.</p>
+      </div>
+      <div class="card">
+        <h3>TikTok 20s (Script)</h3>
+        <p>Hook, 2 benefits, 1 visual proof, CTA: “Link in bio — free tier live.”</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="feature-video" style="margin-top:18px" class="card">
+    <h2>Featured AI Video</h2>
+    <p>Drop a 15—20s demo here later. For now this is a slot with clean framing.</p>
+    <div style="aspect-ratio:16/9;background:#0f0f13;border:1px dashed #ffffff22;border-radius:var(--rad);display:grid;place-items:center;color:#999">
+      (Video placeholder)
+    </div>
+  </section>
+
+  <section id="pricing" style="margin-top:18px" class="grid features">
+    <div class="card">
+      <h2>Pricing</h2>
+      <ul style="margin:0;padding-left:18px;line-height:1.6">
+        <li><strong>Starter (Free):</strong> Try prompts, community tips.</li>
+        <li><strong>Creator:</strong> Extended library, priority feedback.</li>
+        <li><strong>Pro:</strong> Full prompt suites, templates, early features.</li>
+      </ul>
+      <div style="margin-top:12px">
+        <a class="btn" id="supportBtn"></a>
+      </div>
+      <p style="opacity:.8;margin-top:8px;font-size:.9rem">Fast, compliant UK‑friendly payments via Revolut Pay link.</p>
+    </div>
+    <div class="card">
+      <h2>Feedback → Improvement</h2>
+      <p>Leave a quick note. The system summarises patterns and proposes safe updates — you keep final say.</p>
+      <form onsubmit="event.preventDefault();alert('Thanks — feedback captured locally for now.');this.reset();" class="grid" style="grid-template-columns:1fr">
+        <input required placeholder="Your idea or issue…" style="padding:12px;border-radius:12px;border:1px solid #ffffff22;background:#0f0f13;color:#fff" />
+        <button class="btn" type="submit">Send feedback</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="sticky-foot">
+  <div class="wrap grid" style="grid-template-columns:1fr;gap:8px">
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+      <span class="pill">© <span id="year"></span> <strong>GridCore Systems</strong></span>
+      <span class="pill">Ethical • Private • Fast</span>
+      <a class="pill" href="#prompts">Updates via Variables</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // =========================
+  // LIGHT JS: fills CTA, tagline, year, and optional hero media
+  // =========================
+  const $ = (s)=>document.querySelector(s);
+  const brand = getComputedStyle(document.documentElement).getPropertyValue('--brand-name').replace(/(^")|("$)/g,'').trim();
+  const tagline = getComputedStyle(document.documentElement).getPropertyValue('--tagline').replace(/(^")|("$)/g,'').trim();
+  const ctaText = getComputedStyle(document.documentElement).getPropertyValue('--primary-cta-text').replace(/(^")|("$)/g,'').trim();
+  const ctaLink = getComputedStyle(document.documentElement).getPropertyValue('--primary-cta-link').replace(/(^")|("$)/g,'').trim();
+  const heroMedia = getComputedStyle(document.documentElement).getPropertyValue('--hero-media-url').replace(/(^")|("$)/g,'').trim();
+
+  $('#tagline').textContent = tagline || '';
+  const ctaBtn = $('#primaryCta'); const supBtn = $('#supportBtn');
+  if (ctaBtn){ ctaBtn.textContent = ctaText; ctaBtn.href = ctaLink; }
+  if (supBtn){ supBtn.textContent = ctaText; supBtn.href = ctaLink; }
+  $('#year').textContent = new Date().getFullYear();
+
+  if (heroMedia && $('#heroMediaSlot')){
+    const url = heroMedia;
+    const isVid = /\.(mp4|webm|mov|m4v)$/i.test(url);
+    $('#heroMediaSlot').innerHTML = isVid
+      ? `<video src="${url}" autoplay muted loop playsinline></video>`
+      : `<img src="${url}" alt="Hero media" />`;
+  }
+</script>
 </body>
 </html>
+<!-- =========================  END: GRIDCORE ONE-PASTE UPDATE BLOCK v1.0  ========================= -->
