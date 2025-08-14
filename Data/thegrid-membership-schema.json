@@ -1,0 +1,24 @@
+{
+  "THEGRID_MEMBERSHIP_SAVE": {
+    "meta": {
+      "version": "1.0",
+      "user_id": "<provider:user_id>",
+      "tier": "savable",
+      "last_update": "YYYY-MM-DD",
+      "source_site_version": "<site-version>",
+      "permissions": [
+        "read_public_niches",
+        "write_personal_variants"
+      ]
+    },
+    "niches": [
+      {
+        "name": "<niche-name>",
+        "prompt_override": "<optional user-tuned prompt>",
+        "render_settings_override": {},
+        "notes": "",
+        "updated_at": "YYYY-MM-DDThh:mm:ssZ"
+      }
+    ]
+  }
+}
