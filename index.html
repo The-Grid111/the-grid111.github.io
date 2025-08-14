@@ -1,213 +1,300 @@
+<!-- ===== START OF GRIDCORE INDEX.HTML (GOLD EDITION) ===== -->
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Gridcore Systems — Plug‑in Intelligence</title>
-  <meta name="description" content="Gridcore Systems: a clean, fast, future-forward AI workflow that learns from your content and keeps improving—without overwhelming you." />
-  <link rel="preconnect" href="https://api.qrserver.com" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>GridCore Systems — Premium Personal AI</title>
+  <meta name="description" content="A premium, evolving personal-AI workflow that learns with you. Simple. Fast. Secure.">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
   <style>
     :root{
-      --bg:#0b0b0f;
-      --card:#11121a;
-      --muted:#8f95b2;
-      --text:#e9ecff;
-      --brand:#ffd166; /* gold */
-      --brand-2:#f6c33f;
-      --ok:#5df2a5;
-      --danger:#ff6b6b;
-      --ring: 0 0 0 2px rgba(255,209,102,.25);
-      --max:1120px;
-      --radius:18px;
+      --bg:#0c0c0e;
+      --ink:#e5e7eb;
+      --ink-dim:#bfc3cb;
+      --gold-1:#f7d774;
+      --gold-2:#f1c24b;
+      --gold-3:#d6a43a;
+      --gold-4:#8a6a2a;
+      --accent:#8f7bff;
+      --card:#141417cc;
+      --glass: rgba(255,255,255,0.06);
+      --ok:#22c55e;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0; font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,Apple Color Emoji,Segoe UI Emoji;
-      background:radial-gradient(1200px 600px at 70% -10%, #1a1b27 0%, #0b0b0f 55%),
-                 radial-gradient(900px 500px at -10% 120%, #141522 0%, #0b0b0f 60%);
-      color:var(--text);
-      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+      margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--ink); background:var(--bg); overflow-x:hidden;
     }
-    a{color:inherit; text-decoration:none}
-    .wrap{max-width:var(--max); margin-inline:auto; padding:24px}
-    .nav{
-      display:flex; align-items:center; justify-content:space-between; gap:16px;
-      padding:12px 0;
-      position:sticky; top:0; backdrop-filter:saturate(140%) blur(8px);
+
+    /* ===== GOLD, LAYERED, ANIMATED BACKGROUND ===== */
+    .gold-bg{
+      position:fixed; inset:0; z-index:-3;
+      background:
+        radial-gradient(1200px 600px at 10% 10%, #1a1a1c 0 40%, transparent 60%),
+        radial-gradient(1000px 600px at 90% 20%, rgba(255,255,255,0.04), transparent 60%),
+        radial-gradient(800px 500px at 70% 80%, rgba(255,255,255,0.03), transparent 60%),
+        linear-gradient(135deg, #0c0c0e 0%, #111114 60%, #0d0d10 100%);
+      filter:saturate(1.1) contrast(1.02);
     }
-    .logo{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.4px}
-    .logo-badge{
-      width:34px; height:34px; border-radius:10px; display:grid; place-items:center;
-      background:linear-gradient(135deg,var(--brand),var(--brand-2));
-      color:#111; font-weight:900;
-      box-shadow:0 6px 20px rgba(255,209,102,.25);
+    .gold-sheen{
+      position:fixed; inset:-50%; z-index:-2; pointer-events:none; opacity:.35;
+      background:
+        radial-gradient(60% 20% at 20% 10%, var(--gold-1), transparent 70%),
+        radial-gradient(40% 15% at 70% 20%, var(--gold-2), transparent 70%),
+        radial-gradient(30% 12% at 60% 70%, var(--gold-3), transparent 70%);
+      mix-blend-mode:overlay;
+      animation:floatSheen 18s ease-in-out infinite alternate;
     }
-    .pill{
-      display:inline-flex; align-items:center; gap:10px;
-      background:rgba(255,209,102,.1); color:var(--brand);
-      border:1px solid rgba(255,209,102,.25);
-      padding:8px 12px; border-radius:999px; font-size:12px;
+    @keyframes floatSheen{
+      0%{transform:translate3d(-2%, -1%, 0) rotate(0.2deg)}
+      100%{transform:translate3d(2%, 1%, 0) rotate(-0.2deg)}
     }
+    .gold-noise{
+      position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.08;
+      background-image: repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0 1px, transparent 1px 2px),
+                        repeating-linear-gradient(90deg, rgba(255,255,255,.04) 0 1px, transparent 1px 3px);
+      mix-blend-mode:soft-light;
+      animation:grain 12s steps(6) infinite;
+    }
+    @keyframes grain{
+      0%{transform:translate(0,0)}
+      25%{transform:translate(-3%, 2%)}
+      50%{transform:translate(2%, -3%)}
+      75%{transform:translate(-2%, 3%)}
+      100%{transform:translate(0,0)}
+    }
+
+    /* ===== LAYOUT ===== */
+    .wrap{max-width:1100px; margin:0 auto; padding:24px}
+    header{
+      position:sticky; top:0; backdrop-filter:saturate(140%) blur(10px);
+      background:linear-gradient(to bottom, rgba(10,10,12,.85), rgba(10,10,12,.35));
+      border-bottom:1px solid rgba(255,255,255,.06);
+      z-index:10;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px; padding:14px 24px;
+    }
+    .logo{
+      width:36px; height:36px; border-radius:10px;
+      background: conic-gradient(from 120deg, var(--gold-2), var(--gold-1), var(--gold-3), var(--gold-2));
+      display:grid; place-items:center; font-weight:800; color:#101012; letter-spacing:.5px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,.15) inset, 0 6px 18px rgba(0,0,0,.4);
+    }
+    .brand h1{margin:0; font-size:18px; font-weight:800}
+    .badge{
+      margin-left:auto; font-size:12px; padding:4px 8px; border-radius:999px;
+      background:rgba(34,197,94,.15); color:#86efac; border:1px solid rgba(22,163,74,.4);
+    }
+
     .hero{
-      display:grid; gap:26px; align-items:center;
-      grid-template-columns:1.1fr; text-align:center; padding:18px 0 8px;
+      display:grid; gap:18px; grid-template-columns:1fr; margin-top:18px;
     }
-    .title{font-size:clamp(28px,5vw,46px); line-height:1.1; font-weight:800; letter-spacing:.2px}
-    .lead{color:var(--muted); font-size:clamp(14px,2.5vw,18px)}
-    .cta{
-      display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:6px;
+    @media(min-width:860px){
+      .hero{grid-template-columns:1.2fr .8fr; align-items:stretch}
     }
+    .panel{
+      background:linear-gradient(180deg, var(--card), rgba(20,20,23,.6));
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:16px; padding:22px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    .title{margin:.1rem 0 .4rem; font-size:clamp(24px, 4vw, 40px); line-height:1.1}
+    .subtitle{margin:.2rem 0 1rem; color:var(--ink-dim)}
+    .cta-row{display:flex; gap:10px; flex-wrap:wrap}
     .btn{
-      display:inline-flex; align-items:center; gap:10px; cursor:pointer;
-      border-radius:12px; padding:12px 16px; font-weight:700; border:1px solid transparent;
-      transition:transform .08s ease, box-shadow .2s ease, background .2s ease;
-      will-change:transform;
+      text-decoration:none; color:#0d0d10; font-weight:800;
+      background:linear-gradient(135deg, var(--gold-1), var(--gold-2) 50%, var(--gold-3));
+      padding:12px 16px; border-radius:12px;
+      box-shadow:0 8px 18px rgba(214,164,58,.25), 0 1px 0 rgba(255,255,255,.25) inset;
+      border:1px solid rgba(255,255,255,.2);
+      transition:transform .15s ease, filter .15s ease;
     }
-    .btn:active{transform:translateY(1px)}
-    .btn-primary{
-      background:linear-gradient(180deg,var(--brand),var(--brand-2));
-      color:#1a1a1a; box-shadow:0 10px 24px rgba(255,209,102,.25);
+    .btn:hover{transform:translateY(-1px); filter:saturate(1.1)}
+
+    /* QR / PAY TILE (no image file needed) */
+    .qr-wrap{display:grid; place-items:center; text-align:center}
+    .qr-card{
+      width:min(340px, 95%); background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.09); border-radius:16px; padding:18px 16px;
     }
-    .btn-secondary{
-      background:#151623; border-color:#2a2c44; color:var(--text);
+    .qr-box{
+      aspect-ratio:1/1; width:100%; border-radius:10px; display:grid; place-items:center;
+      background:
+        conic-gradient(from 180deg at 50% 50%, #000 0 25%, #fff 0 50%, #000 0 75%, #fff 0 100%),
+        repeating-linear-gradient(0deg, #000 0 6px, #fff 6px 12px),
+        repeating-linear-gradient(90deg, #000 0 6px, #fff 6px 12px);
+      background-blend-mode: multiply;
+      box-shadow: 0 0 0 1px rgba(255,255,255,.2) inset;
+      position:relative; overflow:hidden;
     }
-    .grid{
-      display:grid; gap:16px; grid-template-columns:1fr; margin-top:28px;
+    .qr-overlay{
+      position:absolute; inset:0; background:
+        radial-gradient(120px 40px at 50% 0%, rgba(255,255,255,.08), transparent 70%);
+      pointer-events:none;
     }
+    .qr-below{
+      margin-top:10px; font-size:13px; color:var(--ink-dim)
+    }
+    .pay-row{display:flex; gap:8px; margin-top:12px}
+    .copy{
+      background:var(--glass); border:1px solid rgba(255,255,255,.12);
+      color:var(--ink); border-radius:10px; padding:10px 12px; cursor:pointer; flex:1; font-weight:600;
+    }
+    .copy:hover{background:rgba(255,255,255,.1)}
+    .success{display:none; color:#86efac; font-size:12px; margin-top:6px}
+
+    /* Cards / sections */
+    h2.section{margin:30px 0 10px; font-size:clamp(20px, 3vw, 28px)}
+    .cards{display:grid; gap:14px; grid-template-columns:1fr}
+    @media(min-width:760px){ .cards{grid-template-columns:1fr 1fr} }
     .card{
-      background:linear-gradient(180deg,#121321,#0e0f19);
-      border:1px solid #1f2134; border-radius:var(--radius); padding:18px;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
+      padding:16px; border-radius:14px; background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.08)
     }
-    .card h3{margin:0 0 6px 0; font-size:18px}
-    .muted{color:var(--muted)}
-    .qr-wrap{
-      display:grid; gap:14px; justify-items:center; padding:16px; border-radius:var(--radius);
-      background:radial-gradient(400px 200px at 50% 0%, rgba(255,209,102,.12), transparent 60%),
-                 linear-gradient(180deg,#121321,#0e0f19);
-      border:1px dashed rgba(255,209,102,.35);
+    .muted{color:var(--ink-dim)}
+    .footer{margin:28px 0 40px; text-align:center; color:var(--ink-dim); font-size:12px}
+    .chip{
+      display:inline-flex; gap:8px; align-items:center; padding:6px 10px; border-radius:999px;
+      background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); font-size:12px;
     }
-    .qr-img{
-      width:min(280px,70vw); height:auto; border-radius:12px; background:#fff; padding:10px;
-      box-shadow:0 12px 30px rgba(0,0,0,.5);
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace}
+    .pill{
+      display:inline-block; padding:2px 8px; border-radius:999px; background:rgba(143,123,255,.15);
+      border:1px solid rgba(143,123,255,.35); color:#cfd0ff; font-size:11px; font-weight:700; letter-spacing:.4px
     }
-    .tiny{font-size:12px}
-    .section{margin-top:34px}
-    .list{
-      display:grid; gap:10px; margin:0; padding:0; list-style:none;
-    }
-    .list li{display:flex; gap:10px; align-items:flex-start}
-    .dot{width:8px; height:8px; border-radius:99px; background:var(--ok); margin-top:8px; flex:0 0 8px}
-    .footer{opacity:.7; text-align:center; font-size:12px; margin:40px 0 10px}
-    /* wider */
-    @media(min-width:880px){
-      .hero{grid-template-columns:1.15fr .85fr; text-align:left}
-      .cta{justify-content:flex-start}
-      .grid{grid-template-columns:repeat(3,1fr)}
-    }
+
+    /* Helpers for EDIT markers */
+    .hint{font-size:12px; color:var(--ink-dim)}
+    .edit{outline:1px dashed rgba(255,255,255,.2); border-radius:10px; padding:8px}
   </style>
 </head>
 <body>
-  <header class="wrap nav">
-    <div class="logo">
-      <div class="logo-badge">G</div>
-      <div>Gridcore Systems</div>
+  <div class="gold-bg"></div>
+  <div class="gold-sheen"></div>
+  <div class="gold-noise"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="brand wrap">
+      <div class="logo">GC</div>
+      <h1>GridCore Systems</h1>
+      <span class="badge">LIVE</span>
     </div>
-    <a href="#pay" class="pill">Early Access • Live</a>
   </header>
 
-  <main class="wrap">
-    <section class="hero">
-      <div>
-        <div class="pill" style="margin-bottom:10px">Clean • Fast • Future‑forward</div>
-        <h1 class="title">Plug‑in intelligence that learns as you work.</h1>
-        <p class="lead">
-          A frictionless workflow that organizes your data, stays simple for everyday use, and
-          keeps improving itself from real‑world feedback—without overwhelming you.
-        </p>
-        <div class="cta">
-          <a class="btn btn-primary" href="#pay" aria-label="Proceed to payment">Get Access</a>
-          <a class="btn btn-secondary" href="#how">How it works</a>
-        </div>
+  <!-- ===== HERO ===== -->
+  <main class="wrap hero">
+    <section class="panel">
+      <div class="pill">PREMIUM • FAST • SECURE</div>
+      <h1 class="title">Your AI, always getting better.</h1>
+      <p class="subtitle">
+        A personal system that learns with you. One‑click updates. Bank‑level privacy.
+        Designed for speed, clarity, and real results.
+      </p>
 
-        <div class="grid section" id="how">
-          <div class="card">
-            <h3>01. Simple by default</h3>
-            <p class="muted">Daily & weekly focus up front. Everything else stays out of your way until you need it.</p>
-          </div>
-          <div class="card">
-            <h3>02. Learns from use</h3>
-            <p class="muted">Reads patterns in text, images, and videos to refine suggestions and flows.</p>
-          </div>
-          <div class="card">
-            <h3>03. One‑step updates</h3>
-            <p class="muted">When you’ve got an improvement, just paste the new save. No zips. No fuss.</p>
-          </div>
-        </div>
+      <!-- ===== EDIT: MAIN CTA TEXT (safe to change) ===== -->
+      <div class="cta-row edit">
+        <a class="btn" href="https://revolut.me/jakek6agj" target="_blank" rel="noopener">
+          💳 Support / Subscribe (Instant)
+        </a>
+        <a class="btn" href="#prompts">⚡ Prompt Library</a>
       </div>
+      <p class="hint">Tip: You can change the button text/URL later. Look for “EDIT” comments.</p>
 
-      <!-- Payment + QR column -->
-      <div id="pay" class="card">
-        <h3 style="margin-top:0">Instant Access (Early)</h3>
-        <p class="muted" style="margin-top:6px">
-          Tap the button or scan the QR to send a contribution and unlock access.
-          Refunds are limited; please only pay if you’re happy with what’s on the page.
-        </p>
-
-        <div class="qr-wrap" style="margin-top:12px">
-          <!-- Live QR generated on the fly (no name embedded). -->
-          <img
-            class="qr-img"
-            src="https://api.qrserver.com/v1/create-qr-code/?size=520x520&data=https%3A%2F%2Frevolut.me%2Fjakek6agj"
-            alt="Scan to pay via Revolut"
-            loading="lazy"
-            decoding="async"
-          />
-
-          <a class="btn btn-primary" href="https://revolut.me/jakek6agj" target="_blank" rel="noopener">
-            Open Revolut Link
-          </a>
-          <div class="tiny muted">
-            Link: revolut.me/jakek6agj • Processes instantly to your Revolut.
-          </div>
-        </div>
-
-        <ul class="list section">
-          <li><span class="dot"></span><span class="muted">Secure payment provided by Revolut. Your card data never touches this site.</span></li>
-          <li><span class="dot"></span><span class="muted">We keep things simple and transparent. What you see is what you get.</span></li>
-          <li><span class="dot"></span><span class="muted">Upgrades roll out via one‑paste saves—no account lock‑in.</span></li>
-        </ul>
+      <div style="margin-top:12px" class="chip">
+        <span>Auto‑updates</span> • <span>Mobile‑first</span> • <span>Copy‑paste deploy</span>
       </div>
     </section>
 
-    <!-- Social proof / placeholder section ready for content -->
-    <section class="section">
-      <div class="card">
-        <h3 style="margin:0 0 10px 0">What you’ll get</h3>
-        <ul class="list">
-          <li><span class="dot"></span><span>Starter “Grid” that’s fast, minimal, and extendable.</span></li>
-          <li><span class="dot"></span><span>Automatic learning from real usage (privacy‑first patterns).</span></li>
-          <li><span class="dot"></span><span>Lifetime access to the early track while pricing adjusts with value.</span></li>
-        </ul>
+    <!-- ===== PAY / QR TILE (no image files required) ===== -->
+    <aside class="panel qr-wrap">
+      <div class="qr-card">
+        <div class="qr-box" id="qrBox" aria-label="QR style pay code (decorative)">
+          <div class="qr-overlay"></div>
+        </div>
+        <div class="qr-below">Scan or tap to pay via Revolut</div>
+        <div class="pay-row">
+          <button class="copy" onclick="window.open('https://revolut.me/jakek6agj','_blank')">Open Payment</button>
+          <button class="copy" id="copyLink">Copy Link</button>
+        </div>
+        <div id="copied" class="success">Link copied ✔</div>
+        <div class="hint" style="margin-top:8px">
+          This uses your link directly and hides your surname. You can swap links any time.
+        </div>
       </div>
-    </section>
-
-    <footer class="footer">
-      © <span id="y"></span> Gridcore Systems. All rights reserved.
-    </footer>
+    </aside>
   </main>
 
+  <!-- ===== PROMPT LIBRARY ===== -->
+  <section id="prompts" class="wrap">
+    <h2 class="section">Prompt Library</h2>
+    <p class="muted">Curated, high‑signal prompts for faster results. Updated as the system learns.</p>
+    <div class="cards">
+      <article class="card edit">
+        <h3>Daily Focus (Personal)</h3>
+        <p class="muted">
+          “Based on my current goals, generate a 3‑point plan for today with 1 high‑impact task, 1 learning task, and 1 maintenance task. Keep it under 120 words.”
+        </p>
+      </article>
+      <article class="card edit">
+        <h3>Micro‑Feedback to Improvements</h3>
+        <p class="muted">
+          “Summarize user feedback into 3 themes and propose one change per theme. Label each change with impact (H/M/L) and effort (H/M/L).”
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== VIDEO SLOT (optional now, easy later) ===== -->
+  <section class="wrap">
+    <h2 class="section">See It in Action</h2>
+    <div class="card edit">
+      <p class="muted" style="margin-top:0">
+        Drop a short 20–30s walkthrough here later. For now this placeholder keeps the layout tight.
+      </p>
+      <video width="100%" controls poster="" style="border-radius:10px; border:1px solid rgba(255,255,255,.08)">
+        <!-- Replace YOUR_VIDEO.mp4 later (you can also link a hosted MP4) -->
+        <source src="" type="video/mp4">
+      </video>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="wrap footer">
+    <div>© <span id="year"></span> GridCore Systems. All rights reserved.</div>
+    <div style="margin-top:6px" class="muted">
+      Built for copy‑paste deploys. One file. Zero friction.
+    </div>
+  </footer>
+
+  <!-- ===== MIN JS (copy button + year + subtle QR pattern refresh) ===== -->
   <script>
-    // Small helpers: dynamic year + smooth anchor scroll
-    document.getElementById('y').textContent = new Date().getFullYear();
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click',e=>{
-        const id=a.getAttribute('href').slice(1);
-        const el=document.getElementById(id);
-        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth',block:'start'}); }
-      });
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Copy pay link
+    const btn = document.getElementById('copyLink');
+    const ok = document.getElementById('copied');
+    btn.addEventListener('click', async () => {
+      try{
+        await navigator.clipboard.writeText('https://revolut.me/jakek6agj');
+        ok.style.display='block';
+        setTimeout(()=> ok.style.display='none', 1800);
+      }catch(e){ alert('Copy not supported on this device'); }
     });
+
+    // Optional: lightly vary the “QR” pattern so it feels alive
+    const qr = document.getElementById('qrBox');
+    let t=0;
+    setInterval(()=>{ t+=1;
+      qr.style.filter = `contrast(1.${(t%5)+2}) brightness(1.${(t%3)+1})`;
+    }, 1200);
   </script>
 </body>
 </html>
+<!-- ===== END OF GRIDCORE INDEX.HTML (GOLD EDITION) ===== -->
