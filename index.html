@@ -1,258 +1,194 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>THEGRID — Black & Gold Performance Creativity</title>
-<link rel="stylesheet" href="assets/css/styles.css"/>
-
-<style>
-  :root{
-    --bg:#0b0f13; --panel:#0e141a; --fg:#eaf0f8; --muted:#a9b6c7;
-    --gold:#F0C35B; --goldLite:#F7D889; --border:rgba(255,255,255,.08);
-    --radius:22px; --shadow:0 16px 48px rgba(0,0,0,.35);
-  }
-  *{box-sizing:border-box} html,body{margin:0;background:var(--bg);color:var(--fg);font-family:ui-sans-serif,system-ui,Segoe UI,Inter,Roboto,Arial}
-  a{color:inherit;text-decoration:none}
-  .wrap{max-width:1200px;margin:0 auto;padding:18px 18px 64px}
-  /* Elegant backdrop */
-  .backdrop{position:fixed;inset:0;z-index:-2;background:
-    radial-gradient(1200px 600px at 20% -10%, rgba(240,195,91,.10), transparent 60%),
-    radial-gradient(1200px 700px at 110% 10%, rgba(87,120,255,.08), transparent 55%),
-    #0b0f13;}
-  .backdrop:before{content:"";position:absolute;inset:0;opacity:.08;background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Cpath d='M36 0H0v36' fill='none' stroke='%23fff' stroke-opacity='.35' stroke-width='.5'/%3E%3C/svg%3E");
-    background-size:36px 36px;mask-image:radial-gradient(80% 80% at 50% 40%,#000 70%,transparent 100%)}
-  /* Nav */
-  .nav{display:flex;align-items:center;justify-content:space-between;padding:10px 2px;position:sticky;top:0;backdrop-filter:saturate(1.1) blur(8px)}
-  .brand{display:flex;gap:10px;align-items:center;font-weight:800}
-  .brand .dot{width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 35% 35%,var(--goldLite),var(--gold) 55%,#8c6b21 90%);box-shadow:0 0 0 6px rgba(240,195,91,.12),0 0 18px rgba(240,195,91,.35) inset}
-  .cta{padding:10px 16px;border-radius:28px;border:1px solid rgba(240,195,91,.35);font-weight:700}
-  .cta.primary{background:linear-gradient(180deg,var(--goldLite),var(--gold));color:#161617;border:none}
-  /* Cards */
-  .card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
-  /* Hero grid */
-  .hero{margin-top:14px;display:grid;gap:18px}
-  .hero-grid{display:grid;gap:18px}
-  @media(min-width:980px){.hero-grid{grid-template-columns:1.15fr .85fr}}
-  .hero-media{aspect-ratio:16/10;display:grid;place-items:center;padding:12px}
-  .hero-media .frame{max-width:100%;max-height:100%;border-radius:18px}
-  .hero-media .placeholder{width:100%;height:100%;display:grid;place-items:center;border:1px dashed rgba(255,255,255,.12);border-radius:18px;color:#cbd3de}
-  .hero-copy{padding:24px}
-  .eyebrow{color:var(--goldLite);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:.78rem}
-  h1{margin:.4rem 0 1rem;font-size:clamp(1.6rem,1.1rem + 2.2vw,2.6rem);line-height:1.1}
-  .lead{color:var(--muted);font-size:1.05rem}
-  .btn{padding:12px 16px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.02);color:var(--fg);font-weight:700;transition:.18s}
-  .btn.gold{background:linear-gradient(180deg,var(--goldLite),var(--gold));color:#151515;border:none}
-  .btn:hover{box-shadow:0 0 0 6px rgba(240,195,91,.08)}
-  .row{display:flex;gap:12px;flex-wrap:wrap}
-  /* Sections */
-  section{margin:42px 0}
-  .section-title{font-size:1.35rem;font-weight:800;margin-bottom:10px}
-  .hint{color:var(--muted)}
-  /* Greeting banner */
-  .greet{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:99;background:rgba(15,20,26,.8);
-    border:1px solid rgba(240,195,91,.35);backdrop-filter:blur(8px);border-radius:999px;padding:10px 16px;
-    box-shadow:0 12px 40px rgba(0,0,0,.35);opacity:0;transition:opacity .35s ease}
-  .greet.show{opacity:1}
-  /* Confetti canvas */
-  #confetti{position:fixed;inset:0;pointer-events:none;z-index:98}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>THEGRID</title>
+  <link rel="preload" as="image" href="assets/images/gc_logo.png">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    :root{
+      --bg:#0b0f10; --panel:#0f1416; --ring:#22282b; --text:#eaeff2; --muted:#9aa6ac;
+      --gold:#E9C46A; --gold-2:#CDA349; --gloss:rgba(233,196,106,.18);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:radial-gradient(1200px 600px at 30% -10%,rgba(233,196,106,.06),transparent 60%),#0b0f10;color:var(--text);font:500 16px/1.45 system-ui,-apple-system,Segoe UI,Inter,Roboto}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1100px;margin:0 auto;padding:20px}
+    header{display:flex;justify-content:space-between;align-items:center;padding:6px 0}
+    .brand{display:flex;gap:10px;align-items:center}
+    .brand .dot{width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 24px var(--gold)}
+    .brand h1{font-weight:800;letter-spacing:.6px;margin:0}
+    .cta{padding:10px 16px;border:1.5px solid var(--gold-2);border-radius:999px}
+    .cta:hover{box-shadow:0 0 20px rgba(233,196,106,.25)}
+    .hero{position:relative;margin:24px 0 10px;border-radius:24px;padding:18px;background:linear-gradient(180deg,rgba(233,196,106,.09),rgba(233,196,106,.02));border:1px solid rgba(233,196,106,.25);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 20px 60px rgba(0,0,0,.35)}
+    .hero-grid{display:grid;grid-template-columns:1fr;gap:18px}
+    .hero .tile{border-radius:18px;background:#0b0f10;border:1px solid var(--ring);min-height:280px;display:grid;place-items:center;position:relative;overflow:hidden}
+    .logo-ring{width:200px;height:200px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(80px 80px at 50% 55%,rgba(233,196,106,.12),transparent 70%),#0b0f10;border:1px solid rgba(233,196,106,.25);box-shadow:0 0 80px var(--gloss) inset}
+    .logo-ring img{width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 4px 14px rgba(233,196,106,.45))}
+    .spin{animation:spin 10s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .video, .slide{width:100%;height:100%;object-fit:cover}
+    .title{font-size:38px;font-weight:900;text-align:center;margin:8px 0;color:var(--gold)}
+    .lead{color:var(--muted);text-align:center;margin:0 auto 18px;max-width:780px}
+    .pill-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:8px 0 24px}
+    .pill{padding:12px 18px;border-radius:999px;border:1.5px solid var(--ring);background:#0f1416}
+    .pill.primary{background:linear-gradient(180deg,var(--gold),var(--gold-2));color:#111;font-weight:800;border:none;box-shadow:0 12px 30px rgba(233,196,106,.25)}
+    section{margin:30px 0}
+    h2{margin:0 0 12px}
+    .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));border:1px solid var(--ring);border-radius:16px;overflow:hidden}
+    .card img{width:100%;height:220px;object-fit:cover;display:block}
+    .card .cap{padding:12px 14px;color:var(--muted)}
+    .reels{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+    video{background:black}
+    .menu{position:fixed;right:16px;top:12px;z-index:10}
+    .greet{position:fixed;left:16px;top:12px;z-index:10;background:#0f1416;border:1px solid var(--ring);padding:8px 12px;border-radius:10px;color:var(--muted)}
+    #celebrate{position:fixed;inset:0;pointer-events:none}
+    @media(min-width:900px){ .hero-grid{grid-template-columns:380px 1fr} .hero .tile{min-height:360px} .title{font-size:44px}}
+  </style>
 </head>
 <body>
-<div class="backdrop" aria-hidden="true"></div>
-<canvas id="confetti"></canvas>
-<div id="greet" class="greet" role="status" aria-live="polite"></div>
+  <canvas id="celebrate"></canvas>
 
-<div class="wrap">
-  <!-- NAV -->
-  <nav class="nav">
-    <div class="brand"><span class="dot"></span><span>THEGRID</span></div>
-    <a class="cta" href="#join">Join Now</a>
-  </nav>
-
-  <!-- HERO -->
-  <header class="hero">
-    <div class="hero-grid">
-      <div class="card">
-        <div class="hero-media">
-          <video id="heroVideo" class="frame" src="assets/video/hero.mp4" playsinline muted loop preload="metadata" controls style="display:none"></video>
-          <img id="heroLogo" class="frame" src="assets/images/gc-logo.png" alt="GC Logo" onerror="this.nextElementSibling.style.display='grid';this.style.display='none'"/>
-          <div class="placeholder" style="display:none">Add <b>assets/images/gc-logo.png</b></div>
-        </div>
+  <div class="wrap">
+    <header>
+      <div class="greet" id="greet">Welcome.</div>
+      <div class="brand">
+        <span class="dot"></span>
+        <h1 id="brandName">THEGRID</h1>
       </div>
-      <div class="card">
-        <div class="hero-copy">
-          <div class="eyebrow">Black &amp; Gold Performance Creativity</div>
-          <h1>Signature niches, cinematic reels, and a savable system.</h1>
-          <p class="lead">Plug your save, sync with the site, and level up. The hero can switch to a cinematic video for extra punch.</p>
-          <div class="row">
-            <a class="btn gold" href="#niches">Explore Niches</a>
-            <a class="btn" href="#reels">Cinematic Reels</a>
-            <a class="btn" href="#monetise">Monetise</a>
-          </div>
+      <a href="#" class="cta" onclick="demoCelebrate('pro')">Join Now</a>
+    </header>
+
+    <div class="hero">
+      <div class="hero-grid">
+        <div class="tile" id="logoTile">
+          <div class="logo-ring"><img id="gcLogo" alt="GC Logo"></div>
         </div>
+        <div class="tile" id="heroTile"></div>
       </div>
     </div>
-  </header>
 
-  <!-- SIGNATURE NICHES -->
-  <section id="niches">
-    <h2 class="section-title">Signature Niches</h2>
-    <p class="hint">Drop images into <code>assets/images/</code> (grid_interaction_1.jpg, grid_pour_1.jpg, ...).</p>
-  </section>
+    <h2 class="title" id="headline">Black & Gold Performance Creativity</h2>
+    <p class="lead">Signature niches, cinematic reels, and a savable system that learns from your inputs. Plug your save, sync with the site, and level up.</p>
+    <div class="pill-row">
+      <a class="pill primary" href="#niches">Explore Niches</a>
+      <a class="pill" href="#reels">Cinematic Reels</a>
+      <a class="pill" href="#" onclick="demoCelebrate('savable')">Monetise</a>
+    </div>
 
-  <!-- CINEMATIC LANDSCAPE REELS -->
-  <section id="reels" class="card" style="padding:16px">
-    <h2 class="section-title">Cinematic Landscape Reels</h2>
-    <div id="reelWrap" class="row"></div>
-    <p class="hint">Put 16:9 videos in <code>assets/video/landscape_#.mp4</code> — they appear automatically.</p>
-  </section>
+    <section id="niches">
+      <h2>Signature Niches</h2>
+      <div class="cards" id="nicheCards"></div>
+    </section>
 
-  <!-- LIVE UPDATES -->
-  <section id="updates">
-    <h2 class="section-title">Live Updates & Roadmap</h2>
-    <div id="updatesWrap" class="card" style="padding:16px"></div>
-    <p class="hint">Reads <code>Data/updates.json</code> if present.</p>
-  </section>
+    <section id="reels">
+      <h2>Cinematic Landscape Reels</h2>
+      <div class="reels" id="reelGrid"></div>
+    </section>
 
-  <!-- CTA -->
-  <section id="monetise">
-    <h2 class="section-title">Start in 20 Seconds</h2>
-    <ol class="hint">
-      <li>Pick a niche</li><li>Paste the prompt</li><li>Render — then save your result</li>
-    </ol>
-    <a class="cta primary" href="#join">Join Now</a>
-  </section>
+    <section id="updates">
+      <h2>Live Updates & Roadmap</h2>
+      <div id="roadmapNote" class="lead" style="text-align:left">No updates yet. Create <code>Data/updates.json</code> to populate this board.</div>
+    </section>
 
-  <footer style="opacity:.8;text-align:center;margin-top:36px">© 2025 THEGRID · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a></footer>
-</div>
+    <section>
+      <h2>Start in 20 Seconds</h2>
+      <ol>
+        <li>Pick a niche</li>
+        <li>Paste the prompt</li>
+        <li>Render — then save your result</li>
+      </ol>
+    </section>
+  </div>
 
-<script>
-/* ---------- Util ---------- */
-const qs = (k)=> new URLSearchParams(location.search).get(k);
+  <script>
+    const $ = s => document.querySelector(s);
+    async function loadJSON(p){ try{const r=await fetch(p,{cache:"no-store"}); if(!r.ok) throw 0; return await r.json();}catch(e){return null;} }
 
-/* ---------- Video fallback ---------- */
-(async function(){
-  const v = document.getElementById('heroVideo');
-  const img = document.getElementById('heroLogo');
-  const ph  = img?.nextElementSibling;
-  async function exists(p){ try{ const r=await fetch(p,{method:'HEAD',cache:'no-store'}); return r.ok; }catch(e){ return false; } }
-  const hasVid = await exists('assets/video/hero.mp4');
-  if(hasVid){ v.style.display='block'; img.style.display='none'; v.muted=true; v.play().catch(()=>{}); }
-  else { if(img) img.onerror = ()=>{ if(ph) ph.style.display='grid'; }; }
-})();
-
-/* ---------- Greeting (time-of-day, short & sweet) ---------- */
-(function(){
-  const box = document.getElementById('greet');
-  if(!box) return;
-  const h = new Date().getHours();
-  const msg =
-    h<5  ? "Good night — keep it chill." :
-    h<12 ? "Good morning — let’s create." :
-    h<18 ? "Good afternoon — time to refine." :
-            "Good evening — make it cinematic.";
-  box.textContent = msg;
-  setTimeout(()=> box.classList.add('show'), 100);
-  setTimeout(()=> box.classList.remove('show'), 2600);
-})();
-
-/* ---------- Membership theme + Gold confetti celebration ---------- */
-/* Tiers → color/metal mapping */
-const TIERS = {
-  viewer : { name:"Viewer",  hue:"#b8c2cc", spark:"#dde6ef", weight:0.6 }, // steel
-  savable: { name:"Savable", hue:"#cfd3d9", spark:"#ffffff", weight:0.9 }, // silver
-  pro    : { name:"Pro",     hue:"#F0C35B", spark:"#F7D889", weight:1.4 }, // gold
-  admin  : { name:"Admin",   hue:"#0f0f12", spark:"#F0C35B", weight:1.6 }  // obsidian+gold
-};
-/* Detect tier: URL ?tier=pro → JSON → default viewer */
-async function detectTier(){
-  const urlTier = (qs('tier')||"").toLowerCase();
-  if(TIERS[urlTier]) return urlTier;
-  try{
-    const r = await fetch('Data/membership.json',{cache:'no-store'});
-    if(r.ok){ const j = await r.json(); const t=(j.tier||"").toLowerCase(); if(TIERS[t]) return t; }
-  }catch(e){}
-  return 'viewer';
-}
-/* Confetti engine (lightweight canvas) */
-function confettiBurst({color="#F0C35B", spark="#F7D889", intensity=1}){
-  const c = document.getElementById('confetti'); const ctx = c.getContext('2d');
-  const DPR = Math.max(1, devicePixelRatio||1);
-  const W = c.width = innerWidth*DPR; const H = c.height = innerHeight*DPR;
-  ctx.scale(DPR,DPR);
-  const n = Math.round(60 * intensity);
-  const parts = Array.from({length:n}).map(()=>({
-    x: Math.random()*innerWidth,
-    y: -20 - Math.random()*60,
-    r: 2 + Math.random()*4,
-    vx: -1 + Math.random()*2,
-    vy: 2 + Math.random()*3,
-    rot: Math.random()*Math.PI,
-    vr: (-0.1 + Math.random()*0.2),
-    col: Math.random()<0.75 ? color : spark,
-    life: 120 + Math.random()*60
-  }));
-  let frame=0; const maxFrames=180;
-  function tick(){
-    ctx.clearRect(0,0,innerWidth,innerHeight);
-    parts.forEach(p=>{
-      p.x += p.vx; p.y += p.vy; p.rot += p.vr; p.vy += 0.02; p.life--;
-      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
-      ctx.fillStyle = p.col; ctx.globalAlpha = Math.max(0, p.life/180);
-      ctx.fillRect(-p.r, -p.r, p.r*2, p.r*2);
-      ctx.restore();
-    });
-    frame++; if(frame<maxFrames && parts.some(p=>p.life>0)) requestAnimationFrame(tick);
-    else { ctx.clearRect(0,0,innerWidth,innerHeight); }
-  }
-  tick();
-}
-/* When to celebrate:
-   - First visit per day (small)
-   - URL ?celebrate=1 (scale by ?amount) */
-(async function(){
-  const tierKey = await detectTier();
-  const tier = TIERS[tierKey] || TIERS.viewer;
-  // First-visit-per-day
-  const stamp = new Date().toDateString();
-  const last  = localStorage.getItem('grid:lastVisit');
-  const todayFirst = last !== stamp;
-  if(todayFirst){ confettiBurst({color:tier.hue, spark:tier.spark, intensity:0.6 * tier.weight}); localStorage.setItem('grid:lastVisit', stamp); }
-  // Manual trigger via URL
-  if(qs('celebrate')==='1'){
-    const amt = parseFloat(qs('amount')||'0'); // e.g., purchase value
-    const scale = isFinite(amt) && amt>0 ? Math.min(2.0, 0.8 + (amt/49)*0.3) : 0.9; // bigger purchase → bigger celebration
-    confettiBurst({color:tier.hue, spark:tier.spark, intensity:scale * tier.weight});
-  }
-})();
-
-/* ---------- Reels auto-populate ---------- */
-(async function(){
-  const root=document.getElementById('reelWrap'); if(!root) return;
-  async function ex(p){ try{const r=await fetch(p,{method:'HEAD',cache:'no-store'}); return r.ok;}catch(e){return false} }
-  for(let i=1;i<=6;i++){
-    const p=`assets/video/landscape_${i}.mp4`;
-    if(await ex(p)){
-      const v=document.createElement('video'); v.src=p; v.controls=true; v.playsInline=true; v.muted=true; v.loop=true; v.style.maxWidth='360px'; v.style.borderRadius='14px'; v.style.border='1px solid var(--border)';
-      root.appendChild(v);
+    function setGreeting(cfg){
+      if(!cfg?.ui?.greetings?.enabled) return;
+      const h=new Date().getHours();
+      const m = h<12?cfg.ui.greetings.messages.morning
+              : h<17?cfg.ui.greetings.messages.afternoon
+              : h<22?cfg.ui.greetings.messages.evening
+              : cfg.ui.greetings.messages.night;
+      $("#greet").textContent=m;
     }
-  }
-})();
-
-/* ---------- Updates board (optional Data/updates.json) ---------- */
-(async function(){
-  const el = document.getElementById('updatesWrap'); if(!el) return;
-  try{
-    const r=await fetch('Data/updates.json?ts='+Date.now(),{cache:'no-store'});
-    if(!r.ok) throw 0; const j=await r.json();
-    const sec = (title,items)=> items && items.length ? `<div style="margin:10px 0"><strong>${title}</strong><ul style="margin:6px 0 0 18px">${items.map(x=>`<li>${(x.title||x.label)||'Update'} — <span style="opacity:.8">${x.note||x.detail||''}</span></li>`).join('')}</ul></div>` : '';
-    el.innerHTML = [sec('Now Shipping', j.now_shipping), sec('In Progress', j.in_progress), sec('Planned', j.planned)].join('') || '<span class="hint">No updates yet.</span>';
-  }catch(e){
-    el.innerHTML = '<span class="hint">Create <code>Data/updates.json</code> to show the roadmap.</span>';
-  }
-})();
-</script>
+    function setBrand(cfg){
+      $("#brandName").textContent = cfg?.ui?.brand?.name || "THEGRID";
+      if(cfg?.ui?.brand?.goldGlow) document.documentElement.style.setProperty("--gloss","rgba(233,196,106,.28)");
+    }
+    function mountLogo(cfg){
+      const src = cfg?.hero?.logo, img=$("#gcLogo");
+      if(!src){ $("#logoTile").style.display="none"; return; }
+      img.src = src; if(cfg?.hero?.logoSpin) img.classList.add("spin");
+    }
+    function mountHero(cfg){
+      const tile=$("#heroTile"); tile.innerHTML="";
+      const hero=cfg?.hero||{};
+      if(hero.mode==="video" && hero.video){
+        const v=document.createElement("video");
+        v.className="video"; v.src=hero.video; v.muted=true; v.playsInline=true; v.autoplay=true; v.loop=true;
+        tile.appendChild(v);
+      }else{
+        const s=hero.slides||[]; if(!s.length){ tile.innerHTML='<div class="lead">Add hero slides in Data/thegrid-access-control.json</div>'; return;}
+        const img=document.createElement("img"); img.className="slide"; tile.appendChild(img);
+        let i=0; img.src=s[0]; img.style.transition="opacity .6s"; 
+        setInterval(()=>{ i=(i+1)%s.length; img.style.opacity=0; setTimeout(()=>{ img.src=s[i]; img.style.opacity=1; },200); },3500);
+      }
+    }
+    function mountNiches(cfg){
+      const box=$("#nicheCards"); box.innerHTML="";
+      (cfg?.featured?.niches||[]).forEach(n=>{
+        const el=document.createElement("div");
+        el.className="card";
+        el.innerHTML=`<img loading="lazy" src="${n.image}" alt=""><div class="cap">${n.title}</div>`;
+        box.appendChild(el);
+      });
+    }
+    function mountReels(cfg){
+      const box=$("#reelGrid"); box.innerHTML="";
+      (cfg?.featured?.landscapeReels||[]).forEach(src=>{
+        const v=document.createElement("video");
+        v.src=src; v.controls=true; v.preload="metadata"; v.style.borderRadius="14px"; v.style.border="1px solid var(--ring)";
+        box.appendChild(v);
+      });
+    }
+    async function mountRoadmap(){
+      const data=await loadJSON("Data/updates.json");
+      if(!data || !Array.isArray(data.now)) return;
+      $("#roadmapNote").style.display="none";
+      const wrap=document.createElement("div");
+      function group(title,arr){
+        const sec=document.createElement("div"); sec.style.margin="14px 0 18px";
+        sec.innerHTML=`<h3 style="margin:0 0 6px">${title}</h3>`;
+        const ul=document.createElement("ul"); (arr||[]).forEach(x=>{ const li=document.createElement("li"); li.textContent=x.title||x; ul.appendChild(li);});
+        sec.appendChild(ul); wrap.appendChild(sec);
+      }
+      group("Now Shipping",data.now); group("In Progress",data.progress); group("Planned",data.planned);
+      $("#updates").appendChild(wrap);
+    }
+    function celebrate(style="gold-confetti", duration=1500){
+      const cvs=document.getElementById("celebrate"),ctx=cvs.getContext("2d");
+      const dpr=window.devicePixelRatio||1; cvs.width=innerWidth*dpr; cvs.height=innerHeight*dpr; ctx.scale(dpr,dpr);
+      const N=style.includes("small")?60:120;
+      const parts=Array.from({length:N},()=>({x:Math.random()*innerWidth,y:-20-Math.random()*60,vx:(Math.random()-.5)*2,vy:2+Math.random()*3,r:2+Math.random()*3,a:1}));
+      let t0=null; function frame(t){ if(!t0)t0=t; const dt=t-t0; ctx.clearRect(0,0,innerWidth,innerHeight);
+        parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=0.02;p.a-=0.006;ctx.globalAlpha=Math.max(p.a,0);const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*3);g.addColorStop(0,"#fff2");g.addColorStop(1,"#E9C46A");ctx.fillStyle=g;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.283);ctx.fill();});
+        if(dt<duration) requestAnimationFrame(frame); else ctx.clearRect(0,0,cvs.width,cvs.height);
+      } requestAnimationFrame(frame);
+    }
+    function demoCelebrate(tier){
+      const t=window._cfg?.ui?.celebrations?.tiers?.[tier];
+      if(window._cfg?.ui?.celebrations?.enabled && t){ celebrate(t.style,t.duration); } else { celebrate(); }
+    }
+    (async function init(){
+      const cfg=await loadJSON("Data/thegrid-access-control.json"); window._cfg=cfg||{};
+      if(!cfg){ console.warn("Missing Data/thegrid-access-control.json"); return; }
+      setBrand(cfg); setGreeting(cfg); mountLogo(cfg); mountHero(cfg); mountNiches(cfg); mountReels(cfg); mountRoadmap();
+    })();
+  </script>
 </body>
 </html>
