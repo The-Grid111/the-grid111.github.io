@@ -1,417 +1,323 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- =========================================
-  THEGRID / GRIDCORE SYSTEMS – SINGLE-FILE BASELINE
-  MODE: FULL DELETE + PASTE (safe to replace entire file)
-  ============================================== -->
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>GRIDCORE Systems</title>
-  <meta name="description" content="Human-grade AI workflows that learn, adapt, and stay simple.">
-  <meta name="theme-color" content="#0b0b0e" />
-
-  <!-- =================== START: VARIABLES (EDIT THESE ONLY) =================== -->
-  <script>
-    window.GRIDCORE_CONFIG = {
-      brand: {
-        siteName: "GRIDCORE Systems",
-        shortName: "GRIDCORE",
-        tagline: "Human-grade AI workflows — simple, fast, evolving.",
-        // Paste a logo data URL or an https image here (leave "" to use placeholder mark):
-        logoSrc: "",   // e.g. "https://.../logo.png"  or "data:image/png;base64,AAAA..."
-        // Optional wordmark text if no logo image provided:
-        wordmark: "GRIDCORE"
-      },
-      theme: {
-        // Core colours — tweak to taste (kept simple, premium, ‘real gold’ highlight)
-        bg: "#0b0b0e",
-        panel: "#121218",
-        text: "#f5f7ff",
-        subtext: "#c8cbe0",
-        gold: "#d6b06d",
-        goldDeep: "#b38a3f",
-        accent: "#6aa6ff",
-        // Background motion look
-        bgGrainOpacity: 0.12,
-        // Golden brushed gradient for “real gold” impressions
-        goldGradientA: "#f2d38a",
-        goldGradientB: "#b5883b"
-      },
-      callsToAction: {
-        primaryText: "Join Early Access",
-        // Your Revolut link here (you gave: https://revolut.me/jakek6agj)
-        supportLink: "https://revolut.me/jakek6agj",
-        supportText: "Tip / Support via Revolut"
-      },
-      proof: {
-        // A hero background image or video (optional). Put a public image/video URL or leave empty
-        heroImage: "", // e.g. "https://.../hero.jpg"
-        heroVideo: "", // e.g. "https://.../hero.mp4"
-        // Optional QR code image to the Revolut link (hosted URL or data URL). Leave blank to hide.
-        qrSrc: ""
-      },
-      // Prompt Library (quick examples users can copy). Add/edit freely.
-      prompts: [
-        { title: "Daily Focus Booster", body: "Summarise my top 3 goals for today and generate a 25‑minute sprint plan with 5‑minute breaks." },
-        { title: "Weekly Review", body: "Turn this week’s notes into wins, lessons, blockers, and next actions." },
-        { title: "Human‑Mode Response", body: "Draft a warm, natural reply with concise empathy; close with one actionable suggestion." },
-        { title: "Creative Mode", body: "Give 5 punchy content hooks based on these bullet points, in under 60 seconds." }
-      ],
-      // Video slot (You can paste a TikTok/YouTube link later; for now use mp4 if you have one)
-      demoVideo: {
-        src: "",   // e.g. "https://.../gridcore-demo.mp4"
-        caption: "See GRIDCORE’s live workflow in 20 seconds."
-      },
-      // Footer
-      legal: {
-        company: "Gridcore Systems Ltd",    // placeholder for when you formalise
-        email: "hello@gridcore.systems",    // change when ready
-        locale: "UK",
-        // Placeholder legal lines — update when you register officially
-        termsUrl: "#",
-        privacyUrl: "#"
-      }
-    };
-  </script>
-  <!-- =================== END: VARIABLES (EDIT THESE ONLY) ===================== -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title id="pageTitle">GridCore Systems</title>
+  <meta name="description" content="An evolving, personalized AI workflow engine. Minimal effort. Maximum output." />
 
   <style>
-    /* =================== START: THEME (auto-reads CONFIG) =================== */
-    :root {
+    /* ===============================
+       START: DESIGN TOKENS (CSS VARS)
+       You rarely need to touch this block; change values only if you want deeper theming.
+       =============================== */
+    :root{
+      /* BRAND COLORS (hooked to the JS variables below on load) */
       --bg: #0b0b0e;
-      --panel: #121218;
-      --text: #f5f7ff;
-      --subtext: #c8cbe0;
-      --gold: #d6b06d;
-      --gold-deep: #b38a3f;
-      --accent: #6aa6ff;
-      --goldA: #f2d38a;
-      --goldB: #b5883b;
+      --bg-accent: #111218;
+      --text: #efefef;
+      --muted: #c7c7d1;
+      --gold-1: #D4AF37;
+      --gold-2: #F5E6A6;
+      --gold-3: #AC8E2B;
 
-      --radius: 18px;
-      --pad: clamp(16px, 3vw, 28px);
-      --inner: min(1100px, 92vw);
-      --shadow: 0 10px 40px rgba(0,0,0,.35);
-      --grain-opacity: .12; /* overwritten by JS */
-    }
+      /* Sizing & radii */
+      --container: 1100px;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
 
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      color: var(--text);
-      background: var(--bg);
-      overflow-x: hidden;
+      /* Motion */
+      --duration: 700ms;
+      --easing: cubic-bezier(.2,.7,.2,1);
     }
 
-    /* Premium “real gold” accents */
-    .gold {
-      background: linear-gradient(135deg, var(--goldA), var(--goldB));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 1px 0 rgba(0,0,0,.15);
+    /* Reset + base */
+    *,*::before,*::after{ box-sizing:border-box }
+    html,body{ margin:0; padding:0; background:var(--bg); color:var(--text); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, "Apple Color Emoji","Segoe UI Emoji"; }
+    a{ color:inherit; text-decoration:none }
+    img{ max-width:100%; height:auto; display:block }
+
+    /* Premium layered background (subtle motion, gold shimmer lines) */
+    .bg {
+      position: fixed; inset: 0; z-index: -2;
+      background:
+        radial-gradient(1200px 800px at 60% -20%, rgba(245,230,166,.08), transparent 60%),
+        radial-gradient(800px 600px at -10% 40%, rgba(212,175,55,.12), transparent 60%),
+        radial-gradient(1000px 700px at 120% 90%, rgba(172,142,43,.08), transparent 60%),
+        linear-gradient(180deg, var(--bg), var(--bg-accent) 60%, var(--bg));
     }
-    .goldchip {
-      background: linear-gradient(135deg, var(--goldA), var(--goldB));
-      color: #1b1407;
-      border: 1px solid rgba(255,255,255,.08);
-      box-shadow: var(--shadow);
+    .gold-lines{
+      position: fixed; inset: 0; z-index:-1; pointer-events:none; opacity:.22;
+      background:
+        repeating-linear-gradient( 75deg,
+          rgba(212,175,55,.0) 0px, rgba(212,175,55,.06) 2px, rgba(212,175,55,.0) 4px
+        );
+      filter: blur(0.6px);
+      animation: drift 28s linear infinite;
     }
-    .panel {
-      background: radial-gradient(1200px 600px at 100% -10%, rgba(214,176,109,.08), transparent 50%),
-                  radial-gradient(1200px 600px at -10% 100%, rgba(107,146,255,.08), transparent 50%),
-                  linear-gradient(180deg, rgba(255,255,255,.02), transparent 30%),
-                  var(--panel);
+    @keyframes drift{
+      from { transform: translate3d(-4%,0,0) }
+      to   { transform: translate3d( 4%,0,0) }
+    }
+
+    /* Layout */
+    .wrap { max-width: var(--container); margin: 0 auto; padding: 24px; }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
       border: 1px solid rgba(255,255,255,.08);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
     }
 
-    /* Animated layered background */
-    .bgfx {
-      position: fixed; inset: 0; z-index: -2;
-      background:
-        radial-gradient(1000px 600px at 60% -10%, rgba(214,176,109,.10), transparent 50%),
-        radial-gradient(1000px 600px at -20% 90%, rgba(106,166,255,.10), transparent 50%),
-        linear-gradient(180deg, rgba(255,255,255,.02), transparent 40%),
-        var(--bg);
-      filter: saturate(1.06);
+    /* Header / Nav */
+    header{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 0 24px }
+    .brand{ display:flex; align-items:center; gap:12px }
+    .brand img{ width:40px; height:40px; border-radius:12px; object-fit:cover; }
+    .brand h1{ font-size:18px; font-weight:700; letter-spacing:.4px; margin:0 }
+    .pill{ display:inline-flex; gap:8px; align-items:center; padding:8px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.2); color:var(--muted); font-size:12px }
+
+    /* Hero */
+    .hero{ padding: clamp(28px, 6vw, 64px); position:relative; overflow:hidden }
+    .hero h2{ font-size: clamp(28px, 5vw, 48px); margin:0 0 10px; line-height:1.1 }
+    .gradient-gold{
+      background: linear-gradient(90deg, var(--gold-2), var(--gold-1), var(--gold-3));
+      -webkit-background-clip: text; background-clip:text; color:transparent;
+      filter: drop-shadow(0 5px 18px rgba(212,175,55,.15));
     }
-    .grain {
-      position: fixed; inset: 0; z-index: -1; pointer-events: none;
-      opacity: var(--grain-opacity);
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><filter id="n"><feTurbulence baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)"/></svg>');
-      mix-blend-mode: overlay;
-      animation: drift 14s linear infinite;
+    .hero p{ color:var(--muted); margin:0 0 22px; font-size: clamp(14px, 2.2vw, 18px); }
+    .cta-row{ display:flex; flex-wrap:wrap; gap:12px }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding: 12px 16px; border-radius: 12px; font-weight:700; letter-spacing:.3px;
+      border: 1px solid rgba(255,255,255,.1);
+      transition: transform var(--duration) var(--easing), opacity var(--duration) var(--easing), filter var(--duration) var(--easing);
+      user-select:none
     }
-    @keyframes drift { to { transform: translate3d(2%,2%,0); } }
-
-    header {
-      width: 100%;
-      position: sticky; top: 0; z-index: 50;
-      backdrop-filter: blur(10px);
-      background: linear-gradient(180deg, rgba(10,10,12,.7), rgba(10,10,12,0));
-      border-bottom: 1px solid rgba(255,255,255,.05);
+    .btn:hover{ transform: translateY(-1px) scale(1.01) }
+    .btn-primary{
+      background: linear-gradient(180deg, rgba(245,230,166,.25), rgba(212,175,55,.18));
+      color:#0b0b0e;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 6px 18px rgba(212,175,55,.25);
     }
-    .nav { margin: 0 auto; width: var(--inner); padding: .6rem var(--pad); display: flex; align-items: center; gap: 14px; }
-    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
-    .brand img { width: 34px; height: 34px; object-fit: contain; border-radius: 10px; }
-    .brand .name { font-weight: 700; letter-spacing: .3px; }
-    .cta { margin-left: auto; display: flex; gap: 10px; }
+    .btn-ghost{ background: rgba(255,255,255,.06); color:var(--text) }
 
-    .btn {
-      appearance: none; border: 1px solid rgba(255,255,255,.12);
-      padding: .72rem 1rem; border-radius: 14px; color: var(--text);
-      background: rgba(255,255,255,.02); cursor: pointer;
-      transition: .2s ease; text-decoration: none; font-weight: 600;
+    /* Sections */
+    section{ margin: 28px 0 }
+    .section-title{ font-size:20px; letter-spacing:.5px; opacity:.9; margin:0 0 12px }
+    .grid{ display:grid; gap:14px }
+    .grid.features{ grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .item{ padding:16px; border-radius:12px; background: rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08) }
+    .item h3{ margin:0 0 6px; font-size:16px }
+    .item p{ margin:0; color:var(--muted); font-size:14px; line-height:1.5 }
+
+    /* Featured video placeholder */
+    .video-shell{
+      aspect-ratio: 16/9; border-radius:16px; overflow:hidden; position:relative;
+      background: radial-gradient(600px 300px at 50% 20%, rgba(245,230,166,.12), transparent 60%), rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.08)
     }
-    .btn:hover { transform: translateY(-1px); border-color: rgba(255,255,255,.25); }
-    .btn.primary {
-      background: linear-gradient(135deg, var(--goldA), var(--goldB));
-      color: #1b1407; border-color: rgba(255,255,255,.22);
+    .video-shell .overlay{
+      position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:14px;
     }
 
-    main { margin: 0 auto; width: var(--inner); padding: calc(var(--pad) * 1.2) var(--pad) 80px; display: grid; gap: 28px; }
+    /* Footer */
+    footer{ padding: 32px 0 50px; color:var(--muted); font-size:12px; text-align:center }
+    .gold-divider{ height:1px; background: linear-gradient(90deg, transparent, rgba(212,175,55,.45), transparent); margin: 18px 0 }
 
-    .hero { display: grid; gap: 18px; align-items: center; }
-    .hero h1 { font-size: clamp(28px, 4.6vw, 48px); line-height: 1.04; margin: 0; letter-spacing: .2px; }
-    .hero p { margin: 0; color: var(--subtext); font-size: clamp(14px, 2.6vw, 18px); }
-    .hero .row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
-
-    .grid {
-      display: grid; gap: 16px;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    /* Small helper badges */
+    .badge{
+      display:inline-flex; align-items:center; gap:8px; padding:8px 10px;
+      border: 1px dashed rgba(255,255,255,.18); border-radius:10px; color:var(--muted); font-size:12px
     }
-    .card { padding: 16px; }
-
-    .media {
-      aspect-ratio: 16/9; width: 100%; overflow: hidden; border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.02);
-    }
-    .media img, .media video { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-    .prompt { padding: 14px; border: 1px dashed rgba(255,255,255,.18); border-radius: 14px; background: rgba(255,255,255,.02); }
-    .prompt h4 { margin: 0 0 6px; font-size: 14px; color: var(--gold); }
-    .prompt p { margin: 0; color: var(--subtext); font-size: 14px; }
-    .prompt .copy { margin-top: 8px; font-size: 12px; opacity: .8; }
-
-    footer { margin: 0 auto; width: var(--inner); padding: 36px var(--pad) 80px; color: var(--subtext); display: grid; gap: 12px; font-size: 13px;}
-    footer a { color: var(--subtext); }
-    /* =================== END: THEME =================== */
   </style>
-</head>
-<body>
-  <div class="bgfx"></div>
-  <div class="grain"></div>
 
-  <!-- =================== START: HEADER =================== -->
-  <header>
-    <nav class="nav">
-      <a class="brand" href="#top">
-        <img id="logo" alt="Logo" />
-        <span class="name" id="brandName">GRIDCORE</span>
-      </a>
-      <div class="cta">
-        <a id="supportLink" class="btn" target="_blank" rel="noopener">Tip / Support</a>
-        <a href="#join" class="btn primary">Join Early Access</a>
-      </div>
-    </nav>
-  </header>
-  <!-- =================== END: HEADER =================== -->
-
-  <main id="top">
-    <!-- =================== START: HERO =================== -->
-    <section class="hero panel card">
-      <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
-        <div class="goldchip" style="padding:.48rem .72rem; border-radius:12px; font-size:12px; font-weight:700; letter-spacing:.2px;">
-          <span>New • Self‑evolving Workflows</span>
-        </div>
-        <div style="opacity:.8; font-size:12px;">UK‑ready • Mobile‑first • Copy‑paste updates</div>
-      </div>
-
-      <h1><span class="gold" id="brandTitle">GRIDCORE Systems</span><br/><span id="brandTag">Human-grade AI workflows — simple, fast, evolving.</span></h1>
-      <p>Built for daily focus, weekly momentum, and safe, automatic learning from user feedback — without complexity.</p>
-
-      <div class="row">
-        <a id="ctaPrimary" href="#join" class="btn primary">Join Early Access</a>
-        <a id="ctaSupport" class="btn" target="_blank" rel="noopener">Tip / Support via Revolut</a>
-      </div>
-    </section>
-    <!-- =================== END: HERO =================== -->
-
-    <!-- =================== START: PROOF / MEDIA =================== -->
-    <section class="grid">
-      <div class="panel card">
-        <h3 style="margin:0 0 10px;">Live Glimpse</h3>
-        <div class="media" id="heroMedia">
-          <!-- image or video injected -->
-        </div>
-        <div style="display:flex; gap:10px; align-items:center; margin-top:10px;">
-          <img id="qr" alt="QR" style="width:84px;height:84px;border-radius:12px;border:1px solid rgba(255,255,255,.12); display:none;" />
-          <div style="font-size:13px; color:var(--subtext);">
-            Scan to support development & unlock extras.
-          </div>
-        </div>
-      </div>
-
-      <div class="panel card">
-        <h3 style="margin:0 0 10px;">Why It Works</h3>
-        <ul style="margin:0; padding-left:16px; color:var(--subtext); line-height:1.5;">
-          <li>One‑step copy/paste updates (full delete‑swap safe).</li>
-          <li>Automatic pattern‑finding from feedback to improve fast.</li>
-          <li>Human‑mode replies that feel natural; Creative‑mode for speed.</li>
-          <li>UK‑compliant payment pathway (Revolut tip link now; Stripe later).</li>
-        </ul>
-      </div>
-    </section>
-    <!-- =================== END: PROOF / MEDIA =================== -->
-
-    <!-- =================== START: PROMPT LIBRARY =================== -->
-    <section class="panel card" id="library">
-      <h3 style="margin:0 0 8px;">Prompt Library</h3>
-      <p style="margin:0 0 12px; color:var(--subtext);">Copy any prompt. We’ll keep refining this from live usage.</p>
-      <div class="grid" id="promptList"><!-- prompts injected --></div>
-    </section>
-    <!-- =================== END: PROMPT LIBRARY =================== -->
-
-    <!-- =================== START: DEMO VIDEO =================== -->
-    <section class="panel card" id="demo">
-      <h3 style="margin:0 0 8px;">20‑Second Demo</h3>
-      <div class="media" id="demoMedia"><!-- demo injected --></div>
-      <div style="margin-top:6px; color:var(--subtext); font-size:13px;" id="demoCaption"></div>
-    </section>
-    <!-- =================== END: DEMO VIDEO =================== -->
-
-    <!-- =================== START: JOIN / PAYMENT =================== -->
-    <section class="panel card" id="join">
-      <h3 style="margin:0 0 8px;">Join / Support</h3>
-      <p style="margin:0 0 12px; color:var(--subtext);">
-        Early access is open. You can support development via Revolut now, and we’ll add subscriptions (Stripe) soon.
-      </p>
-      <div class="row">
-        <a id="joinPrimary" href="#join" class="btn primary">Request Invite</a>
-        <a id="supportLink2" class="btn" target="_blank" rel="noopener">Tip / Support via Revolut</a>
-      </div>
-    </section>
-    <!-- =================== END: JOIN / PAYMENT =================== -->
-  </main>
-
-  <!-- =================== START: FOOTER =================== -->
-  <footer>
-    <div style="display:flex; gap:10px; align-items:center;">
-      <strong id="footBrand">GRIDCORE Systems</strong>
-      <span aria-hidden="true" style="opacity:.6;">•</span>
-      <span id="footLocale">UK</span>
-    </div>
-    <div>
-      <a id="footEmail" href="mailto:hello@gridcore.systems">hello@gridcore.systems</a>
-      <span aria-hidden="true" style="opacity:.6;">•</span>
-      <a id="footTerms" href="#" target="_blank" rel="noopener">Terms</a>
-      <span aria-hidden="true" style="opacity:.6;">•</span>
-      <a id="footPrivacy" href="#" target="_blank" rel="noopener">Privacy</a>
-    </div>
-    <div style="opacity:.7; font-size:12px;">© <span id="footCo">Gridcore Systems Ltd</span>. All rights reserved.</div>
-  </footer>
-  <!-- =================== END: FOOTER =================== -->
+  <!-- ============================================
+       START: VARIABLES SECTION (EDIT THESE ONLY)
+       Paste new values I give you here. Keep the structure.
+       ============================================ -->
+  <script>
+    const VARS = {
+      /* BRAND / TEXT */
+      siteName: "GridCore Systems",
+      tagline: "An evolving, personalized AI workflow engine. Minimal effort. Maximum output.",
+      heroTitle: "Build once. <span class='gradient-gold'>Scale forever.</span>",
+      heroSub: "Your AI workflow that learns from real usage and refines itself. Plug in, focus on outcomes, and let GridCore handle the rest.",
+      /* LINKS */
+      ctaPrimaryText: "Join & Support",
+      ctaPrimaryLink: "https://revolut.me/jakek6agj",      // your payment link
+      ctaSecondaryText: "See Live Demo",
+      ctaSecondaryLink: "#featured-video",
+      /* LOGO / IMAGES (use full URLs or data URLs) */
+      logoUrl: "",   // add a hosted image URL later; if empty, fallback monogram renders
+      /* THEME */
+      colors: {
+        background: "#0b0b0e",
+        backgroundAccent: "#111218",
+        text: "#efefef",
+        muted: "#c7c7d1",
+        gold1: "#D4AF37",
+        gold2: "#F5E6A6",
+        gold3: "#AC8E2B"
+      },
+      /* FEATURE CARDS (you can add/remove items safely) */
+      features: [
+        { title: "Auto‑Learning Core", text: "Ingests user interactions (with consent), finds patterns, and tunes flows without manual tinkering." },
+        { title: "One‑Paste Updates", text: "Update via a single variables section. No code editing. No regressions." },
+        { title: "Privacy‑First", text: "Granular consent, clear controls, compliant by design. Insights without invasive tracking." },
+        { title: "Scale‑Ready", text: "Edge‑friendly, static-first delivery to handle spikes without breaking a sweat." }
+      ],
+      /* PROMPT LIBRARY PREVIEW */
+      promptStarters: [
+        "Turn my idea into a 3‑step workflow.",
+        "Summarize user feedback and propose changes.",
+        "Draft a 20s TikTok launch script with CTA.",
+        "Generate a weekly learning report from usage."
+      ]
+    };
+  </script>
+  <!-- ============================================
+       END: VARIABLES SECTION (STOP EDITING ABOVE)
+       ============================================ -->
 
   <script>
-    // =================== START: RUNTIME BINDINGS ===================
-    (function applyConfig(cfg){
-      // Theme vars
-      const root = document.documentElement.style;
-      root.setProperty('--bg', cfg.theme.bg);
-      root.setProperty('--panel', cfg.theme.panel);
-      root.setProperty('--text', cfg.theme.text);
-      root.setProperty('--subtext', cfg.theme.subtext);
-      root.setProperty('--gold', cfg.theme.gold);
-      root.setProperty('--gold-deep', cfg.theme.goldDeep);
-      root.setProperty('--accent', cfg.theme.accent);
-      root.setProperty('--goldA', cfg.theme.goldGradientA);
-      root.setProperty('--goldB', cfg.theme.goldGradientB);
-      root.setProperty('--grain-opacity', String(cfg.theme.bgGrainOpacity ?? .12));
+    // Light binding of VARS → DOM + CSS variables
+    document.addEventListener("DOMContentLoaded", () => {
+      // Theme
+      const c = VARS.colors || {};
+      document.documentElement.style.setProperty("--bg", c.background || "#0b0b0e");
+      document.documentElement.style.setProperty("--bg-accent", c.backgroundAccent || "#111218");
+      document.documentElement.style.setProperty("--text", c.text || "#efefef");
+      document.documentElement.style.setProperty("--muted", c.muted || "#c7c7d1");
+      document.documentElement.style.setProperty("--gold-1", c.gold1 || "#D4AF37");
+      document.documentElement.style.setProperty("--gold-2", c.gold2 || "#F5E6A6");
+      document.documentElement.style.setProperty("--gold-3", c.gold3 || "#AC8E2B");
 
-      // Brand
-      const $logo = document.getElementById('logo');
-      if (cfg.brand.logoSrc) {
-        $logo.src = cfg.brand.logoSrc;
-        $logo.alt = cfg.brand.siteName + " logo";
+      // Texts
+      const $ = (sel)=>document.querySelector(sel);
+      $("#siteName").textContent = VARS.siteName;
+      $("#pageTitle").textContent = VARS.siteName;
+      $("#tagline").textContent = VARS.tagline;
+      $("#heroTitle").innerHTML = VARS.heroTitle;
+      $("#heroSub").textContent = VARS.heroSub;
+
+      // CTAs
+      const primary = $("#ctaPrimary");
+      primary.textContent = VARS.ctaPrimaryText;
+      primary.href = VARS.ctaPrimaryLink;
+
+      const secondary = $("#ctaSecondary");
+      secondary.textContent = VARS.ctaSecondaryText;
+      secondary.href = VARS.ctaSecondaryLink;
+
+      // Logo
+      const logoEl = $("#logoImg");
+      const monogramEl = $("#logoFallback");
+      if (VARS.logoUrl) {
+        logoEl.src = VARS.logoUrl;
+        logoEl.hidden = false;
+        monogramEl.hidden = true;
       } else {
-        // Fallback: small gold square mark
-        const svg = encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop stop-color='${cfg.theme.goldGradientA}'/><stop offset='1' stop-color='${cfg.theme.goldGradientB}'/></linearGradient></defs><rect rx='22' ry='22' x='5' y='5' width='90' height='90' fill='url(%23g)' /></svg>`);
-        $logo.src = "data:image/svg+xml;utf8," + svg;
-        $logo.alt = "Logo";
-      }
-      document.getElementById('brandName').textContent = cfg.brand.shortName || cfg.brand.siteName;
-      document.getElementById('brandTitle').textContent = cfg.brand.siteName;
-      document.getElementById('brandTag').textContent = cfg.brand.tagline;
-
-      // CTAs / Links
-      const supportURL = cfg.callsToAction.supportLink;
-      const supportEls = [document.getElementById('supportLink'), document.getElementById('ctaSupport'), document.getElementById('supportLink2')];
-      supportEls.forEach(el => { if (el && supportURL) { el.href = supportURL; } });
-      document.getElementById('ctaPrimary').textContent = cfg.callsToAction.primaryText;
-
-      // Hero media
-      const heroMedia = document.getElementById('heroMedia');
-      if (cfg.proof.heroVideo) {
-        const v = document.createElement('video');
-        v.src = cfg.proof.heroVideo; v.playsInline = true; v.autoplay = true; v.muted = true; v.loop = true;
-        heroMedia.appendChild(v);
-      } else if (cfg.proof.heroImage) {
-        const i = document.createElement('img'); i.src = cfg.proof.heroImage; i.alt = "GRIDCORE hero";
-        heroMedia.appendChild(i);
-      } else {
-        // fallback gradient canvas
-        const i = document.createElement('div');
-        i.style.width = "100%"; i.style.height = "100%";
-        i.style.background = `linear-gradient(135deg, ${cfg.theme.goldGradientA}, ${cfg.theme.goldGradientB})`;
-        heroMedia.appendChild(i);
+        // Monogram from site name initials
+        const initials = (VARS.siteName || "GC").split(/\s+/).map(s=>s[0]).join("").slice(0,3).toUpperCase();
+        monogramEl.textContent = initials;
+        logoEl.hidden = true;
+        monogramEl.hidden = false;
       }
 
-      // Optional QR
-      const qr = document.getElementById('qr');
-      if (cfg.proof.qrSrc) { qr.src = cfg.proof.qrSrc; qr.style.display = 'block'; }
-
-      // Prompt Library
-      const list = document.getElementById('promptList');
-      cfg.prompts.forEach(p => {
-        const card = document.createElement('div');
-        card.className = "prompt";
-        card.innerHTML = `<h4>${p.title}</h4><p>${p.body}</p><div class="copy">Tap & hold to copy</div>`;
-        card.addEventListener('click', async () => {
-          try { await navigator.clipboard.writeText(p.body); card.querySelector('.copy').textContent = "Copied!"; setTimeout(()=>card.querySelector('.copy').textContent="Tap & hold to copy", 1500);} catch(e){}
-        });
-        list.appendChild(card);
+      // Features
+      const featureWrap = document.getElementById("featuresWrap");
+      featureWrap.innerHTML = "";
+      (VARS.features||[]).forEach(f=>{
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `<h3>${f.title}</h3><p>${f.text}</p>`;
+        featureWrap.appendChild(div);
       });
 
-      // Demo video
-      if (cfg.demoVideo.src) {
-        const vid = document.createElement('video');
-        vid.src = cfg.demoVideo.src; vid.controls = true; vid.playsInline = true; vid.style.background = "rgba(255,255,255,.02)";
-        document.getElementById('demoMedia').appendChild(vid);
-      } else {
-        const ph = document.createElement('div');
-        ph.style.width = "100%"; ph.style.height = "100%";
-        ph.style.background = "linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.02))";
-        document.getElementById('demoMedia').appendChild(ph);
-      }
-      document.getElementById('demoCaption').textContent = cfg.demoVideo.caption || "";
+      // Prompt Library
+      const promptWrap = document.getElementById("promptWrap");
+      promptWrap.innerHTML = "";
+      (VARS.promptStarters||[]).forEach(p=>{
+        const d = document.createElement("div");
+        d.className = "badge";
+        d.textContent = p;
+        promptWrap.appendChild(d);
+      });
+    });
+  </script>
+</head>
 
-      // Footer
-      document.getElementById('footBrand').textContent = cfg.brand.siteName;
-      document.getElementById('footLocale').textContent = cfg.legal.locale;
-      const em = document.getElementById('footEmail');
-      em.href = `mailto:${cfg.legal.email}`; em.textContent = cfg.legal.email;
-      const tu = document.getElementById('footTerms'), pu = document.getElementById('footPrivacy');
-      if (cfg.legal.termsUrl) tu.href = cfg.legal.termsUrl;
-      if (cfg.legal.privacyUrl) pu.href = cfg.legal.privacyUrl;
-      document.getElementById('footCo').textContent = cfg.legal.company;
-    })(window.GRIDCORE_CONFIG || {});
-    // =================== END: RUNTIME BINDINGS ===================
+<body>
+  <div class="bg"></div>
+  <div class="gold-lines"></div>
+
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <img id="logoImg" alt="Logo" hidden />
+        <div id="logoFallback" class="card" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-weight:800;background:linear-gradient(180deg, rgba(245,230,166,.28), rgba(212,175,55,.14)); color:#0b0b0e; border-radius:12px;">GC</div>
+        <div>
+          <h1 id="siteName">GridCore Systems</h1>
+          <div class="pill" id="tagline">An evolving, personalized AI workflow engine. Minimal effort. Maximum output.</div>
+        </div>
+      </div>
+      <a class="btn btn-ghost" href="#how">How it works</a>
+    </header>
+
+    <main class="card hero">
+      <h2 id="heroTitle">Build once. <span class="gradient-gold">Scale forever.</span></h2>
+      <p id="heroSub">Your AI workflow that learns from real usage and refines itself. Plug in, focus on outcomes, and let GridCore handle the rest.</p>
+      <div class="cta-row">
+        <a id="ctaPrimary" class="btn btn-primary" href="https://revolut.me/jakek6agj" target="_blank" rel="noopener">Join & Support</a>
+        <a id="ctaSecondary" class="btn btn-ghost" href="#featured-video">See Live Demo</a>
+      </div>
+    </main>
+
+    <section id="how">
+      <h3 class="section-title">What you get today</h3>
+      <div class="grid features" id="featuresWrap">
+        <!-- Filled from VARS.features -->
+      </div>
+    </section>
+
+    <section>
+      <h3 class="section-title">Prompt Library (starters)</h3>
+      <div class="grid" id="promptWrap">
+        <!-- Filled from VARS.promptStarters -->
+      </div>
+    </section>
+
+    <section id="featured-video">
+      <h3 class="section-title">Featured AI Video</h3>
+      <div class="video-shell">
+        <!-- Replace this iframe src later; you won’t touch code, I’ll give you the single variable line when you have a link -->
+        <div class="overlay">Video placeholder — drop a link when ready (YouTube, Loom, Drive).</div>
+      </div>
+    </section>
+
+    <section>
+      <h3 class="section-title">Roadmap / Updates</h3>
+      <div class="item">
+        <p class="item-text">
+          • Variable‑only updates (one paste).<br/>
+          • Auto‑learning (privacy‑first).<br/>
+          • Rapid theming (gold/onyx baseline).<br/>
+          • Live demos & community prompts incoming.
+        </p>
+      </div>
+    </section>
+
+    <div class="gold-divider"></div>
+    <footer>
+      <div>© <span id="year"></span> <span id="footName">GridCore Systems</span> — Future‑ready, human‑centered AI workflows.</div>
+    </footer>
+  </div>
+
+  <script>
+    // Small footer year injection
+    document.getElementById("year").textContent = new Date().getFullYear();
+    document.getElementById("footName").textContent = VARS.siteName;
   </script>
 </body>
 </html>
