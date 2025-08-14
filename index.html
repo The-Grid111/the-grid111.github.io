@@ -44,7 +44,7 @@
   .grid{display:grid;gap:18px}
   @media(min-width:920px){ .grid{grid-template-columns:460px 1fr} }
   .media{position:relative;aspect-ratio:1/1;border-radius:20px;overflow:hidden;background:#0a0d11;box-shadow:inset 0 0 0 1px rgba(245,210,114,.10),0 30px 100px rgba(0,0,0,.55)}
-  .logo-img,.logo-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+  .logo-img,.logo-vid,.logo-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
   .logo-vid{opacity:0;transition:opacity .9s ease;filter:saturate(104%) contrast(102%)}
   .logo-img.fade{opacity:0;transition:opacity .9s ease}
   .title{text-align:center;margin:14px 10px 6px}
@@ -60,6 +60,22 @@
   .card{padding:14px;border-radius:16px;background:linear-gradient(180deg,#0f1418,#0b0f12);border:1px solid rgba(255,255,255,.06)}
   /* Confetti */
   #confetti{position:fixed;inset:0;pointer-events:none;z-index:60}
+
+  /* Admin panel */
+  .admin-btn{position:fixed;right:14px;top:12px;z-index:60}
+  .admin-surface{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);display:none;z-index:100}
+  .admin-box{position:absolute;right:16px;top:56px;width:min(420px,90vw);background:var(--panel);border:1px solid rgba(255,255,255,.08);border-radius:16px;box-shadow:0 20px 80px rgba(0,0,0,.6);padding:14px}
+  .admin-row{display:flex;gap:10px;align-items:center;justify-content:space-between;margin:8px 0}
+  .admin-box h3{margin:4px 0 6px}
+  .admin-box label{font-size:14px;color:var(--muted)}
+  .admin-box input[type="text"]{width:100%;padding:8px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:#0c1216;color:var(--ink)}
+  .admin-box .switch{display:flex;align-items:center;gap:8px}
+  .admin-box .btns{display:flex;gap:10px;justify-content:flex-end;margin-top:10px}
+  .btn{padding:8px 12px;border:1px solid rgba(255,255,255,.1);border-radius:10px;background:#0e1418;color:var(--ink);cursor:pointer}
+  .btn.gold{background:linear-gradient(180deg,#f6dc94,#d6b459);color:#1a1200;border:none}
+  .reel-list{max-height:180px;overflow:auto;border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:8px}
+  .reel-item{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px dashed rgba(255,255,255,.06)}
+  .reel-item:last-child{border-bottom:none}
 </style>
 </head>
 <body>
@@ -79,10 +95,26 @@
     <div class="wrap">
       <div class="panel">
         <div class="grid">
-          <!-- HERO MEDIA (still → spin fade) -->
+          <!-- HERO MEDIA (still → spin fade, with inline SVG fallback so it works even with no assets) -->
           <div class="media" id="heroBox">
-            <img class="logo-img" id="logoImg" src="assets/images/gc_logo.png" alt="GC Logo"
-                 onerror="this.style.display='none'">
+            <!-- 1) Inline fallback (always works) -->
+            <svg class="logo-fallback" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet" aria-label="GC Logo Fallback">
+              <defs>
+                <radialGradient id="g1" cx="50%" cy="40%" r="60%">
+                  <stop offset="0%" stop-color="#f5d272" stop-opacity="0.95"/>
+                  <stop offset="55%" stop-color="#caa14c" stop-opacity="0.9"/>
+                  <stop offset="100%" stop-color="#111" stop-opacity="0.15"/>
+                </radialGradient>
+              </defs>
+              <rect width="100%" height="100%" fill="#0b0f12"/>
+              <circle cx="100" cy="100" r="86" fill="url(#g1)" />
+              <text x="50%" y="53%" text-anchor="middle" fill="#1a1200" font-size="86" font-weight="900" font-family="ui-sans-serif,system-ui">GC</text>
+            </svg>
+
+            <!-- 2) Real still logo (uses your PNG if present) -->
+            <img class="logo-img" id="logoImg" src="assets/images/gc_logo.png" alt="GC Logo" onerror="this.style.display='none'">
+
+            <!-- 3) Spinning logo video (uses your MP4 if present) -->
             <video class="logo-vid" id="logoVid" playsinline muted loop preload="auto"
                    src="assets/video/gc_logo_spin.mp4"></video>
           </div>
@@ -129,47 +161,95 @@
     </section>
   </main>
 
+  <!-- Admin trigger -->
+  <button class="cta admin-btn" id="adminBtn">Admin</button>
+
+  <!-- Admin panel -->
+  <div class="admin-surface" id="adminSurface" aria-hidden="true">
+    <div class="admin-box" role="dialog" aria-modal="true" aria-label="Admin Panel">
+      <h3>Admin Panel</h3>
+      <div class="admin-row switch">
+        <label for="heroVideoToggle">Hero: Use Spinning Video</label>
+        <input type="checkbox" id="heroVideoToggle">
+      </div>
+
+      <div class="admin-row">
+        <label style="flex:1">Greeting – Morning</label>
+        <input type="text" id="gMorning" placeholder="Good morning, creator.">
+      </div>
+      <div class="admin-row">
+        <label style="flex:1">Greeting – Afternoon</label>
+        <input type="text" id="gAfternoon" placeholder="Good afternoon, innovator.">
+      </div>
+      <div class="admin-row">
+        <label style="flex:1">Greeting – Evening</label>
+        <input type="text" id="gEvening" placeholder="Good evening, visionary.">
+      </div>
+
+      <div class="admin-row" style="align-items:flex-start">
+        <label style="flex:1">Landscape Reels (tick to show)</label>
+      </div>
+      <div class="reel-list" id="reelList"><div class="reel-item">Scanning…</div></div>
+
+      <div class="btns">
+        <button class="btn" id="adminReset">Reset</button>
+        <button class="btn" id="adminExport">Export Save</button>
+        <button class="btn gold" id="adminSave">Save</button>
+        <button class="btn" id="adminClose">Close</button>
+      </div>
+      <p style="margin:8px 0 0;color:var(--muted);font-size:12px">Tip: change the admin password in the script (ADMIN_PASS).</p>
+    </div>
+  </div>
+
   <canvas id="confetti"></canvas>
 
 <script>
+  /* ===== CONFIG / ADMIN PASSWORD ===== */
+  const ADMIN_PASS = "GC-ADMIN"; // change this any time
+  const SAVE_KEY   = "thegrid_admin_save_v1";
+
   /* Greeting */
   (function(){
-    const h=new Date().getHours();
-    const t=h<12?"Good morning":h<18?"Good afternoon":"Good evening";
+    const saved = JSON.parse(localStorage.getItem(SAVE_KEY) || "{}");
+    const gm = saved.greetings?.morning || "Good morning";
+    const ga = saved.greetings?.afternoon || "Good afternoon";
+    const ge = saved.greetings?.evening || "Good evening";
+    const h = new Date().getHours();
+    const t = h<12?gm:h<18?ga:ge;
     document.getElementById("greet").textContent = t + " — THEGRID";
   })();
 
-  /* Still → Spin fade (graceful fallback if assets missing) */
+  /* Still → Spin fade (respect admin toggle; graceful fallback if assets missing) */
   (function(){
+    const saved = JSON.parse(localStorage.getItem(SAVE_KEY) || "{}");
+    const useVideo = saved.heroVideo !== false; // default true
     const img=document.getElementById('logoImg');
     const vid=document.getElementById('logoVid');
     if(!vid) return;
+    if(!useVideo){ vid.remove(); return; }
     let done=false;
     function go(){ if(done) return; done=true; vid.style.opacity='1'; if(img) img.classList.add('fade'); try{ vid.play().catch(()=>{});}catch(e){} }
-    if(vid.readyState>=2) setTimeout(go,300);
-    else {
-      vid.addEventListener('loadeddata', ()=>setTimeout(go,300), {once:true});
-      // Hard fallback: try fade after 2.5s even if autoplay blocked
-      setTimeout(go, 2500);
-    }
+    // Detect if the MP4 exists then fade
+    fetch(vid.currentSrc || vid.src, {method:'HEAD'}).then(r=>{
+      if(r.ok){ if(vid.readyState>=2) setTimeout(go,300); else vid.addEventListener('loadeddata', ()=>setTimeout(go,300), {once:true}); }
+    }).catch(()=>{});
+    setTimeout(go, 2500);
   })();
 
-  /* Reels auto-attach if files exist */
+  /* Reels auto-attach if files exist & if admin selected them */
   (function(){
     const wrap=document.getElementById('reelWrap');
     if(!wrap) return;
-    const candidates=[1,2,3,4,5,6].map(i=>`assets/video/landscape_${i}.mp4`);
-    const test = url => fetch(url,{method:'HEAD',cache:'no-store'}).then(r=>r.ok).catch(()=>false);
-    Promise.all(candidates.map(test)).then(exists=>{
-      const list = candidates.filter((_,i)=>exists[i]);
-      if(!list.length) return;
-      wrap.innerHTML = "";
-      list.forEach(url=>{
-        const v=document.createElement('video');
-        v.src=url; v.controls=true; v.playsInline=true; v.preload='metadata';
-        v.style.width='100%'; v.style.borderRadius='14px'; v.style.border='1px solid rgba(255,255,255,.08)'; v.style.display='block'; v.style.background='black';
-        wrap.appendChild(v);
-      });
+    const saved = JSON.parse(localStorage.getItem(SAVE_KEY) || "{}");
+    const chosen = saved.reels || []; // array of URLs
+    if(!chosen.length){ return; }
+    wrap.innerHTML = "";
+    chosen.forEach(url=>{
+      const v=document.createElement('video');
+      v.src=url; v.controls=true; v.playsInline=true; v.preload='metadata';
+      v.style.width='100%'; v.style.borderRadius='14px'; v.style.border='1px solid rgba(255,255,255,.08)';
+      v.style.display='block'; v.style.background='black';
+      wrap.appendChild(v);
     });
   })();
 
@@ -195,14 +275,13 @@
         if(t-t0<dur) requestAnimationFrame(loop);
       })(t0);
     }
-    // polite first-visit pop
     if(!sessionStorage.getItem('celebrated')){
       sessionStorage.setItem('celebrated','1');
       setTimeout(()=>burst(80,1300), 700);
     }
     document.getElementById('joinTop').addEventListener('click',()=>burst(120,1500));
-    document.getElementById('btnMonetise').addEventListener('click',()=>burst(120,1500));
-    document.getElementById('btnReels').addEventListener('click',()=>burst(90,1200));
+    document.getElementById('btnMonetise')?.addEventListener('click',()=>burst(120,1500));
+    document.getElementById('btnReels')?.addEventListener('click',()=>burst(90,1200));
   })();
 
   /* Smooth anchor scroll */
@@ -212,6 +291,96 @@
       if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth',block:'start'}); }
     });
   });
+
+  /* ================= ADMIN PANEL LOGIC ================= */
+  const adminBtn = document.getElementById('adminBtn');
+  const surface  = document.getElementById('adminSurface');
+  const btnClose = document.getElementById('adminClose');
+  const btnSave  = document.getElementById('adminSave');
+  const btnReset = document.getElementById('adminReset');
+  const btnExport= document.getElementById('adminExport');
+  const toggleHero= document.getElementById('heroVideoToggle');
+  const gMorning = document.getElementById('gMorning');
+  const gAfternoon = document.getElementById('gAfternoon');
+  const gEvening = document.getElementById('gEvening');
+  const reelList = document.getElementById('reelList');
+
+  // Open with password
+  adminBtn.addEventListener('click', async ()=>{
+    const pass = prompt("Enter admin password");
+    if(pass !== ADMIN_PASS) return alert("Access denied");
+    await buildReelList();
+    loadSaveIntoPanel();
+    surface.style.display='block';
+    surface.setAttribute('aria-hidden','false');
+  });
+  btnClose.addEventListener('click', ()=>{
+    surface.style.display='none';
+    surface.setAttribute('aria-hidden','true');
+  });
+
+  // Build reel list by scanning known filenames
+  async function buildReelList(){
+    const candidates=[1,2,3,4,5,6,7,8,9,10].map(i=>`assets/video/landscape_${i}.mp4`);
+    const tests = await Promise.all(candidates.map(u=>fetch(u,{method:'HEAD',cache:'no-store'}).then(r=>r.ok).catch(()=>false)));
+    const saved = JSON.parse(localStorage.getItem(SAVE_KEY) || "{}");
+    const chosen = new Set(saved.reels||[]);
+    reelList.innerHTML="";
+    let any=false;
+    candidates.forEach((u,i)=>{
+      if(!tests[i]) return;
+      any=true;
+      const row = document.createElement('label');
+      row.className='reel-item';
+      const cb = document.createElement('input');
+      cb.type='checkbox'; cb.value=u; cb.checked = chosen.has(u);
+      const span=document.createElement('span'); span.textContent=u.replace('assets/video/','');
+      row.appendChild(cb); row.appendChild(span);
+      reelList.appendChild(row);
+    });
+    if(!any){ reelList.innerHTML = '<div class="reel-item" style="opacity:.7">No landscape_#.mp4 files found.</div>'; }
+  }
+
+  function loadSaveIntoPanel(){
+    const saved = JSON.parse(localStorage.getItem(SAVE_KEY) || "{}");
+    toggleHero.checked = saved.heroVideo !== false; // default true
+    gMorning.value = saved.greetings?.morning || "Good morning, creator.";
+    gAfternoon.value = saved.greetings?.afternoon || "Good afternoon, innovator.";
+    gEvening.value = saved.greetings?.evening || "Good evening, visionary.";
+  }
+
+  btnReset.addEventListener('click', ()=>{
+    if(!confirm("Reset to defaults?")) return;
+    localStorage.removeItem(SAVE_KEY);
+    alert("Reset. Reloading…");
+    location.reload();
+  });
+
+  btnExport.addEventListener('click', ()=>{
+    const saved = JSON.parse(localStorage.getItem(SAVE_KEY) || "{}");
+    const blob = {
+      saved_at: new Date().toISOString(),
+      data: saved
+    };
+    const txt = "THEGRID-ADMIN-SAVE\n" + JSON.stringify(blob, null, 2) + "\n/END";
+    navigator.clipboard.writeText(txt).then(()=>alert("Copied admin save to clipboard! Paste into Notes."));
+  });
+
+  btnSave.addEventListener('click', ()=>{
+    const picked = Array.from(reelList.querySelectorAll('input[type="checkbox"]:checked')).map(cb=>cb.value);
+    const data = {
+      heroVideo: !!toggleHero.checked,
+      greetings: {
+        morning: gMorning.value || "Good morning, creator.",
+        afternoon: gAfternoon.value || "Good afternoon, innovator.",
+        evening: gEvening.value || "Good evening, visionary."
+      },
+      reels: picked
+    };
+    localStorage.setItem(SAVE_KEY, JSON.stringify(data));
+    alert("Saved. Reloading with your settings…");
+    location.reload();
+  });
 </script>
 </body>
-</html>t
+</html>
