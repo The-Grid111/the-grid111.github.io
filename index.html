@@ -2,47 +2,55 @@
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>THEGRID — Black & Gold</title><meta name="color-scheme" content="dark">
 <style>
-:root{--bg:#0b0d0f;--panel:#0f1216;--ring:#242a34;--text:#e9eaec;--muted:#a7abb1;--gold:#e6c26e;--radius:18px}
-*{box-sizing:border-box}html,body{margin:0;background:
- radial-gradient(1000px 520px at 20% -10%, rgba(246,203,92,.08), transparent 55%),
- radial-gradient(1200px 600px at 120% -10%, rgba(246,203,92,.06), transparent 60%),#0b0d0f;
- color:var(--text);font:14px/1.5 ui-sans-serif,system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial}
+:root{
+  --bg:#0b0d0f; --panel:#0f1216; --ring:#242a34; --text:#e9eaec; --muted:#a7abb1; --gold:#e6c26e;
+  --radius:18px; --pattern:
+    radial-gradient(1000px 520px at 20% -10%, rgba(246,203,92,.08), transparent 55%),
+    radial-gradient(1200px 600px at 120% -10%, rgba(246,203,92,.06), transparent 60%);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);background-image:var(--pattern);color:var(--text);
+  font:14px/1.5 ui-sans-serif,system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial}
 a{color:inherit;text-decoration:none}button,select,input{font:inherit;color:inherit}
-.wrap{max-width:1080px;margin:0 auto;padding:18px 16px 80px}
+.wrap{max-width:1080px;margin:0 auto;padding:18px 16px 120px}
 .top{display:flex;justify-content:space-between;align-items:center;margin:6px 0 12px}
-.chip{padding:10px 16px;border:1px solid #232a33;border-radius:999px;background:#11161c}
+.chip{padding:10px 16px;border:1px solid var(--ring);border-radius:999px;background:#11161c}
 .cta{padding:10px 18px;border-radius:999px;border:1px solid rgba(246,203,92,.45);
      background:linear-gradient(180deg,#2a2a22,#15140d);color:var(--gold);cursor:pointer}
 .cta,.btn,.pill{transition:transform .08s ease, box-shadow .12s ease}.pressed{transform:translateY(1px) scale(.99)}
-.panel,.card{border:1px solid #232a33;border-radius:var(--radius);background:linear-gradient(180deg,#0f1216,#0c0f13);
-            box-shadow:inset 0 1px 0 rgba(255,255,255,.03), 0 16px 60px rgba(0,0,0,.45);padding:14px;margin:10px 0}
+.panel,.card{border:1px solid var(--ring);border-radius:var(--radius);
+  background:linear-gradient(180deg,var(--panel),#0c0f13);box-shadow:0 16px 60px rgba(0,0,0,.45);padding:14px;margin:10px 0}
 .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-select,.btn{background:#10151b;border:1px solid #232a33;border-radius:10px;color:#d5dbe4;padding:9px 12px}
+select,.btn,input[type="text"],input[type="color"],input[type="range"]{background:#10151b;border:1px solid var(--ring);border-radius:10px;color:#d5dbe4;padding:9px 12px}
 .btn.ghost{background:#0f141a}
-.hero{padding:16px}.hero-frame{aspect-ratio:16/9;border-radius:16px;background:#0b0f14;border:1px solid #232a33;overflow:hidden;display:grid;place-items:center}
+.hero{padding:16px}.hero-frame{aspect-ratio:16/9;border-radius:16px;background:#0b0f14;border:1px solid var(--ring);overflow:hidden;display:grid;place-items:center}
 .hero-frame video,.hero-frame img{width:100%;height:100%;object-fit:cover;display:block}
 h1{font-size:42px;line-height:1.07;margin:10px 0 8px}.gold{color:var(--gold)}.lead{color:var(--muted);margin:0 0 12px}
 .actions{display:flex;gap:12px;flex-wrap:wrap}
 .small{color:#9aa3ad}
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:9999}
 
-/* Bottom sheets / modal */
-.sheet{position:fixed;left:0;right:0;bottom:0;translate:0 110%;transition:translate .3s ease;background:#0f1216;border-top:1px solid #232a33;box-shadow:0 -20px 60px rgba(0,0,0,.6);z-index:80}
-.sheet.open{translate:0 0}.sheet .inner{max-width:1080px;margin:0 auto;padding:14px}
-.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:10px}.col-4{grid-column:span 4}.col-8{grid-column:span 8}
-.stack{display:flex;flex-direction:column;gap:6px}
-input[type="text"],input[type="color"],input[type="range"],select{background:#0e1116;border:1px solid #232a33;border-radius:10px;padding:10px}
-.btn-row{display:flex;gap:10px;margin-top:8px}
-
+/* Dialogs */
 dialog{border:none;padding:0;background:transparent}
 dialog::backdrop{background:rgba(0,0,0,.55)}
-.modal{width:min(900px,96vw);max-height:80vh;overflow:auto;background:#0e1116;border:1px solid #232a33;border-radius:16px;box-shadow:0 16px 60px rgba(0,0,0,.55)}
-.modal-head{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid #1b2028}
+.modal{width:min(900px,96vw);max-height:80vh;overflow:auto;background:var(--panel);border:1px solid var(--ring);border-radius:16px;box-shadow:0 16px 60px rgba(0,0,0,.55)}
+.modal-head{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid var(--ring)}
 .modal-body{padding:12px 14px}
 .grid-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
-.tile{border:1px solid #232a33;border-radius:12px;overflow:hidden;background:#0e1319}
-.tile .cap{padding:8px 10px;font-size:12px;color:#aab4bf;border-top:1px solid #1b2028}
+.tile{border:1px solid var(--ring);border-radius:12px;overflow:hidden;background:#0e1319}
+.tile .cap{padding:8px 10px;font-size:12px;color:#aab4bf;border-top:1px solid var(--ring)}
 .placeholder{display:grid;place-items:center;color:#9aa3ad;font-size:13px;background:repeating-conic-gradient(from 0deg,#141922 0 15deg,#10151b 15deg 30deg)}
+
+/* Section: TikTok/CapCut Launch Film (9:16) */
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.subtitle{color:#aab4bf;margin:0}
+.launch-wrap{display:grid;grid-template-columns:1fr;gap:14px}
+.launch-card{border:1px solid var(--ring);border-radius:16px;background:linear-gradient(180deg,var(--panel),#0c0f13);box-shadow:0 16px 60px rgba(0,0,0,.45);padding:12px}
+.launch-frame{width:100%;max-width:430px;margin:0 auto;aspect-ratio:9/16;border-radius:12px;overflow:hidden;border:1px solid var(--ring);background:#0b0f14;display:grid;place-items:center}
+.launch-frame video,.launch-frame img{width:100%;height:100%;object-fit:cover;display:block}
+.safe-guide{display:flex;justify-content:center;gap:10px;color:#9aa3ad;font-size:12px}
+.badge{border:1px solid var(--ring);border-radius:999px;padding:4px 8px;background:#0f141a}
+@media(min-width:900px){.launch-wrap{grid-template-columns:1fr 1fr}}
 </style>
 </head><body>
 <canvas id="confetti" aria-hidden="true"></canvas>
@@ -50,10 +58,10 @@ dialog::backdrop{background:rgba(0,0,0,.55)}
 <div class="wrap">
   <header class="top">
     <div class="chip" id="greet">Welcome — THEGRID</div>
-    <!-- Confetti only when data-event="join" or "purchase" -->
     <a class="cta" id="joinBtn" data-event="join" data-tier="gold">Join Now</a>
   </header>
 
+  <!-- Quick controls -->
   <section class="panel">
     <div class="row">
       <label>Role:</label>
@@ -70,8 +78,10 @@ dialog::backdrop{background:rgba(0,0,0,.55)}
     </div>
   </section>
 
+  <!-- Hero -->
   <section class="card hero"><div id="heroBox" class="hero-frame"></div></section>
 
+  <!-- Pitch -->
   <section class="card">
     <h1><span class="gold">Black & Gold</span><br>Performance Creativity</h1>
     <p class="lead">Cinematic reels + a savable system. Swap files with the same names and the site updates itself.</p>
@@ -83,26 +93,53 @@ dialog::backdrop{background:rgba(0,0,0,.55)}
     </div>
     <div class="small">© THEGRID · <a href="#">Terms</a> · <a href="#">Privacy</a></div>
   </section>
-</div>
 
-<!-- Customize (admin only when Role=Admin) -->
-<div id="customSheet" class="sheet" aria-hidden="true">
-  <div class="inner">
-    <h3>Customize</h3>
-    <div class="grid">
-      <div class="col-4 stack"><label>Background</label><input type="color" id="bgPick" value="#0b0d0f"></div>
-      <div class="col-4 stack"><label>Gold</label><input type="color" id="goldPick" value="#e6c26e"></div>
-      <div class="col-4 stack"><label>Pattern</label><select id="patternSel"><option value="on" selected>On</option><option value="off">Off</option></select></div>
-      <div class="col-4 stack"><label>Radius</label><input type="range" id="radius" min="8" max="28" value="18"></div>
-      <div class="col-8 stack"><label>Hero video path</label><input type="text" id="heroVideo" value="assets/video/gc_spin.mp4"></div>
-      <div class="col-8 stack"><label>Hero image path</label><input type="text" id="heroImage" value="assets/images/gc_logo.png"></div>
+  <!-- How This Works (safe, non-technical) -->
+  <section class="card">
+    <div class="section-head">
+      <h2 style="margin:6px 0">How This Works</h2>
+      <span class="badge">Creator-Guided · AI-Assisted</span>
     </div>
-    <div class="btn-row">
-      <button class="btn" id="applyTheme">Apply</button>
-      <button class="btn" id="saveTheme">Save to this device</button>
-      <button class="btn ghost" id="closeCustomize">Close</button>
+    <p class="lead">We blend creator direction with AI and a one-step update workflow. No code needed. You focus on ideas; the system handles structure, learning, and presentation.</p>
+    <ul style="margin:8px 0 0 18px;max-width:70ch;color:#c9cfd8">
+      <li><b>One-step updates:</b> Replace a single file to evolve the site.</li>
+      <li><b>Smart library:</b> Drop in videos/images; the site adapts.</li>
+      <li><b>Customize live:</b> Admins change look & feel instantly.</li>
+      <li><b>Guided learning:</b> The platform improves with use.</li>
+    </ul>
+    <p class="small" style="margin-top:8px;color:#9aa3ad">We don’t publish prompts or internal methods. You see the results, not the recipe.</p>
+  </section>
+
+  <!-- TikTok/CapCut Launch Film (9:16) -->
+  <section class="card">
+    <div class="section-head">
+      <h2 style="margin:6px 0">Featured Film (TikTok Ready)</h2>
+      <span class="badge">9:16 · 1080×1920 · CapCut</span>
     </div>
-  </div>
+    <div class="launch-wrap">
+      <div class="launch-card">
+        <div class="launch-frame" id="launchFrame"></div>
+        <div class="safe-guide">
+          <span class="badge">Title safe ≈ top/bottom 10%</span>
+          <span class="badge">Text safe ≈ 5–12% edges</span>
+          <span class="badge">Export: H.264, 1080×1920, 20–25 Mbps</span>
+        </div>
+      </div>
+      <div class="launch-card">
+        <h3 style="margin:6px 0">About the Film</h3>
+        <p class="lead">This is your stitched cinematic made from perfected 10-second clips. When you’re ready, export from CapCut and drop it in — the site updates automatically.</p>
+        <ul style="margin:8px 0 0 18px;max-width:70ch;color:#c9cfd8">
+          <li><b>Upload:</b> <code>assets/video/launch_tiktok.mp4</code></li>
+          <li><b>Poster:</b> <code>assets/images/launch_poster.jpg</code> (optional)</li>
+          <li><b>Audio:</b> Carry narration/music across stitches for seamless flow.</li>
+        </ul>
+        <div class="row" style="margin-top:8px">
+          <button class="btn" id="playLaunch">Play / Pause</button>
+          <button class="btn ghost" id="muteLaunch">Mute / Unmute</button>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
 
 <!-- Library -->
@@ -114,42 +151,131 @@ dialog::backdrop{background:rgba(0,0,0,.55)}
   </div>
 </div></dialog>
 
+<!-- Customize (Admin only) -->
+<dialog id="customDialog"><div class="modal">
+  <div class="modal-head"><h3>Customize</h3><button class="btn sm" id="closeCustomize">Close</button></div>
+  <div class="modal-body">
+    <div class="row" style="flex-wrap:wrap">
+      <label>Background <input type="color" id="bgPick" value="#0b0d0f"></label>
+      <label>Text <input type="color" id="textPick" value="#e9eaec"></label>
+      <label>Gold <input type="color" id="goldPick" value="#e6c26e"></label>
+      <label>Panel <input type="color" id="panelPick" value="#0f1216"></label>
+      <label>Ring <input type="color" id="ringPick" value="#242a34"></label>
+      <label>Radius <input type="range" id="radius" min="6" max="30" value="18"></label>
+    </div>
+    <div class="row">
+      <label>Hero video <input id="heroVideo" value="assets/video/gc_spin.mp4"></label>
+      <label>Hero image <input id="heroImage" value="assets/images/gc_logo.png"></label>
+    </div>
+    <div class="row">
+      <button class="btn" id="applyTheme">Apply</button>
+      <button class="btn" id="saveTheme">Save to this device</button>
+    </div>
+  </div>
+</div></dialog>
+
 <script>
 (()=>{const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
-// greeting
+/* Build + cache-busting for all media */
+const BUILD = String(Date.now()); const cache = src => src + (src.includes('?')?'&':'?') + 'v='+BUILD;
+
+/* Greeting */
 (function(){const h=(new Date).getHours();$('#greet').textContent=(h<12?'Good morning':h<18?'Good afternoon':'Good evening')+' — THEGRID'})();
 
-// -------- Confetti (join/purchase only, burst from button, tier-scaled) --------
-const C=$('#confetti');let X,CPS=[],RAF=null,L=0;function fit(){const d=devicePixelRatio||1,w=innerWidth,h=innerHeight;C.width=w*d;C.height=h*d;C.style.width=w+'px';C.style.height=h+'px';X=C.getContext('2d');X.setTransform(d,0,0,d,0,0)}fit();addEventListener('resize',fit,{passive:true});
-function burstFrom(x,y,t){const k={basic:1,silver:1.4,gold:2}[t]||1, cols=t==='gold'?['#e6c26e','#f6e3a4','#fff2ce']:t==='silver'?['#cbd3df','#e8edf5','#ffffff']:['#d0d7e3','#f0f4fa','#ffffff'];for(let i=0;i<160*k;i++){const a=Math.random()*6.283,s=3+Math.random()*6*k;CPS.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-6*k,g:.25,r:2+Math.random()*3,life:180+Math.random()*80,col:cols[(Math.random()*cols.length)|0]})}if(!RAF)RAF=requestAnimationFrame(loop)}
-function loop(t){if(!L)L=t;const dt=Math.min(32,t-L)/16.6667;L=t;X.clearRect(0,0,C.width,C.height);for(const p of CPS){p.vy+=p.g*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.life-=dt;X.globalAlpha=Math.max(0,Math.min(1,p.life/180));X.fillStyle=p.col;X.beginPath();X.arc(p.x,p.y,p.r,0,6.283);X.fill()}CPS=CPS.filter(p=>p.life>0&&p.y<C.height+12);if(CPS.length)RAF=requestAnimationFrame(loop);else{cancelAnimationFrame(RAF);RAF=null;L=0}}
-document.addEventListener('click',e=>{const b=e.target.closest('a,button');if(!b)return;b.classList.add('pressed');setTimeout(()=>b.classList.remove('pressed'),120);const ev=b.dataset.event;if(ev==='join'||ev==='purchase'){const t=b.dataset.tier||'basic',r=b.getBoundingClientRect();burstFrom(r.left+r.width/2,r.top+r.height/2,t)}},{passive:true});
+/* Confetti (join/purchase only, burst from button, tier-scaled) */
+const C=document.createElement('canvas');C.id='confetti';document.body.prepend(C);
+let X,PS=[],RAF=null,L=0;function fit(){const d=devicePixelRatio||1,w=innerWidth,h=innerHeight;C.width=w*d;C.height=h*d;C.style.width=w+'px';C.style.height=h+'px';X=C.getContext('2d');X.setTransform(d,0,0,d,0,0)}fit();addEventListener('resize',fit,{passive:true});
+function confettiFrom(x,y,t){const k={basic:1,silver:1.4,gold:2}[t]||1,cols=t==='gold'?['#e6c26e','#f6e3a4','#fff2ce']:t==='silver'?['#cbd3df','#e8edf5','#ffffff']:['#d0d7e3','#f0f4fa','#ffffff'];for(let i=0;i<160*k;i++){const a=Math.random()*6.283,s=3+Math.random()*6*k;PS.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-6*k,g:.25,r:2+Math.random()*3,life:180+Math.random()*80,col:cols[(Math.random()*cols.length)|0]})}if(!RAF)RAF=requestAnimationFrame(loop)}
+function loop(t){if(!L)L=t;const dt=Math.min(32,t-L)/16.6667;L=t;X.clearRect(0,0,C.width,C.height);for(const p of PS){p.vy+=p.g*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.life-=dt;X.globalAlpha=Math.max(0,Math.min(1,p.life/180));X.fillStyle=p.col;X.beginPath();X.arc(p.x,p.y,p.r,0,6.283);X.fill()}PS=PS.filter(p=>p.life>0&&p.y<C.height+12);if(PS.length)RAF=requestAnimationFrame(loop);else{cancelAnimationFrame(RAF);RAF=null;L=0}}
+document.addEventListener('click',e=>{const b=e.target.closest('a,button');if(!b)return;b.classList.add('pressed');setTimeout(()=>b.classList.remove('pressed'),120);const ev=b.dataset.event;if(ev==='join'||ev==='purchase'){const r=b.getBoundingClientRect();confettiFrom(r.left+r.width/2,r.top+r.height/2,b.dataset.tier||'basic')}},{passive:true});
 
-// -------- Hero (video → image → placeholder) --------
-const heroBox=$('#heroBox');function placeholder(txt){const d=document.createElement('div');d.className='placeholder';d.textContent=txt;d.style.width='100%';d.style.height='100%';return d}
-async function setHero(mode){const v1=$('#heroVideo').value.trim()||'assets/video/gc_spin.mp4',v2=v1.replace('/video/','/videos/');const i1=$('#heroImage').value.trim()||'assets/images/gc_logo.png',i2=i1.replace('/images/','/image/');
+/* Hero (video → image → placeholder) */
+const heroBox=$('#heroBox');
+function placeholder(txt){const d=document.createElement('div');d.className='placeholder';d.textContent=txt;d.style.width='100%';d.style.height='100%';return d}
+function setHero(mode){
+  const vsrc=($('#heroVideo').value||'assets/video/gc_spin.mp4').trim();
+  const isrc=($('#heroImage').value||'assets/images/gc_logo.png').trim();
   heroBox.innerHTML='';
   if(mode==='Off'){heroBox.append(placeholder('Hero off'));return}
-  if(mode==='Image'){const img=new Image();img.src=i1;img.onerror=()=>{const alt=new Image();alt.src=i2;alt.onerror=()=>heroBox.append(placeholder('Logo missing'));heroBox.append(alt)};heroBox.append(img);return}
-  const v=document.createElement('video');Object.assign(v,{muted:true,autoplay:true,loop:true,playsInline:true});v.src=v1;v.oncanplay=()=>v.play().catch(()=>{});v.onerror=()=>{const vAlt=document.createElement('video');Object.assign(vAlt,{muted:true,autoplay:true,loop:true,playsInline:true});vAlt.src=v2;vAlt.oncanplay=()=>vAlt.play().catch(()=>{});vAlt.onerror=()=>{const img=new Image();img.src=i1;img.onerror=()=>{const imgAlt=new Image();imgAlt.src=i2;imgAlt.onerror=()=>heroBox.append(placeholder('Media missing'));heroBox.append(imgAlt)};heroBox.append(img)};heroBox.append(vAlt)};heroBox.append(v)}
-const heroSel=$('#heroSel');heroSel.addEventListener('change',e=>setHero(e.target.value));setHero(heroSel.value);
+  if(mode==='Image'){const img=new Image();img.src=cache(isrc);img.onerror=()=>heroBox.append(placeholder('Logo missing'));heroBox.append(img);return}
+  const v=document.createElement('video');Object.assign(v,{src:cache(vsrc),muted:true,autoplay:true,loop:true,playsInline:true});
+  v.oncanplay=()=>v.play().catch(()=>{}); v.onerror=()=>{const img=new Image();img.src=cache(isrc);img.onerror=()=>heroBox.append(placeholder('Media missing'));heroBox.append(img)};
+  heroBox.append(v);
+}
+$('#heroSel').addEventListener('change',e=>setHero(e.target.value)); setHero($('#heroSel').value);
 
-// -------- Save/Restore View (local only) --------
-$('#saveView').onclick=()=>{const v={role:$('#roleSel').value,hero:$('#heroSel').value,reels:$('#reelsSel').value,bg:getComputedStyle(document.documentElement).getPropertyValue('--bg').trim(),gold:getComputedStyle(document.documentElement).getPropertyValue('--gold').trim(),pat:$('#patternSel')?.value,rad:$('#radius')?.value,hv:$('#heroVideo').value,hi:$('#heroImage').value};localStorage.setItem('thegrid:view',JSON.stringify(v))};
-(function(){try{const v=JSON.parse(localStorage.getItem('thegrid:view')||'{}');if(v.role)$('#roleSel').value=v.role;if(v.hero){$('#heroSel').value=v.hero;setHero(v.hero)};if(v.reels)$('#reelsSel').value=v.reels;if(v.bg)document.documentElement.style.setProperty('--bg',v.bg);if(v.gold)document.documentElement.style.setProperty('--gold',v.gold);if(v.pat)$('#patternSel').value=v.pat;if(v.rad)$('#radius').value=v.rad;if(v.hv)$('#heroVideo').value=v.hv;if(v.hi)$('#heroImage').value=v.hi}catch{}})();
+/* Save / Restore view (local only) */
+$('#saveView').onclick=()=>{const v={role:$('#roleSel').value,hero:$('#heroSel').value,reels:$('#reelsSel').value,
+  bg:getComputedStyle(document.documentElement).getPropertyValue('--bg').trim(),
+  text:getComputedStyle(document.documentElement).getPropertyValue('--text')?.trim()||'#e9eaec',
+  gold:getComputedStyle(document.documentElement).getPropertyValue('--gold').trim(),
+  panel:getComputedStyle(document.documentElement).getPropertyValue('--panel').trim(),
+  ring:getComputedStyle(document.documentElement).getPropertyValue('--ring').trim(),
+  radius:getComputedStyle(document.documentElement).getPropertyValue('--radius').trim(),
+  hv:$('#heroVideo').value, hi:$('#heroImage').value};
+  localStorage.setItem('thegrid:view',JSON.stringify(v));
+};
+(function(){try{const v=JSON.parse(localStorage.getItem('thegrid:view')||'{}');
+  if(v.role)$('#roleSel').value=v.role; if(v.hero){$('#heroSel').value=v.hero;setHero(v.hero)}
+  if(v.reels)$('#reelsSel').value=v.reels;
+  if(v.bg)document.documentElement.style.setProperty('--bg',v.bg);
+  if(v.text)document.documentElement.style.setProperty('--text',v.text);
+  if(v.gold)document.documentElement.style.setProperty('--gold',v.gold);
+  if(v.panel)document.documentElement.style.setProperty('--panel',v.panel);
+  if(v.ring)document.documentElement.style.setProperty('--ring',v.ring);
+  if(v.radius)document.documentElement.style.setProperty('--radius',v.radius);
+  if(v.hv)$('#heroVideo').value=v.hv; if(v.hi)$('#heroImage').value=v.hi;
+}catch{}})();
 
-// -------- Customize (only when Role=Admin) --------
-const sheet=$('#customSheet');function syncAdmin(){const isAdmin=$('#roleSel').value==='Admin';$('#openCustomize').style.display=isAdmin?'inline-block':'none'}syncAdmin();$('#roleSel').onchange=()=>syncAdmin();
-$('#openCustomize').onclick=()=>{sheet.classList.add('open');sheet.setAttribute('aria-hidden','false')};
-$('#closeCustomize').onclick=()=>{sheet.classList.remove('open');sheet.setAttribute('aria-hidden','true')};
-function applyTheme(){const bg=$('#bgPick').value,g=$('#goldPick').value,pat=$('#patternSel').value,rad=$('#radius').value;document.documentElement.style.setProperty('--bg',bg);document.documentElement.style.setProperty('--gold',g);document.body.style.background=pat==='off'?'#0b0d0f':'radial-gradient(1000px 520px at 20% -10%, rgba(246,203,92,.08), transparent 55%), radial-gradient(1200px 600px at 120% -10%, rgba(246,203,92,.06), transparent 60%), #0b0d0f';document.documentElement.style.setProperty('--radius',rad+'px');setHero($('#heroSel').value)}
-$('#applyTheme').onclick=applyTheme;$('#saveTheme').onclick=()=>{applyTheme();const s=JSON.parse(localStorage.getItem('thegrid:view')||'{}');s.bg=$('#bgPick').value;s.gold=$('#goldPick').value;s.pat=$('#patternSel').value;s.rad=$('#radius').value;s.hv=$('#heroVideo').value;s.hi=$('#heroImage').value;localStorage.setItem('thegrid:view',JSON.stringify(s))};
+/* Customize (Admin only) */
+const cd=$('#customDialog');
+$('#openCustomize').onclick=()=>{ if($('#roleSel').value!=='Admin') return; cd.showModal(); };
+$('#closeCustomize').onclick=()=>cd.close();
+function applyTheme(){
+  document.documentElement.style.setProperty('--bg',$('#bgPick').value);
+  document.documentElement.style.setProperty('--text',$('#textPick').value);
+  document.documentElement.style.setProperty('--gold',$('#goldPick').value);
+  document.documentElement.style.setProperty('--panel',$('#panelPick').value);
+  document.documentElement.style.setProperty('--ring',$('#ringPick').value);
+  document.documentElement.style.setProperty('--radius',$('#radius').value+'px');
+  setHero($('#heroSel').value);
+}
+$('#applyTheme').onclick=applyTheme;
+$('#saveTheme').onclick=()=>{applyTheme(); const s=JSON.parse(localStorage.getItem('thegrid:view')||'{}');
+  s.bg=$('#bgPick').value; s.text=$('#textPick').value; s.gold=$('#goldPick').value; s.panel=$('#panelPick').value; s.ring=$('#ringPick').value; s.radius=$('#radius').value+'px';
+  s.hv=$('#heroVideo').value; s.hi=$('#heroImage').value; localStorage.setItem('thegrid:view',JSON.stringify(s));
+};
 
-// -------- Library (auto-skip missing) --------
-const vids=['assets/video/gc_spin.mp4','assets/videos/gc_spin.mp4','assets/video/hero_1.mp4','assets/video/interaction_1.mp4','assets/video/natural_1.mp4','assets/video/pour_1.mp4','assets/video/spread_1.mp4','assets/video/transform_1.mp4'];
-const imgs=['assets/images/gc_logo.png','assets/images/logo.png','assets/image/gc_logo.png','assets/images/hero_1.jpg','assets/images/hero_2.jpg','assets/images/hero_3.jpg','assets/images/grid_interaction_1.jpg','assets/images/grid_natural_1.jpg','assets/images/grid_pour_1.jpg','assets/images/grid_spread_1.jpg','assets/images/grid_transform_1.jpg'];
-function tileVideo(src){const el=document.createElement('div');el.className='tile';const v=document.createElement('video');Object.assign(v,{src,muted:true,loop:true,playsInline:true});v.oncanplay=()=>v.play().catch(()=>{});v.onerror=()=>el.remove();v.style.width='100%';v.style.height='140px';v.style.objectFit='cover';const cap=document.createElement('div');cap.className='cap';cap.textContent=src.split('/').pop();el.append(v,cap);el.onclick=()=>{$('#heroVideo').value=src;$('#heroSel').value='Video';setHero('Video')};return el}
-function tileImage(src){const el=document.createElement('div');el.className='tile';const i=new Image();i.src=src;i.loading='lazy';i.onerror=()=>el.remove();i.style.width='100%';i.style.height='140px';i.style.objectFit='cover';const cap=document.createElement('div');cap.className='cap';cap.textContent=src.split('/').pop();el.append(i,cap);el.onclick=()=>{$('#heroImage').value=src;$('#heroSel').value='Image';setHero('Image')};return el}
-$('#openLib').onclick=()=>{const d=$('#libDialog'),vg=$('#vGrid'),ig=$('#iGrid');vg.innerHTML='';ig.innerHTML='';vids.forEach(s=>vg.appendChild(tileVideo(s)));imgs.forEach(s=>ig.appendChild(tileImage(s)));d.showModal()};$('#closeLib').onclick=()=>$('#libDialog').close();
+/* Library (auto-skip missing) */
+const vids=['assets/video/gc_spin.mp4','assets/video/hero_1.mp4','assets/video/interaction_1.mp4','assets/video/natural_1.mp4','assets/video/pour_1.mp4','assets/video/spread_1.mp4','assets/video/transform_1.mp4','assets/video/launch_tiktok.mp4'];
+const imgs=['assets/images/gc_logo.png','assets/images/logo.png','assets/images/hero_1.jpg','assets/images/hero_2.jpg','assets/images/hero_3.jpg','assets/images/grid_interaction_1.jpg','assets/images/grid_natural_1.jpg','assets/images/grid_pour_1.jpg','assets/images/grid_spread_1.jpg','assets/images/grid_transform_1.jpg','assets/images/launch_poster.jpg'];
+function tVid(src){const el=document.createElement('div');el.className='tile';
+  const v=document.createElement('video');Object.assign(v,{src:cache(src),muted:true,loop:true,playsInline:true});
+  v.oncanplay=()=>v.play().catch(()=>{}); v.onerror=()=>el.remove();
+  v.style.width='100%'; v.style.height='140px'; v.style.objectFit='cover';
+  const cap=document.createElement('div');cap.className='cap';cap.textContent=src.split('/').pop();
+  el.append(v,cap); el.onclick=()=>{$('#heroVideo').value=src; $('#heroSel').value='Video'; setHero('Video');}; return el;}
+function tImg(src){const el=document.createElement('div');el.className='tile';
+  const i=new Image(); i.src=cache(src); i.loading='lazy'; i.onerror=()=>el.remove();
+  i.style.width='100%'; i.style.height='140px'; i.style.objectFit='cover';
+  const cap=document.createElement('div');cap.className='cap';cap.textContent=src.split('/').pop();
+  el.append(i,cap); el.onclick=()=>{$('#heroImage').value=src; $('#heroSel').value='Image'; setHero('Image');}; return el;}
+$('#openLib').onclick=()=>{const d=$('#libDialog'), vg=$('#vGrid'), ig=$('#iGrid'); vg.innerHTML=''; ig.innerHTML='';
+  vids.forEach(s=>vg.appendChild(tVid(s))); imgs.forEach(s=>ig.appendChild(tImg(s))); d.showModal();};
+$('#closeLib').onclick=()=>$('#libDialog').close();
+
+/* Featured Film player wiring */
+const launchFrame=$('#launchFrame'); function setLaunch(){
+  launchFrame.innerHTML='';
+  const poster='assets/images/launch_poster.jpg', film='assets/video/launch_tiktok.mp4';
+  const v=document.createElement('video'); Object.assign(v,{src:cache(film),poster:cache(poster),playsInline:true,controls:false,muted:true,loop:false});
+  v.onerror=()=>{ const img=new Image(); img.src=cache(poster); img.onerror=()=>launchFrame.append(Object.assign(document.createElement('div'),{className:'placeholder',textContent:'Upload launch_tiktok.mp4 or launch_poster.jpg'})); launchFrame.append(img); };
+  launchFrame.append(v); return v;
+}
+let launchVid=setLaunch();
+$('#playLaunch').onclick=()=>{ if(!launchVid || launchVid.readyState<2){ launchVid=setLaunch(); } if(launchVid.paused) launchVid.play().catch(()=>{}); else launchVid.pause(); };
+$('#muteLaunch').onclick=()=>{ if(!launchVid) return; launchVid.muted=!launchVid.muted; };
+
+/* Button press feedback + confetti routing already handled above */
 })();</script>
 </body></html>
