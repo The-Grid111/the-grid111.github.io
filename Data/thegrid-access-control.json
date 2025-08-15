@@ -1,97 +1,27 @@
 {
-  "THEGRID_ACCESS_CONTROL": {
-    "meta": {
-      "version": "1.0",
-      "created_at": "2025-08-14 16:21:09.700598Z",
-      "owner": "Jake"
-    },
-    "roles": {
-      "owner": {
-        "description": "Full control over everything.",
-        "permissions": [
-          "niche.read_all",
-          "niche.write_all",
-          "niche.delete_all",
-          "prompt.read_private",
-          "prompt.write_private",
-          "settings.read_all",
-          "settings.write_all",
-          "roles.assign",
-          "roles.revoke",
-          "invites.create",
-          "invites.invalidate",
-          "membership.tier_set",
-          "membership.read_all"
-        ]
-      },
-      "admin": {
-        "description": "Trusted collaborators with full paid access; cannot change owner or revoke owner.",
-        "permissions": [
-          "niche.read_all",
-          "niche.write_all",
-          "niche.delete_all",
-          "prompt.read_private",
-          "prompt.write_private",
-          "settings.read_all",
-          "settings.write_all",
-          "roles.assign_limited",
-          "invites.create",
-          "membership.tier_set",
-          "membership.read_all"
-        ],
-        "constraints": [
-          "cannot_revoke_owner",
-          "cannot_change_owner_profile"
-        ]
-      },
-      "pro": {
-        "description": "Paid tier with full public access and personal variants.",
-        "permissions": [
-          "niche.read_public",
-          "niche.write_variant",
-          "prompt.read_public",
-          "prompt.write_variant",
-          "settings.read_public",
-          "settings.write_variant"
-        ]
-      },
-      "savable": {
-        "description": "Tier that can save personal progress; cannot see private content.",
-        "permissions": [
-          "niche.read_public",
-          "prompt.read_public",
-          "settings.read_public",
-          "membership.save_personal"
-        ]
-      },
-      "viewer": {
-        "description": "Read-only public access.",
-        "permissions": [
-          "niche.read_public",
-          "prompt.read_public",
-          "settings.read_public"
-        ]
-      }
-    },
-    "policies": {
-      "merge_priority": [
-        "owner_private",
-        "site_public",
-        "admin_edits",
-        "user_variants"
-      ],
-      "private_visibility": {
-        "owner": [
-          "*"
-        ],
-        "admin": [
-          "*"
-        ],
-        "pro": [],
-        "savable": [],
-        "viewer": []
-      },
-      "audit_log": true
+  "hero": {
+    "mode": "auto",
+    "slides": [
+      { "type": "video", "src": "assets/video/gc_spin.mp4" },
+      { "type": "image", "src": "assets/images/gc_logo.png" }
+    ],
+    "autoplay": true,
+    "intervalMs": 4500,
+    "fadeMs": 800,
+    "poster": "assets/images/gc_logo.png"
+  },
+  "reels": {
+    "landscape": {
+      "pattern": "assets/video/landscape_#.mp4",
+      "count": 0
     }
+  },
+  "confetti": {
+    "quality": "high",
+    "durationMs": 1200,
+    "spread": 120,
+    "startVelocity": 60,
+    "gravity": 1.0,
+    "clearAfterMs": 1300
   }
 }
