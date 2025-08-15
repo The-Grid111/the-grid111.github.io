@@ -78,7 +78,15 @@
   .coach .btn.gold{border-color:rgba(246,203,92,.45);background:linear-gradient(180deg,#f6d77f,#e5bf63);color:#141314;font-weight:800}
   .coach .ok{color:#a8e6a1} .coach .warn{color:#f3d27a} .coach .err{color:#ff9f9f}
   .coach code{background:#10151b;border:1px solid #232834;border-radius:6px;padding:2px 6px}
-  .coach .small{font-size:12px;color:#9aa3ad}
+/* === Content Library (mini) === */
+#libOpen{position:fixed;right:14px;bottom:72px;z-index:55;border-radius:999px;padding:10px 14px;border:1px solid rgba(246,203,92,.35);background:linear-gradient(180deg,#151a1f,#0e1217);color:#f6e3a4;font-weight:800}
+#libPanel{position:fixed;right:12px;bottom:130px;width:min(420px,94vw);max-height:76vh;overflow:auto;z-index:56;display:none;background:linear-gradient(180deg,#0e1217,#0b0f14);border:1px solid #232834;border-radius:16px;box-shadow:0 20px 80px rgba(0,0,0,.55);padding:10px}
+#libPanel h3{margin:4px 0 8px}
+.lib-row{display:flex;gap:8px;align-items:center;margin:8px 0;border:1px solid #242833;border-radius:10px;padding:8px;background:#0e1217}
+.lib-row code{color:#cbd2dc;font-size:12px}
+.lib-row .lib-actions{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+.lib-btn{padding:6px 10px;border-radius:10px;border:1px solid #2a303b;background:#11161c;color:#e9eaec;cursor:pointer}
+.lib-btn.gold{border-color:rgba(246,203,92,.45);background:linear-gradient(180deg,#f6d77f,#e5bf63);color:#141314;font-weight:800}  .coach .small{font-size:12px;color:#9aa3ad}
 </style>
 </head>
 <body>
