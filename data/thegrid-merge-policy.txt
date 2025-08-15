@@ -1,0 +1,32 @@
+THEGRID Merge Policy v1.0
+
+Goal: Safely merge Jake's Core Save with the site's latest public baseline and user membership saves.
+
+Priority order:
+1) Jake's private changes (owner: Jake, meta.owner == 'Jake')
+2) New public improvements (source_site_version newer than Core Save)
+3) Existing Core Save content
+
+Per-niche merge key:
+- key = normalized niche name (lowercase, hyphenated)
+- If key exists in both, compare prompts by hash and timestamps:
+  - If different and both changed since last sync => keep BOTH as variants:
+    * keep user's as '[niche]-private'
+    * keep public as '[niche]-public'
+  - Else prefer the newer updated_at value.
+
+Fields merged:
+- prompt: last-writer-wins unless conflict -> two variants
+- render_settings: field-by-field, prefer more specific (e.g., explicit fps over range)
+- notes/history: append (do not overwrite)
+
+Versioning:
+- meta.version increments by 0.1 each merge
+- meta.source_site_version set to site version we merged
+
+Provenance:
+- Add 'updated_by' and 'updated_at' on each niche after merge
+
+Security:
+- Only accept merges signed by trusted keys (Jake + site)
+- Membership saves are sandboxed; cannot overwrite Jake's private entries

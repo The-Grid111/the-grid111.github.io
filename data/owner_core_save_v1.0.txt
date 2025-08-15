@@ -1,0 +1,23 @@
+=== THEGRID CORE SAVE v1.0 – FULL OPTIMIZED ===
+
+Niche 1 – Hypnotic Object Interaction
+Prompt: ultra-realistic macro close-up of [object] interacting with [material], cinematic lighting, soft key + rim light, macro lens depth of field, surface reacts to touch (indentation, residue, smear), subtle camera drift, clean muted background, dominant color + accent, realistic shadows, 24–30 fps, seamless loop
+Render: 1080×1920, 24–30 fps, 8–10 Mbps, realism low style, motion medium
+
+Niche 2 – Cinematic Pour & Flow
+Prompt: cinematic close-up of [liquid] pouring into [container], backlit to highlight translucency, slow motion 60 fps downsampled to 30 fps, macro surface detail, natural shadows, warm golden color palette, shallow depth of field, smooth continuous motion, high dynamic range, soft glow on highlights
+Render: 1080×1920, 30 fps, 10–12 Mbps, realism low style, motion low, warm backlit
+
+Niche 3 – Satisfying Spread/Smear
+Prompt: hyper-realistic close-up of [tool] spreading [material] across [surface], micro surface detail, physically accurate resistance, visible texture trails, shallow depth of field, cinematic lighting, dominant color with subtle complementary accents, repeatable short loop, realistic sound sync points
+Render: 1080×1920, 24–30 fps, 8–10 Mbps, realism low style, motion medium
+
+Niche 4 – Transform & Reveal
+Prompt: ultra-realistic scene where [object/material] transforms into [object/material], physically accurate textures during change, smooth morph transition, cinematic key + rim light, macro depth of field, dominant color + accent, high detail on surface reaction, seamless loop
+Render: 1080×1920, 24 fps, 8–10 Mbps, realism low–medium style, motion medium
+
+Niche 5 – Natural Element Power
+Prompt: cinematic close-up of [element] interacting with [terrain], physics-accurate displacement, particle effects, high-speed capture slowed to 24 fps, cinematic lighting with volumetric shadows, macro terrain detail, dominant color tone with accent highlights, repeatable seamless loop
+Render: 1080×1920, 24 fps, 10–12 Mbps, realism low style, motion high, dramatic volumetric lighting
+
+=== END SAVE ===

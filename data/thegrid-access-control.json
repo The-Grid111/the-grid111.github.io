@@ -1,0 +1,27 @@
+{
+  "hero": {
+    "mode": "auto",
+    "slides": [
+      { "type": "video", "src": "assets/video/gc_spin.mp4" },
+      { "type": "image", "src": "assets/images/gc_logo.png" }
+    ],
+    "autoplay": true,
+    "intervalMs": 4500,
+    "fadeMs": 800,
+    "poster": "assets/images/gc_logo.png"
+  },
+  "reels": {
+    "landscape": {
+      "pattern": "assets/video/landscape_#.mp4",
+      "count": 0
+    }
+  },
+  "confetti": {
+    "quality": "high",
+    "durationMs": 1200,
+    "spread": 120,
+    "startVelocity": 60,
+    "gravity": 1.0,
+    "clearAfterMs": 1300
+  }
+}
