@@ -1,281 +1,379 @@
-<!doctype html><html lang="en"><head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>THEGRID — Black & Gold</title><meta name="color-scheme" content="dark">
+<!doctype html>
+<html lang="en">
+<head>
+<!-- THEGRID:HEAD:BEGIN -->
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>THEGRID — Black & Gold • Live Custom</title>
+<meta name="color-scheme" content="dark">
 <style>
 :root{
-  --bg:#0b0d0f; --panel:#0f1216; --ring:#242a34; --text:#e9eaec; --muted:#a7abb1; --gold:#e6c26e;
-  --radius:18px; --pattern:
-    radial-gradient(1000px 520px at 20% -10%, rgba(246,203,92,.08), transparent 55%),
-    radial-gradient(1200px 600px at 120% -10%, rgba(246,203,92,.06), transparent 60%);
+  --bg:#0b0d0f; --panel:#11141a; --ink:#e9edf4; --muted:#9aa6b3;
+  --gold:#e4c35a; --accent:#10b3a6;
+  --br-color:#2b3442; --br-accent:var(--gold); --br-width:1.5px; --br-radius:14px;
+  --btn-radius:10px; --glow-strength:0; --header-h:76px;
+  --shadow:0 8px 28px rgba(0,0,0,.45);
 }
-*{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);background-image:var(--pattern);color:var(--text);
-  font:14px/1.5 ui-sans-serif,system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial}
-a{color:inherit;text-decoration:none}button,select,input{font:inherit;color:inherit}
-.wrap{max-width:1080px;margin:0 auto;padding:18px 16px 120px}
-.top{display:flex;justify-content:space-between;align-items:center;margin:6px 0 12px}
-.chip{padding:10px 16px;border:1px solid var(--ring);border-radius:999px;background:#11161c}
-.cta{padding:10px 18px;border-radius:999px;border:1px solid rgba(246,203,92,.45);
-     background:linear-gradient(180deg,#2a2a22,#15140d);color:var(--gold);cursor:pointer}
-.cta,.btn,.pill{transition:transform .08s ease, box-shadow .12s ease}.pressed{transform:translateY(1px) scale(.99)}
-.panel,.card{border:1px solid var(--ring);border-radius:var(--radius);
-  background:linear-gradient(180deg,var(--panel),#0c0f13);box-shadow:0 16px 60px rgba(0,0,0,.45);padding:14px;margin:10px 0}
-.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-select,.btn,input[type="text"],input[type="color"],input[type="range"]{background:#10151b;border:1px solid var(--ring);border-radius:10px;color:#d5dbe4;padding:9px 12px}
-.btn.ghost{background:#0f141a}
-.hero{padding:16px}.hero-frame{aspect-ratio:16/9;border-radius:16px;background:#0b0f14;border:1px solid var(--ring);overflow:hidden;display:grid;place-items:center}
-.hero-frame video,.hero-frame img{width:100%;height:100%;object-fit:cover;display:block}
-h1{font-size:42px;line-height:1.07;margin:10px 0 8px}.gold{color:var(--gold)}.lead{color:var(--muted);margin:0 0 12px}
-.actions{display:flex;gap:12px;flex-wrap:wrap}
-.small{color:#9aa3ad}
-#confetti{position:fixed;inset:0;pointer-events:none;z-index:9999}
+*{box-sizing:border-box} html,body{height:100%}
+body{
+  margin:0; color:var(--ink);
+  background:
+    radial-gradient(1200px 800px at 12% -12%, rgba(228,195,90,.13), transparent 60%),
+    radial-gradient(1000px 800px at 120% -30%, rgba(228,195,90,.06), transparent 65%),
+    var(--bg);
+  font:500 16px/1.55 ui-sans-serif,system-ui,-apple-system,Inter,Segoe UI,Roboto,Helvetica,Arial;
+  padding-top:var(--header-h);
+}
+.wrap{width:min(1040px,92vw); margin-inline:auto}
+.stack{display:grid; gap:14px}
+.grid{display:grid; gap:14px}
+.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:780px){.cols-2,.cols-3{grid-template-columns:1fr}}
+.muted{color:var(--muted)}
 
-/* Dialogs */
-dialog{border:none;padding:0;background:transparent}
-dialog::backdrop{background:rgba(0,0,0,.55)}
-.modal{width:min(900px,96vw);max-height:80vh;overflow:auto;background:var(--panel);border:1px solid var(--ring);border-radius:16px;box-shadow:0 16px 60px rgba(0,0,0,.55)}
-.modal-head{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid var(--ring)}
-.modal-body{padding:12px 14px}
-.grid-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
-.tile{border:1px solid var(--ring);border-radius:12px;overflow:hidden;background:#0e1319}
-.tile .cap{padding:8px 10px;font-size:12px;color:#aab4bf;border-top:1px solid var(--ring)}
-.placeholder{display:grid;place-items:center;color:#9aa3ad;font-size:13px;background:repeating-conic-gradient(from 0deg,#141922 0 15deg,#10151b 15deg 30deg)}
+/* Border engine (global + per-section via data-br-style) */
+.borderable{
+  position:relative; border-radius:var(--br-radius);
+  background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0)), var(--panel);
+  border:var(--br-width) solid var(--br-color);
+  box-shadow:var(--shadow), 0 0 var(--glow-strength) rgba(228,195,90,.28);
+}
+[ data-br-style="double"  ], :root[br-style="double"]  .borderable{border:calc(var(--br-width)*2) double var(--br-color)}
+[ data-br-style="bevel"   ], :root[br-style="bevel"]   .borderable{border:var(--br-width) solid color-mix(in oklab, var(--br-color) 80%, #fff 20%); box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,.06), inset 0 -1px 0 rgba(0,0,0,.35)}
+[ data-br-style="glow"    ], :root[br-style="glow"]    .borderable{box-shadow:var(--shadow), 0 0 calc(var(--glow-strength)*.6) color-mix(in oklab, var(--br-accent) 80%, transparent), 0 0 var(--glow-strength) color-mix(in oklab, var(--br-accent) 60%, transparent)}
+[ data-br-style="gradient"], :root[br-style="gradient"] .borderable::before{
+  content:""; position:absolute; inset:-1px; border-radius:inherit; padding:1px;
+  background:linear-gradient(135deg, var(--br-accent), rgba(255,255,255,.08), rgba(255,255,255,0), var(--br-accent));
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude; pointer-events:none;
+}
 
-/* Section: TikTok/CapCut Launch Film (9:16) */
-.section-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.subtitle{color:#aab4bf;margin:0}
-.launch-wrap{display:grid;grid-template-columns:1fr;gap:14px}
-.launch-card{border:1px solid var(--ring);border-radius:16px;background:linear-gradient(180deg,var(--panel),#0c0f13);box-shadow:0 16px 60px rgba(0,0,0,.45);padding:12px}
-.launch-frame{width:100%;max-width:430px;margin:0 auto;aspect-ratio:9/16;border-radius:12px;overflow:hidden;border:1px solid var(--ring);background:#0b0f14;display:grid;place-items:center}
-.launch-frame video,.launch-frame img{width:100%;height:100%;object-fit:cover;display:block}
-.safe-guide{display:flex;justify-content:center;gap:10px;color:#9aa3ad;font-size:12px}
-.badge{border:1px solid var(--ring);border-radius:999px;padding:4px 8px;background:#0f141a}
-@media(min-width:900px){.launch-wrap{grid-template-columns:1fr 1fr}}
+/* Header */
+.topbar{position:fixed; inset:0 0 auto 0; height:var(--header-h); z-index:40; display:flex; align-items:center;
+  background:linear-gradient(180deg, rgba(10,12,15,.88), rgba(10,12,15,.58)); backdrop-filter: blur(10px) saturate(120%);
+  border-bottom:var(--br-width) solid var(--br-color);}
+.topin{display:flex; align-items:center; gap:12px}
+.logo{width:48px;height:48px;border-radius:12px;overflow:hidden;background:#0c0f13;display:grid;place-items:center; border:var(--br-width) solid var(--br-color)}
+.logo video,.logo img{width:100%;height:100%;object-fit:cover;display:block}
+.greet{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:center}
+.gico{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;
+  background:radial-gradient(80% 80% at 30% 20%, var(--gold), transparent 60%), linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.2));
+  border:var(--br-width) solid var(--br-color)}
+.gtxt{display:flex;flex-direction:column;line-height:1.05}
+.g1{font-weight:800;letter-spacing:.2px}
+.g2{opacity:.75}
+
+/* Buttons */
+.btn{display:inline-grid; place-items:center; min-height:44px; padding:10px 16px; border-radius:var(--btn-radius);
+  border:var(--br-width) solid var(--br-color); background:#12161b; color:#f1f1f1; box-shadow:inset 0 1px 0 rgba(255,255,255,.04); font-weight:800; cursor:pointer;
+  transition:transform .12s ease, box-shadow .2s ease, border-color .2s ease}
+.btn:hover{transform:translateY(-1px); box-shadow:0 8px 24px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06)}
+.btn.gold{background:linear-gradient(180deg,#3b2f12,#241d0b); border-color:#5b4a1b; color:#f7eac1}
+.btn.block{width:100%}
+
+/* Cards and sections */
+.card.borderable{padding:18px}
+h1{font-size:clamp(32px,6.6vw,56px);line-height:1.06;margin:0 0 6px}
+h2{font-size:22px;margin:2px 0 8px}
+
+/* Hero media */
+.hero .media{overflow:hidden;border-radius:calc(var(--br-radius) + 4px); background:#090b0f}
+.hero .media video,.hero .media img{width:100%; height:auto; display:block}
+
+/* Library */
+.tiles{display:grid;gap:12px}
+.thumb{min-height:150px; display:grid; place-items:center; color:#78859a; cursor:pointer; background:#0d1115; border-radius:12px; border:var(--br-width) solid var(--br-color)}
+.thumb video,.thumb img{width:100%;height:100%;object-fit:cover;border-radius:10px;display:block}
+.thumb.active{outline:2px solid var(--gold); box-shadow:0 0 0 3px rgba(228,195,90,.25) inset}
+
+/* Pricing + diamonds */
+.plan{padding:16px;border-radius:16px;background:#0d1115; border:var(--br-width) solid var(--br-color)}
+.price{font-size:40px;font-weight:900}
+.unit{opacity:.78;font-weight:700}
+.premium{position:relative; box-shadow:0 0 0 1px rgba(207,166,74,.28) inset, 0 0 36px rgba(207,166,74,.08)}
+.diamond{position:absolute;width:14px;height:14px;
+  background:radial-gradient(50% 60% at 50% 35%, #fff 0 25%, transparent 26%), conic-gradient(from 0turn,#b1e9ff,#e9f6ff 30%,#b1e9ff 60%,#9fd3ff 85%,#b1e9ff);
+  clip-path: polygon(50% 0,100% 50%,50% 100%,0 50%);
+  filter:drop-shadow(0 1px 3px rgba(255,255,255,.35)) saturate(1.2); animation:sparkle 2.6s linear infinite; opacity:.95}
+.d2{width:11px;height:11px} .d3{width:9px;height:9px} .d4{width:12px;height:12px}
+@keyframes sparkle{0%,100%{transform:rotate(0) scale(1);filter:drop-shadow(0 0 6px rgba(255,255,255,.35))}35%{transform:rotate(22deg) scale(1.06);filter:drop-shadow(0 0 10px rgba(255,255,255,.55))}70%{transform:rotate(-18deg) scale(1.02)}}
+
+/* Owner panel */
+#ownerPanel{position:fixed; right:16px; bottom:16px; z-index:60; width:min(460px,92vw); display:none; flex-direction:column; gap:10px}
+#ownerPanel.open{display:flex}
+.panelCard{padding:14px; background:#0e1217; border-radius:14px; border:var(--br-width) solid var(--br-color); box-shadow:var(--shadow)}
+.roww{display:flex; gap:8px; flex-wrap:wrap}
+.sel{padding:8px 10px; border-radius:10px; border:1px solid #263043; background:#0f141b; cursor:pointer; font-weight:700; color:#d9dfeb}
+.sel.active{outline:2px solid var(--gold); box-shadow:0 0 0 3px rgba(228,195,90,.22) inset}
+input[type="color"], input[type="range"], select{border-radius:10px; border:1px solid #263043; background:#0f141b; color:#e8edf6; padding:8px}
+.small{font-size:12px;color:#96a2b3} hr.split{border:none;border-top:1px solid #1f2734;margin:6px 0}
+
+/* Confetti canvas */
+#confetti{position:fixed; inset:0; pointer-events:none; z-index:80}
 </style>
-</head><body>
-<canvas id="confetti" aria-hidden="true"></canvas>
+<!-- THEGRID:HEAD:END -->
+</head>
+<body>
 
-<div class="wrap">
-  <header class="top">
-    <div class="chip" id="greet">Welcome — THEGRID</div>
-    <a class="cta" id="joinBtn" data-event="join" data-tier="gold">Join Now</a>
-  </header>
+<canvas id="confetti"></canvas>
 
-  <!-- Quick controls -->
-  <section class="panel">
-    <div class="row">
-      <label>Role:</label>
-      <select id="roleSel"><option>User</option><option selected>Admin</option></select>
-      <label>Hero:</label>
-      <select id="heroSel"><option selected>Auto</option><option>Video</option><option>Image</option><option>Off</option></select>
-      <button class="btn" id="saveView">Save My View</button>
+<header class="topbar">
+  <div class="wrap topin">
+    <div class="logo" id="logo">
+      <video src="assets/videos/gc_spin.mp4" autoplay muted loop playsinline poster="assets/images/gc_logo.png"></video>
+      <img src="assets/images/gc_logo.png" alt="THEGRID logo" onerror="this.style.display='none'"/>
     </div>
-    <div class="row">
-      <label>Reels:</label>
-      <select id="reelsSel"><option selected>Auto (landscape_*.mp4)</option><option>interaction_*.mp4</option><option>natural_*.mp4</option></select>
-      <button class="btn ghost" id="openLib">Open Library</button>
-      <button class="btn ghost" id="openCustomize">Customize</button>
+    <div class="greet">
+      <div class="gico" id="gico">☀️</div>
+      <div class="gtxt"><strong class="g1" id="gline">Good afternoon</strong><span class="g2">— THEGRID</span></div>
     </div>
-  </section>
+    <div style="flex:1"></div>
+    <button class="btn" id="btnCustomize">Customize</button>
+    <a class="btn gold" href="#pricing" data-confetti>Join Now</a>
+  </div>
+</header>
 
-  <!-- Hero -->
-  <section class="card hero"><div id="heroBox" class="hero-frame"></div></section>
+<main class="wrap stack">
 
-  <!-- Pitch -->
-  <section class="card">
-    <h1><span class="gold">Black & Gold</span><br>Performance Creativity</h1>
-    <p class="lead">Cinematic reels + a savable system. Swap files with the same names and the site updates itself.</p>
-    <div class="actions">
-      <button class="pill btn" id="reelsBtn">Cinematic Reels</button>
-      <button class="pill btn" id="buyBasic"  data-event="purchase" data-tier="basic">Buy Basic</button>
-      <button class="pill btn" id="buySilver" data-event="purchase" data-tier="silver">Buy Silver</button>
-      <button class="pill btn" id="monetiseBtn" data-event="purchase" data-tier="gold">Monetise</button>
-    </div>
-    <div class="small">© THEGRID · <a href="#">Terms</a> · <a href="#">Privacy</a></div>
-  </section>
-
-  <!-- How This Works (safe, non-technical) -->
-  <section class="card">
-    <div class="section-head">
-      <h2 style="margin:6px 0">How This Works</h2>
-      <span class="badge">Creator-Guided · AI-Assisted</span>
-    </div>
-    <p class="lead">We blend creator direction with AI and a one-step update workflow. No code needed. You focus on ideas; the system handles structure, learning, and presentation.</p>
-    <ul style="margin:8px 0 0 18px;max-width:70ch;color:#c9cfd8">
-      <li><b>One-step updates:</b> Replace a single file to evolve the site.</li>
-      <li><b>Smart library:</b> Drop in videos/images; the site adapts.</li>
-      <li><b>Customize live:</b> Admins change look & feel instantly.</li>
-      <li><b>Guided learning:</b> The platform improves with use.</li>
-    </ul>
-    <p class="small" style="margin-top:8px;color:#9aa3ad">We don’t publish prompts or internal methods. You see the results, not the recipe.</p>
-  </section>
-
-  <!-- TikTok/CapCut Launch Film (9:16) -->
-  <section class="card">
-    <div class="section-head">
-      <h2 style="margin:6px 0">Featured Film (TikTok Ready)</h2>
-      <span class="badge">9:16 · 1080×1920 · CapCut</span>
-    </div>
-    <div class="launch-wrap">
-      <div class="launch-card">
-        <div class="launch-frame" id="launchFrame"></div>
-        <div class="safe-guide">
-          <span class="badge">Title safe ≈ top/bottom 10%</span>
-          <span class="badge">Text safe ≈ 5–12% edges</span>
-          <span class="badge">Export: H.264, 1080×1920, 20–25 Mbps</span>
-        </div>
+  <!-- THEGRID:HERO:BEGIN -->
+  <section class="card borderable hero" id="heroCard">
+    <h1>Black &amp; Gold <span style="color:var(--gold)">Creativity</span></h1>
+    <p class="muted">Cinematic visuals. One-file updates. Owner controls with presets, vibes, borders & glow.</p>
+    <div class="stack">
+      <div class="grid cols-3">
+        <a class="btn" href="#library">Open Library</a>
+        <a class="btn" href="#pricing">See Pricing</a>
+        <button class="btn gold" data-confetti>Monetise</button>
       </div>
-      <div class="launch-card">
-        <h3 style="margin:6px 0">About the Film</h3>
-        <p class="lead">This is your stitched cinematic made from perfected 10-second clips. When you’re ready, export from CapCut and drop it in — the site updates automatically.</p>
-        <ul style="margin:8px 0 0 18px;max-width:70ch;color:#c9cfd8">
-          <li><b>Upload:</b> <code>assets/video/launch_tiktok.mp4</code></li>
-          <li><b>Poster:</b> <code>assets/images/launch_poster.jpg</code> (optional)</li>
-          <li><b>Audio:</b> Carry narration/music across stitches for seamless flow.</li>
+      <div class="media borderable" id="heroMedia">
+        <video id="hero" autoplay muted playsinline loop poster="assets/images/hero_1.jpg" src="assets/videos/hero_1.mp4"></video>
+      </div>
+    </div>
+  </section>
+  <!-- THEGRID:HERO:END -->
+
+  <!-- THEGRID:LIBRARY:BEGIN -->
+  <section id="library" class="card borderable">
+    <h2>Library</h2>
+    <p class="muted">Tap a tile to set as Hero. Each tile can carry a <em>vibe</em> that rethemes sections.</p>
+    <div class="grid cols-3 tiles" id="tiles">
+      <div class="thumb" data-src="assets/videos/gc_spin.mp4" data-vibe="diamond-luxe">gc_spin.mp4</div>
+      <div class="thumb" data-src="assets/videos/hero_1.mp4" data-vibe="showcase-gold">hero_1.mp4</div>
+      <div class="thumb" data-src="assets/videos/interaction_1.mp4" data-vibe="neon-aqua">interaction_1.mp4</div>
+      <div class="thumb" data-src="assets/images/gc_logo.png" data-vibe="diamond-luxe">gc_logo.png</div>
+      <div class="thumb" data-src="assets/images/hero_1.jpg" data-vibe="editorial-double">hero_1.jpg</div>
+      <div class="thumb" data-src="assets/images/hero_2.jpg" data-vibe="noir-bevel">hero_2.jpg</div>
+    </div>
+  </section>
+  <!-- THEGRID:LIBRARY:END -->
+
+  <!-- THEGRID:PRICING:BEGIN -->
+  <section id="pricing" class="card borderable">
+    <div class="grid cols-3" style="align-items:center">
+      <div><h2 style="margin:0">Monetise</h2><p class="muted">Launch Pricing (Limited)</p></div>
+      <div></div>
+      <div style="text-align:right"><span class="sel active">Live</span></div>
+    </div>
+
+    <div class="grid cols-3" style="margin-top:10px">
+      <div class="plan borderable" id="planBasic">
+        <div class="price">£9<span class="unit">/mo</span></div>
+        <p class="muted">Basic</p>
+        <ul style="margin:8px 0 14px; padding-left:18px">
+          <li>Starter templates</li><li>Library access</li><li>Email support</li>
         </ul>
-        <div class="row" style="margin-top:8px">
-          <button class="btn" id="playLaunch">Play / Pause</button>
-          <button class="btn ghost" id="muteLaunch">Mute / Unmute</button>
-        </div>
+        <button class="btn gold" data-confetti>Choose Basic</button>
+      </div>
+
+      <div class="plan borderable" id="planSilver">
+        <div class="price">£29<span class="unit">/mo</span></div>
+        <p class="muted">Silver</p>
+        <ul style="margin:8px 0 14px; padding-left:18px">
+          <li>Everything in Basic</li><li>Advanced effects</li><li>Priority support</li>
+        </ul>
+        <button class="btn gold" data-confetti>Choose Silver</button>
+      </div>
+
+      <div class="plan borderable premium" id="planGold">
+        <div class="price">£49<span class="unit">/mo</span></div>
+        <p class="muted">Gold</p>
+        <ul style="margin:8px 0 14px; padding-left:18px">
+          <li>Full customization</li><li>Admin toolkit</li><li>1:1 onboarding</li>
+        </ul>
+        <button class="btn gold" data-confetti>Choose Gold</button>
+        <i class="diamond" style="left:-10px;bottom:-10px"></i>
+        <i class="diamond d2" style="right:-10px;top:-10px"></i>
+        <i class="diamond d3" style="right:40%;top:-8px"></i>
+        <i class="diamond d4" style="right:8%;bottom:-12px"></i>
       </div>
     </div>
+
+    <h3 style="margin:18px 0 8px">À-la-carte Services</h3>
+    <div class="grid cols-3">
+      <div class="plan borderable"><strong>One-time Setup</strong><div class="muted">Deploy &amp; connect Pages</div><div class="price" style="font-size:34px">£39</div><button class="btn gold" data-confetti>Start Setup</button></div>
+      <div class="plan borderable"><strong>Custom Reel Pack</strong><div class="muted">3 reels tuned to your niche</div><div class="price" style="font-size:34px">£59</div><button class="btn gold" data-confetti>Order Pack</button></div>
+      <div class="plan borderable"><strong>Template Pack</strong><div class="muted">5 premium blocks</div><div class="price" style="font-size:34px">£29</div><button class="btn gold" data-confetti>Get Pack</button></div>
+    </div>
   </section>
+  <!-- THEGRID:PRICING:END -->
+
+  <!-- THEGRID:FAQ:BEGIN -->
+  <section class="card borderable">
+    <h2>FAQ</h2>
+    <p><b>No-code updates?</b> Yes — replace <code>index.html</code>, drop media into <code>assets</code>.</p>
+    <p><b>Missing files?</b> Clean placeholders show — nothing breaks.</p>
+  </section>
+  <!-- THEGRID:FAQ:END -->
+
+  <footer class="muted" style="text-align:center">© THEGRID • Privacy • Terms</footer>
+</main>
+
+<!-- THEGRID:OWNER-PANEL:BEGIN -->
+<div id="ownerPanel" class="stack">
+  <div class="panelCard">
+    <div class="roww"><strong>Design Panel</strong><span class="small">(Owner only · long-press logo once per device)</span></div>
+    <hr class="split">
+
+    <!-- Presets -->
+    <div class="roww"><span class="small">Presets</span>
+      <button class="sel" data-preset="showcase-gold">Showcase Gold Glow</button>
+      <button class="sel" data-preset="editorial-double">Editorial Double</button>
+      <button class="sel" data-preset="stealth-minimal">Stealth Minimal</button>
+      <button class="sel" data-preset="diamond-luxe">Diamond Luxe</button>
+      <button class="sel" data-preset="neon-aqua">Neon Aqua</button>
+      <button class="sel" data-preset="noir-bevel">Noir Bevel</button>
+    </div>
+
+    <!-- Border styles -->
+    <div class="roww"><span class="small">Border Style</span>
+      <button class="sel" data-brstyle="solid">Solid</button>
+      <button class="sel" data-brstyle="double">Double</button>
+      <button class="sel" data-brstyle="gradient">Gradient</button>
+      <button class="sel" data-brstyle="glow">Glow</button>
+      <button class="sel" data-brstyle="bevel">Bevel</button>
+    </div>
+
+    <!-- Sliders/Colors -->
+    <div class="roww">
+      <label class="small">Border width</label><input id="brWidth" type="range" min="1" max="4" step="0.5" value="1.5">
+      <label class="small">Radius</label><input id="brRadius" type="range" min="6" max="22" step="1" value="14">
+      <label class="small">Glow</label><input id="glow" type="range" min="0" max="36" step="2" value="0">
+    </div>
+    <div class="roww">
+      <label class="small">Border color</label><input id="brColor" type="color" value="#2b3442">
+      <label class="small">Accent</label><input id="brAccent" type="color" value="#e4c35a">
+      <label class="small">Gold</label><input id="gold" type="color" value="#e4c35a">
+      <label class="small">Panel</label><input id="panel" type="color" value="#11141a">
+      <label class="small">Buttons radius</label><input id="btnRadius" type="range" min="6" max="18" step="1" value="10">
+    </div>
+
+    <!-- Scope -->
+    <hr class="split">
+    <div class="roww"><span class="small">Apply to section</span>
+      <button class="sel active" data-scope="all">All</button>
+      <button class="sel" data-scope="hero">Hero</button>
+      <button class="sel" data-scope="library">Library</button>
+      <button class="sel" data-scope="pricing">Pricing</button>
+      <button class="sel" data-scope="buttons">Buttons</button>
+    </div>
+
+    <div class="roww">
+      <button class="btn" id="saveLook">Save to this device</button>
+      <button class="btn" id="resetLook">Reset</button>
+      <button class="btn gold" id="closePanel">Close</button>
+    </div>
+  </div>
 </div>
+<!-- THEGRID:OWNER-PANEL:END -->
 
-<!-- Library -->
-<dialog id="libDialog"><div class="modal">
-  <div class="modal-head"><h3>Content Library</h3><button class="btn sm" id="closeLib">Close</button></div>
-  <div class="modal-body">
-    <h4>Videos</h4><div id="vGrid" class="grid-tiles"></div>
-    <h4 style="margin-top:12px">Images</h4><div id="iGrid" class="grid-tiles"></div>
-  </div>
-</div></dialog>
-
-<!-- Customize (Admin only) -->
-<dialog id="customDialog"><div class="modal">
-  <div class="modal-head"><h3>Customize</h3><button class="btn sm" id="closeCustomize">Close</button></div>
-  <div class="modal-body">
-    <div class="row" style="flex-wrap:wrap">
-      <label>Background <input type="color" id="bgPick" value="#0b0d0f"></label>
-      <label>Text <input type="color" id="textPick" value="#e9eaec"></label>
-      <label>Gold <input type="color" id="goldPick" value="#e6c26e"></label>
-      <label>Panel <input type="color" id="panelPick" value="#0f1216"></label>
-      <label>Ring <input type="color" id="ringPick" value="#242a34"></label>
-      <label>Radius <input type="range" id="radius" min="6" max="30" value="18"></label>
-    </div>
-    <div class="row">
-      <label>Hero video <input id="heroVideo" value="assets/video/gc_spin.mp4"></label>
-      <label>Hero image <input id="heroImage" value="assets/images/gc_logo.png"></label>
-    </div>
-    <div class="row">
-      <button class="btn" id="applyTheme">Apply</button>
-      <button class="btn" id="saveTheme">Save to this device</button>
-    </div>
-  </div>
-</div></dialog>
-
+<!-- THEGRID:SCRIPTS:BEGIN -->
 <script>
-(()=>{const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
-/* Build + cache-busting for all media */
-const BUILD = String(Date.now()); const cache = src => src + (src.includes('?')?'&':'?') + 'v='+BUILD;
+/* Header spacing */
+(()=>{const tb=document.querySelector('.topbar'); const setH=()=>document.documentElement.style.setProperty('--header-h', tb.getBoundingClientRect().height+'px'); setH(); addEventListener('resize', setH)})();
 
 /* Greeting */
-(function(){const h=(new Date).getHours();$('#greet').textContent=(h<12?'Good morning':h<18?'Good afternoon':'Good evening')+' — THEGRID'})();
+(()=>{const h=(new Date()).getHours(), line=document.getElementById('gline'), ico=document.getElementById('gico');
+let label='Hello', emoji='✨'; if(h>=5&&h<12){label='Good morning';emoji='🌅'} else if(h>=12&&h<17){label='Good afternoon';emoji='☀️'} else if(h>=17&&h<21){label='Good evening';emoji='🌇'} else {label='Good night';emoji='🌙'} line.textContent=label; ico.textContent=emoji;})();
 
-/* Confetti (join/purchase only, burst from button, tier-scaled) */
-const C=document.createElement('canvas');C.id='confetti';document.body.prepend(C);
-let X,PS=[],RAF=null,L=0;function fit(){const d=devicePixelRatio||1,w=innerWidth,h=innerHeight;C.width=w*d;C.height=h*d;C.style.width=w+'px';C.style.height=h+'px';X=C.getContext('2d');X.setTransform(d,0,0,d,0,0)}fit();addEventListener('resize',fit,{passive:true});
-function confettiFrom(x,y,t){const k={basic:1,silver:1.4,gold:2}[t]||1,cols=t==='gold'?['#e6c26e','#f6e3a4','#fff2ce']:t==='silver'?['#cbd3df','#e8edf5','#ffffff']:['#d0d7e3','#f0f4fa','#ffffff'];for(let i=0;i<160*k;i++){const a=Math.random()*6.283,s=3+Math.random()*6*k;PS.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-6*k,g:.25,r:2+Math.random()*3,life:180+Math.random()*80,col:cols[(Math.random()*cols.length)|0]})}if(!RAF)RAF=requestAnimationFrame(loop)}
-function loop(t){if(!L)L=t;const dt=Math.min(32,t-L)/16.6667;L=t;X.clearRect(0,0,C.width,C.height);for(const p of PS){p.vy+=p.g*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.life-=dt;X.globalAlpha=Math.max(0,Math.min(1,p.life/180));X.fillStyle=p.col;X.beginPath();X.arc(p.x,p.y,p.r,0,6.283);X.fill()}PS=PS.filter(p=>p.life>0&&p.y<C.height+12);if(PS.length)RAF=requestAnimationFrame(loop);else{cancelAnimationFrame(RAF);RAF=null;L=0}}
-document.addEventListener('click',e=>{const b=e.target.closest('a,button');if(!b)return;b.classList.add('pressed');setTimeout(()=>b.classList.remove('pressed'),120);const ev=b.dataset.event;if(ev==='join'||ev==='purchase'){const r=b.getBoundingClientRect();confettiFrom(r.left+r.width/2,r.top+r.height/2,b.dataset.tier||'basic')}},{passive:true});
+/* Confetti (fast, dense, glowing) + live tunables */
+(()=>{const S=window.runConfettiSettings={n:150,bursts:2,hue:48,jit:12,spdMin:6.2,spdMax:12.8,grav:.32,drag:.994,spinMin:-.28,spinMax:.28,szMin:4,szMax:10,lifeMin:140,lifeMax:220,glow:14,maxLive:900,wind:.004};
+const c=document.getElementById('confetti'),x=c.getContext('2d');let W,H,D;const rs=()=>{D=Math.min(devicePixelRatio||1,2);W=c.width=innerWidth*D;H=c.height=innerHeight*D;c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';x.setTransform(D,0,0,D,0,0)};addEventListener('resize',rs,{passive:true}); rs();
+const R=(a,b)=>a+Math.random()*(b-a), P=[]; let f;
+function sp(cx,cy){for(let b=0;b<S.bursts;b++){for(let i=0;i<S.n;i++){if(P.length>=S.maxLive)break;const ang=R(-Math.PI,0),spd=R(S.spdMin,S.spdMax),h=S.hue+R(-S.jit,S.jit);
+P.push({x:cx,y:cy,vx:Math.cos(ang)*spd,vy:Math.sin(ang)*spd,r:R(0,6.28),vr:R(S.spinMin,S.spinMax),s:R(S.szMin,S.szMax),life:R(S.lifeMin,S.lifeMax),shape:(['rect','tri','dot'][(Math.random()*3)|0]),col:`hsl(${h} 85% 55%)`});}} if(!f)loop();}
+function draw(p){x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.col;x.shadowBlur=S.glow;x.shadowColor=p.col;
+if(p.shape==='rect')x.fillRect(-p.s/2,-p.s/2,p.s,p.s*.65); else if(p.shape==='tri'){x.beginPath();x.moveTo(0,-p.s/1.2);x.lineTo(p.s/1.2,p.s/1.2);x.lineTo(-p.s/1.2,p.s/1.2);x.closePath();x.fill();} else {x.beginPath();x.arc(0,0,p.s*.45,0,6.28);x.fill();}
+x.restore();}
+function loop(){f=requestAnimationFrame(loop);x.clearRect(0,0,innerWidth,innerHeight);for(let i=P.length-1;i>=0;i--){const p=P[i];p.vx+=R(-S.wind,S.wind);p.vy+=S.grav;p.vx*=S.drag;p.vy*=S.drag;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.life--;draw(p);if(p.life<=0||p.y-20>innerHeight)P.splice(i,1);} if(!P.length){cancelAnimationFrame(f);f=null;}}
+window.runConfetti=(el)=>{const r=el?el.getBoundingClientRect():{left:innerWidth/2,top:innerHeight/2,width:0,height:0};sp(r.left+r.width/2,r.top+r.height/2);}
+document.addEventListener('click',e=>{const el=e.target.closest('[data-confetti]'); if(el) runConfetti(el);});})();
 
-/* Hero (video → image → placeholder) */
-const heroBox=$('#heroBox');
-function placeholder(txt){const d=document.createElement('div');d.className='placeholder';d.textContent=txt;d.style.width='100%';d.style.height='100%';return d}
-function setHero(mode){
-  const vsrc=($('#heroVideo').value||'assets/video/gc_spin.mp4').trim();
-  const isrc=($('#heroImage').value||'assets/images/gc_logo.png').trim();
-  heroBox.innerHTML='';
-  if(mode==='Off'){heroBox.append(placeholder('Hero off'));return}
-  if(mode==='Image'){const img=new Image();img.src=cache(isrc);img.onerror=()=>heroBox.append(placeholder('Logo missing'));heroBox.append(img);return}
-  const v=document.createElement('video');Object.assign(v,{src:cache(vsrc),muted:true,autoplay:true,loop:true,playsInline:true});
-  v.oncanplay=()=>v.play().catch(()=>{}); v.onerror=()=>{const img=new Image();img.src=cache(isrc);img.onerror=()=>heroBox.append(placeholder('Media missing'));heroBox.append(img)};
-  heroBox.append(v);
-}
-$('#heroSel').addEventListener('change',e=>setHero(e.target.value)); setHero($('#heroSel').value);
+/* Owner toggle (long-press logo) */
+(()=>{const logo=document.getElementById('logo'),panel=document.getElementById('ownerPanel'); let t;
+const setOwner=v=>{localStorage.setItem('gc_owner',v?'1':'0'); panel.classList.toggle('open',!!v);};
+if(localStorage.getItem('gc_owner')==='1') setOwner(true);
+function start(){clearTimeout(t); t=setTimeout(()=>setOwner(localStorage.getItem('gc_owner')!=='1'),1500);}
+function stop(){clearTimeout(t);}
+['touchstart','mousedown'].forEach(e=>logo.addEventListener(e,start));
+['touchend','mouseup','mouseleave'].forEach(e=>logo.addEventListener(e,stop));
+document.getElementById('btnCustomize').onclick=()=>{ if(localStorage.getItem('gc_owner')==='1') panel.classList.add('open'); else alert('Owner controls hidden. Long-press the logo to enable on this device.'); };
+document.getElementById('closePanel').onclick=()=>panel.classList.remove('open');
+})();
 
-/* Save / Restore view (local only) */
-$('#saveView').onclick=()=>{const v={role:$('#roleSel').value,hero:$('#heroSel').value,reels:$('#reelsSel').value,
-  bg:getComputedStyle(document.documentElement).getPropertyValue('--bg').trim(),
-  text:getComputedStyle(document.documentElement).getPropertyValue('--text')?.trim()||'#e9eaec',
-  gold:getComputedStyle(document.documentElement).getPropertyValue('--gold').trim(),
-  panel:getComputedStyle(document.documentElement).getPropertyValue('--panel').trim(),
-  ring:getComputedStyle(document.documentElement).getPropertyValue('--ring').trim(),
-  radius:getComputedStyle(document.documentElement).getPropertyValue('--radius').trim(),
-  hv:$('#heroVideo').value, hi:$('#heroImage').value};
-  localStorage.setItem('thegrid:view',JSON.stringify(v));
+/* Presets + scopes */
+(()=>{const PRESETS={
+  'showcase-gold': {brStyle:'glow', brWidth:1.5, brRadius:16, glow:24, brColor:'#2b3442', brAccent:'#e4c35a', gold:'#e4c35a', panel:'#11141a', btnRadius:12},
+  'editorial-double': {brStyle:'double', brWidth:2, brRadius:14, glow:0, brColor:'#394555', brAccent:'#d9dee7', gold:'#e4c35a', panel:'#0f141b', btnRadius:10},
+  'stealth-minimal': {brStyle:'solid', brWidth:1, brRadius:10, glow:0, brColor:'#1e252f', brAccent:'#607086', gold:'#caa94d', panel:'#0c0f13', btnRadius:8},
+  'diamond-luxe': {brStyle:'gradient', brWidth:1.5, brRadius:18, glow:18, brColor:'#364356', brAccent:'#b7e7ff', gold:'#f1de8a', panel:'#0f1319', btnRadius:12},
+  'neon-aqua': {brStyle:'glow', brWidth:1.5, brRadius:14, glow:26, brColor:'#153a3a', brAccent:'#10b3a6', gold:'#d8f7f2', panel:'#0b1212', btnRadius:14},
+  'noir-bevel': {brStyle:'bevel', brWidth:1.5, brRadius:12, glow:0, brColor:'#2a2f38', brAccent:'#9aa3af', gold:'#d9c078', panel:'#0e1116', btnRadius:10}
 };
-(function(){try{const v=JSON.parse(localStorage.getItem('thegrid:view')||'{}');
-  if(v.role)$('#roleSel').value=v.role; if(v.hero){$('#heroSel').value=v.hero;setHero(v.hero)}
-  if(v.reels)$('#reelsSel').value=v.reels;
-  if(v.bg)document.documentElement.style.setProperty('--bg',v.bg);
-  if(v.text)document.documentElement.style.setProperty('--text',v.text);
-  if(v.gold)document.documentElement.style.setProperty('--gold',v.gold);
-  if(v.panel)document.documentElement.style.setProperty('--panel',v.panel);
-  if(v.ring)document.documentElement.style.setProperty('--ring',v.ring);
-  if(v.radius)document.documentElement.style.setProperty('--radius',v.radius);
-  if(v.hv)$('#heroVideo').value=v.hv; if(v.hi)$('#heroImage').value=v.hi;
-}catch{}})();
+const SCOPE_MAP={all:['.borderable','.btn'],hero:['#heroCard','.hero .media'],library:['#library','.thumb'],pricing:['#pricing','.plan'],buttons:['.btn']};
+const root=document.documentElement;
+const qsAll=s=>[...document.querySelectorAll(s)];
+const brWidth=document.getElementById('brWidth'), brRadius=document.getElementById('brRadius'), glow=document.getElementById('glow'), brColor=document.getElementById('brColor'), brAccent=document.getElementById('brAccent'), gold=document.getElementById('gold'), panel=document.getElementById('panel'), btnRadius=document.getElementById('btnRadius');
+let scope='all', activeStyle='solid';
 
-/* Customize (Admin only) */
-const cd=$('#customDialog');
-$('#openCustomize').onclick=()=>{ if($('#roleSel').value!=='Admin') return; cd.showModal(); };
-$('#closeCustomize').onclick=()=>cd.close();
-function applyTheme(){
-  document.documentElement.style.setProperty('--bg',$('#bgPick').value);
-  document.documentElement.style.setProperty('--text',$('#textPick').value);
-  document.documentElement.style.setProperty('--gold',$('#goldPick').value);
-  document.documentElement.style.setProperty('--panel',$('#panelPick').value);
-  document.documentElement.style.setProperty('--ring',$('#ringPick').value);
-  document.documentElement.style.setProperty('--radius',$('#radius').value+'px');
-  setHero($('#heroSel').value);
+function applyVars(v){const set=(k,val)=>root.style.setProperty(k,val);
+  set('--br-width',(v.brWidth??brWidth.value)+'px'); set('--br-radius',(v.brRadius??brRadius.value)+'px'); set('--glow-strength',(v.glow??glow.value)+'px');
+  set('--br-color',v.brColor??brColor.value); set('--br-accent',v.brAccent??brAccent.value); set('--gold',v.gold??gold.value); set('--panel',v.panel??panel.value);
+  set('--btn-radius',(v.btnRadius??btnRadius.value)+'px');
 }
-$('#applyTheme').onclick=applyTheme;
-$('#saveTheme').onclick=()=>{applyTheme(); const s=JSON.parse(localStorage.getItem('thegrid:view')||'{}');
-  s.bg=$('#bgPick').value; s.text=$('#textPick').value; s.gold=$('#goldPick').value; s.panel=$('#panelPick').value; s.ring=$('#ringPick').value; s.radius=$('#radius').value+'px';
-  s.hv=$('#heroVideo').value; s.hi=$('#heroImage').value; localStorage.setItem('thegrid:view',JSON.stringify(s));
-};
-
-/* Library (auto-skip missing) */
-const vids=['assets/video/gc_spin.mp4','assets/video/hero_1.mp4','assets/video/interaction_1.mp4','assets/video/natural_1.mp4','assets/video/pour_1.mp4','assets/video/spread_1.mp4','assets/video/transform_1.mp4','assets/video/launch_tiktok.mp4'];
-const imgs=['assets/images/gc_logo.png','assets/images/logo.png','assets/images/hero_1.jpg','assets/images/hero_2.jpg','assets/images/hero_3.jpg','assets/images/grid_interaction_1.jpg','assets/images/grid_natural_1.jpg','assets/images/grid_pour_1.jpg','assets/images/grid_spread_1.jpg','assets/images/grid_transform_1.jpg','assets/images/launch_poster.jpg'];
-function tVid(src){const el=document.createElement('div');el.className='tile';
-  const v=document.createElement('video');Object.assign(v,{src:cache(src),muted:true,loop:true,playsInline:true});
-  v.oncanplay=()=>v.play().catch(()=>{}); v.onerror=()=>el.remove();
-  v.style.width='100%'; v.style.height='140px'; v.style.objectFit='cover';
-  const cap=document.createElement('div');cap.className='cap';cap.textContent=src.split('/').pop();
-  el.append(v,cap); el.onclick=()=>{$('#heroVideo').value=src; $('#heroSel').value='Video'; setHero('Video');}; return el;}
-function tImg(src){const el=document.createElement('div');el.className='tile';
-  const i=new Image(); i.src=cache(src); i.loading='lazy'; i.onerror=()=>el.remove();
-  i.style.width='100%'; i.style.height='140px'; i.style.objectFit='cover';
-  const cap=document.createElement('div');cap.className='cap';cap.textContent=src.split('/').pop();
-  el.append(i,cap); el.onclick=()=>{$('#heroImage').value=src; $('#heroSel').value='Image'; setHero('Image');}; return el;}
-$('#openLib').onclick=()=>{const d=$('#libDialog'), vg=$('#vGrid'), ig=$('#iGrid'); vg.innerHTML=''; ig.innerHTML='';
-  vids.forEach(s=>vg.appendChild(tVid(s))); imgs.forEach(s=>ig.appendChild(tImg(s))); d.showModal();};
-$('#closeLib').onclick=()=>$('#libDialog').close();
-
-/* Featured Film player wiring */
-const launchFrame=$('#launchFrame'); function setLaunch(){
-  launchFrame.innerHTML='';
-  const poster='assets/images/launch_poster.jpg', film='assets/video/launch_tiktok.mp4';
-  const v=document.createElement('video'); Object.assign(v,{src:cache(film),poster:cache(poster),playsInline:true,controls:false,muted:true,loop:false});
-  v.onerror=()=>{ const img=new Image(); img.src=cache(poster); img.onerror=()=>launchFrame.append(Object.assign(document.createElement('div'),{className:'placeholder',textContent:'Upload launch_tiktok.mp4 or launch_poster.jpg'})); launchFrame.append(img); };
-  launchFrame.append(v); return v;
+function setStyleOnScope(style){
+  activeStyle=style;
+  if(scope==='all'){ root.setAttribute('br-style', style); qsAll('[data-br-style]').forEach(n=>n.removeAttribute('data-br-style')); return; }
+  qsAll(Object.values(SCOPE_MAP).flat().join(',')).forEach(n=>n.removeAttribute('data-br-style'));
+  (SCOPE_MAP[scope]||[]).forEach(sel=>qsAll(sel).forEach(n=>n.setAttribute('data-br-style', style)));
 }
-let launchVid=setLaunch();
-$('#playLaunch').onclick=()=>{ if(!launchVid || launchVid.readyState<2){ launchVid=setLaunch(); } if(launchVid.paused) launchVid.play().catch(()=>{}); else launchVid.pause(); };
-$('#muteLaunch').onclick=()=>{ if(!launchVid) return; launchVid.muted=!launchVid.muted; };
+qsAll('[data-brstyle]').forEach(b=>b.addEventListener('click',()=>{qsAll('[data-brstyle]').forEach(x=>x.classList.remove('active')); b.classList.add('active'); setStyleOnScope(b.dataset.brstyle);}));
+qsAll('[data-scope]').forEach(b=>b.addEventListener('click',()=>{scope=b.dataset.scope; qsAll('[data-scope]').forEach(x=>x.classList.toggle('active',x.dataset.scope===scope)); setStyleOnScope(activeStyle);}));
+[brWidth,brRadius,glow,brColor,brAccent,gold,panel,btnRadius].forEach(i=>i.addEventListener('input',()=>applyVars({})));
+qsAll('[data-preset]').forEach(b=>b.addEventListener('click',()=>{const p=PRESETS[b.dataset.preset]; if(!p)return; qsAll('[data-preset]').forEach(x=>x.classList.remove('active')); b.classList.add('active'); applyVars(p); setStyleOnScope(p.brStyle);
+  brWidth.value=p.brWidth; brRadius.value=p.brRadius; glow.value=p.glow; brColor.value=p.brColor; brAccent.value=p.brAccent; gold.value=p.gold; panel.value=p.panel; btnRadius.value=p.btnRadius; }));
+document.getElementById('saveLook').onclick=()=>{const state={scope, style:activeStyle, brWidth:brWidth.value, brRadius:brRadius.value, glow:glow.value, brColor:brColor.value, brAccent:brAccent.value, gold:gold.value, panel:panel.value, btnRadius:btnRadius.value}; localStorage.setItem('gc_look', JSON.stringify(state)); alert('Saved to this device.');};
+document.getElementById('resetLook').onclick=()=>{localStorage.removeItem('gc_look'); location.reload();};
+(function restore(){const s=localStorage.getItem('gc_look'); if(!s){document.querySelector('[data-preset="showcase-gold"]').click(); return;} try{const v=JSON.parse(s); scope=v.scope||'all'; activeStyle=v.style||'solid';
+  brWidth.value=v.brWidth; brRadius.value=v.brRadius; glow.value=v.glow; brColor.value=v.brColor; brAccent.value=v.brAccent; gold.value=v.gold; panel.value=v.panel; btnRadius.value=v.btnRadius; applyVars(v); setStyleOnScope(activeStyle);
+  qsAll('[data-scope]').forEach(x=>x.classList.toggle('active',x.dataset.scope===scope)); }catch{ document.querySelector('[data-preset="showcase-gold"]').click(); }})();
+})();
 
-/* Button press feedback + confetti routing already handled above */
-})();</script>
-</body></html>
+/* Library: set Hero + auto-vibe mapping */
+(()=>{const VIBE_TO_PRESET={'showcase-gold':'showcase-gold','editorial-double':'editorial-double','stealth-minimal':'stealth-minimal','diamond-luxe':'diamond-luxe','neon-aqua':'neon-aqua','noir-bevel':'noir-bevel'};
+const hero=document.getElementById('hero'); document.querySelectorAll('.thumb').forEach(t=>{const src=t.dataset.src, vibe=t.dataset.vibe; if(!src) return;
+  const isVideo=/\.(mp4|webm|mov)$/i.test(src); if(isVideo){const v=document.createElement('video'); v.src=src; v.muted=true; v.playsInline=true; v.loop=true; v.oncanplay=()=>t.classList.add('active');} else {const i=new Image(); i.src=src; i.onload=()=>t.classList.add('active');}
+  t.addEventListener('click', ()=>{document.querySelectorAll('.thumb').forEach(x=>x.classList.remove('picked')); t.classList.add('picked');
+    if(isVideo){ hero.removeAttribute('poster'); hero.src=src; hero.play().catch(()=>{});} else { hero.pause(); hero.removeAttribute('src'); hero.load(); hero.setAttribute('poster', src);}
+    const btn=vibe?document.querySelector(`[data-preset="${VIBE_TO_PRESET[vibe]}"]`):null; if(btn){const scopes=[...document.querySelectorAll('[data-scope]')];
+      const clickScope=n=>scopes.find(b=>b.dataset.scope===n)?.click(); clickScope('hero'); btn.click(); clickScope('pricing'); btn.click(); clickScope('all');}
+    scrollTo({top:0,behavior:'smooth'}); });
+});})();
+</script>
+<!-- THEGRID:SCRIPTS:END -->
+
+<!-- THEGRID:PATCH-SLOT:BEGIN (leave this in the file; paste future capsules below this line) -->
+<!-- THEGRID:PATCH-SLOT:END -->
+
+</body>
+</html>
