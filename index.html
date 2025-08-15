@@ -1,430 +1,96 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>THEGRID — Black & Gold</title>
-<meta name="color-scheme" content="dark" />
-<style>
-  :root{
-    --bg:#0B0D0F; --panel:#0F1216; --text:#E9EAEC; --muted:#A7AAB1;
-    --gold:#E6C26E; --gold-2:#F6E3A4; --ring:#242a34; --soft:#141820;
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;background:radial-gradient(1200px 600px at 20% -10%, rgba(246,203,92,.08), transparent 60%), var(--bg); color:var(--text);
-    font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial;-webkit-font-smoothing:antialiased}
-  a{color:inherit;text-decoration:none}
-  .wrap{max-width:1060px;margin:0 auto;padding:24px}
-  header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:8px 0 20px}
-  .brand{display:flex;align-items:center;gap:10px}
-  .chip{padding:10px 16px;border-radius:999px;background:linear-gradient(180deg,#141820,#0c0f14);border:1px solid #232834;box-shadow:0 0 0 1px rgba(246,203,92,.12);color:var(--gold);font-weight:700}
-  .cta{padding:12px 18px;border-radius:16px;border:1px solid #3a3f4a;background:linear-gradient(180deg,#12161c,#0c0f14);color:var(--gold-2);font-weight:800}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>THEGRID — Black & Gold</title>
 
-  .hero{border-radius:28px;padding:22px;background:linear-gradient(180deg,#0d1015,#0a0d11);border:1px solid #242833;position:relative}
-  .hero-media{aspect-ratio:16/9; background:radial-gradient(600px 280px at 30% -20%, rgba(246,203,92,.07), transparent 60%), #0A0D11;
-    border-radius:18px; overflow:hidden; border:1px solid #242833; position:relative; display:grid; place-items:center}
-  .hero-media video,.hero-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;opacity:0;transition:opacity .6s ease}
-  .show{display:block;opacity:1}
-  h1{font-size:clamp(28px,5.4vw,54px);line-height:1.05;margin:24px 0 10px}
-  .gold{background:linear-gradient(180deg,var(--gold-2),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 8px 24px rgba(246,203,92,.18)}
-  .lead{color:var(--muted);margin:8px 0 18px}
-  .row{display:flex;gap:12px;flex-wrap:wrap}
-  .btn{padding:12px 16px;border-radius:16px;border:1px solid #2a303b;background:linear-gradient(180deg,#161b22,#0e1218);color:#d2d5db;font-weight:700}
-  .btn.primary{color:#101115;background:linear-gradient(180deg,#f7d77f,#e5bf63);border:1px solid rgba(246,203,92,.45)}
-
-  /* Control bar */
-  .ctrl-bar{margin:18px 0 8px;padding:10px;border:1px solid #232834;border-radius:14px;background:linear-gradient(180deg,#12161c,#0e1217);
-    display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-  .ctrl-bar .role{margin-right:auto;color:#cbd2dc}
-  .ctrl-bar input, .ctrl-bar select, .ctrl-bar button{background:#0e1218;color:#e9eaec;border:1px solid #2a303b;border-radius:10px;padding:8px 10px}
-  .ctrl-bar .danger{border-color:#5a2b2b;background:#2a1010}
-
-  /* Reels */
-  .reels{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
-  .reels video{width:100%;border-radius:12px;border:1px solid #242833;background:#000}
-
-  /* Showcase */
-  .tg-showcase{margin:40px 0 10px}
-  .tg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-  .tg-card{border:1px solid #242833;border-radius:14px;padding:10px;background:linear-gradient(180deg,#12161b,#0e1217)}
-  .tg-card h4{margin:0 0 6px}
-  .tg-card .meta{font-size:12px;color:#9aa3ad}
-  .tg-card video,.tg-card img{width:100%;border-radius:10px;border:1px solid #232834;background:#000}
-
-  /* Confetti */
-  #confetti{position:fixed;inset:0;pointer-events:none;z-index:5}
-
-  /* Customizer + Coach buttons/panels */
-  .tg-fab{position:fixed;right:14px;bottom:14px;z-index:60;border-radius:999px;padding:12px 14px;border:1px solid rgba(246,203,92,.35);background:linear-gradient(180deg,#151a1f,#0e1217);color:#f6e3a4;font-weight:800}
-  .tg-drawer{position:fixed;right:12px;bottom:68px;width:min(380px,94vw);max-height:78vh;overflow:auto;z-index:60;background:linear-gradient(180deg,#0e1217,#0c1015);
-    border:1px solid #232834;border-radius:16px;padding:12px;display:none;box-shadow:0 20px 80px rgba(0,0,0,.55)}
-  .tg-drawer h3{margin:6px 0 8px}
-  .tg-row{display:flex;gap:10px;align-items:center;justify-content:space-between;margin:8px 0}
-  .tg-drawer input[type="text"], .tg-drawer input[type="number"], .tg-drawer select{flex:1;padding:8px 10px;border-radius:10px;border:1px solid #2a303b;background:#0e1218;color:#e9eaec}
-  .tg-drawer input[type="color"]{width:60px;height:36px;border:none;background:transparent}
-  .tg-drawer .btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-  .tg-btn{padding:8px 12px;border-radius:10px;border:1px solid #2a303b;background:#11161c;color:#e9eaec;cursor:pointer}
-  .tg-btn.gold{border-color:rgba(246,203,92,.45);background:linear-gradient(180deg,#f6d77f,#e5bf63);color:#141314;font-weight:800}
-
-  .coach-fab{position:fixed;left:14px;bottom:14px;z-index:60;border-radius:999px;padding:10px 14px;border:1px solid rgba(246,203,92,.35);background:linear-gradient(180deg,#151a1f,#0e1217);color:#f6e3a4;font-weight:800}
-  .coach{position:fixed;left:12px;bottom:68px;z-index:60;width:min(420px,95vw);max-height:82vh;overflow:auto;border:1px solid #232834;border-radius:16px;background:linear-gradient(180deg,#0e1217,#0b0f14);box-shadow:0 20px 80px rgba(0,0,0,.55);display:none}
-  .coach header{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid #232834}
-  .coach h3{margin:0;font-size:16px}
-  .coach .body{padding:12px}
-  .coach .row{display:flex;gap:8px;align-items:center;margin:8px 0}
-  .coach .chk{display:flex;gap:8px;align-items:flex-start;margin:8px 0}
-  .coach input[type="text"], .coach input[type="password"]{flex:1;padding:8px 10px;border-radius:10px;border:1px solid #2a303b;background:#0e1218;color:#e9eaec}
-  .coach .btn{padding:8px 12px;border-radius:10px;border:1px solid #2a303b;background:#11161c;color:#e9eaec;cursor:pointer}
-  .coach .btn.gold{border-color:rgba(246,203,92,.45);background:linear-gradient(180deg,#f6d77f,#e5bf63);color:#141314;font-weight:800}
-  .coach .ok{color:#a8e6a1} .coach .warn{color:#f3d27a} .coach .err{color:#ff9f9f}
-  .coach code{background:#10151b;border:1px solid #232834;border-radius:6px;padding:2px 6px}
-/* === Content Library (mini) === */
-#libOpen{position:fixed;right:14px;bottom:72px;z-index:55;border-radius:999px;padding:10px 14px;border:1px solid rgba(246,203,92,.35);background:linear-gradient(180deg,#151a1f,#0e1217);color:#f6e3a4;font-weight:800}
-#libPanel{position:fixed;right:12px;bottom:130px;width:min(420px,94vw);max-height:76vh;overflow:auto;z-index:56;display:none;background:linear-gradient(180deg,#0e1217,#0b0f14);border:1px solid #232834;border-radius:16px;box-shadow:0 20px 80px rgba(0,0,0,.55);padding:10px}
-#libPanel h3{margin:4px 0 8px}
-.lib-row{display:flex;gap:8px;align-items:center;margin:8px 0;border:1px solid #242833;border-radius:10px;padding:8px;background:#0e1217}
-.lib-row code{color:#cbd2dc;font-size:12px}
-.lib-row .lib-actions{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
-.lib-btn{padding:6px 10px;border-radius:10px;border:1px solid #2a303b;background:#11161c;color:#e9eaec;cursor:pointer}
-.lib-btn.gold{border-color:rgba(246,203,92,.45);background:linear-gradient(180deg,#f6d77f,#e5bf63);color:#141314;font-weight:800}  .coach .small{font-size:12px;color:#9aa3ad}
-</style>
+  <!-- Minimal CSS (all styling lives here) -->
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/nav.css">
+  <link rel="stylesheet" href="assets/css/customizer.css">
 </head>
-<body>
-<canvas id="confetti"></canvas>
-<div class="wrap">
-  <header>
-    <div class="brand"><div class="chip" id="greet">Welcome — THEGRID</div></div>
-    <a href="#join" class="cta" id="joinBtn">Join Now</a>
-  </header>
+<body data-occasion="default">
+  <!-- celebration -->
+  <canvas id="confetti"></canvas>
 
-  <!-- Role/Controls -->
-  <div class="ctrl-bar" id="ctrl">
-    <div class="role">
-      <label>Role:</label>
-      <select id="roleSel">
-        <option value="user">User (My View)</option>
-        <option value="owner">Owner (Admin)</option>
-      </select>
+  <div class="wrap">
+    <!-- header / nav -->
+    <header class="nav">
+      <div class="brand">
+        <span class="badge" title="Long-press to toggle Admin">
+          <img src="assets/images/gc_logo.png" alt="GC">
+        </span>
+        <span class="chip" id="greet">Welcome — THEGRID</span>
+      </div>
+      <nav class="nav-pills">
+        <a href="#hero" class="pill" data-icon="🏠">Home</a>
+        <a href="#reels" class="pill" data-icon="🎞️">Reels</a>
+        <a href="#updates" class="pill" data-icon="📡">Updates</a>
+        <a href="#join" class="pill gold" id="buyBtn" data-icon="💫">Get Pro</a>
+        <button class="pill" id="friendBtn" data-icon="🔓">Friend Pass</button>
+      </nav>
+    </header>
+
+    <!-- admin customiser (hidden unless admin-on) -->
+    <button id="customizeOpen" class="customizer-toggle">⚙️ Customize</button>
+    <div id="customizer" class="customizer" role="dialog" aria-modal="true">
+      <h3>Live Customiser</h3>
+      <div class="row"><label>Occasion</label>
+        <select id="occSel">
+          <option value="default">Default</option>
+          <option value="christmas">Christmas</option>
+          <option value="easter">Easter</option>
+          <option value="halloween">Halloween</option>
+          <option value="newyear">New Year</option>
+        </select>
+      </div>
+      <div class="row"><label>Accent</label><input type="color" id="accentPick" value="#E6C26E"></div>
+      <div class="row"><label>Greeting</label><input type="text" id="greetInput" placeholder="Good evening — THEGRID"></div>
+      <div class="row"><label>Hero video URL</label><input type="text" id="heroVidUrl" value="assets/video/gc_spin.mp4"><button id="useHeroVid" class="btn">Use</button></div>
+      <div class="row"><label>Hero image URL</label><input type="text" id="heroImgUrl" value="assets/images/gc_logo.png"><button id="useHeroImg" class="btn">Use</button></div>
+      <div class="actions"><button id="saveView" class="btn gold">Save</button><button id="closeCustomizer" class="btn">Close</button></div>
     </div>
-    <div id="ownerAuth" style="display:none">
-      <input type="password" id="ownerKey" placeholder="Owner passphrase">
-      <button id="ownerUnlock">Unlock</button>
-    </div>
-    <label>Hero:</label>
-    <select id="heroPick">
-      <option value="video">Video</option>
-      <option value="image">Image</option>
-    </select>
-    <label>Reels set:</label>
-    <select id="reelsPick">
-      <option value="auto">Auto (landscape_*.mp4)</option>
-      <option value="featured">Featured (from Config)</option>
-      <option value="my">My selection (local)</option>
-    </select>
-    <button id="saveMyView">Save My View</button>
-    <div id="ownerTools" style="display:none;gap:8px;align-items:center">
-      <button id="ownerUseCurrent">Set Featured = My View</button>
-      <button id="ownerExport">Export Featured JSON</button>
-      <button class="danger" id="ownerReset">Reset Featured</button>
+
+    <!-- hero -->
+    <section id="hero" class="hero">
+      <div class="stage" id="heroStage">
+        <video id="heroVid" playsinline muted preload="metadata"></video>
+        <img id="heroImg" alt="Logo">
+        <div id="heroHint" class="hint">Add assets/video/gc_spin.mp4 or assets/images/gc_logo.png</div>
+      </div>
+      <h1 class="headline"><span class="gold">Black &amp; Gold</span> Performance Creativity</h1>
+      <p class="lead">Swap files with the same names and the site updates itself.</p>
+      <div class="row">
+        <a class="btn primary" id="exploreBtn" href="#reels">Explore</a>
+        <a class="btn" id="monetiseBtn" href="#join">Monetise</a>
+      </div>
+    </section>
+
+    <!-- reels -->
+    <section id="reels" class="reels-wrap">
+      <h2>Landscape Reels</h2>
+      <div id="reelsGrid" class="reels"></div>
+    </section>
+
+    <footer>© 2025 THEGRID</footer>
+  </div>
+
+  <!-- friend pass modal -->
+  <div id="friendModal" class="modal">
+    <div class="card">
+      <h3>Enter Friend Pass</h3>
+      <p class="muted">Unlock Pro on this device.</p>
+      <input id="friendCode" type="text" placeholder="GC-FRIEND-001">
+      <div class="right"><button id="friendCancel" class="btn">Cancel</button><button id="friendUnlock" class="btn gold">Unlock</button></div>
+      <div id="friendMsg" class="msg" hidden></div>
     </div>
   </div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-media" id="heroBox">
-      <video id="heroVid" playsinline muted loop></video>
-      <img id="heroImg" alt="GC Logo">
-      <div id="heroHint" class="lead" style="display:none;color:#9aa0a8;text-align:center">Add <code>assets/video/gc_spin.mp4</code> or <code>assets/images/gc_logo.png</code></div>
-    </div>
-    <h1><span class="gold">Black &amp; Gold</span> Performance Creativity</h1>
-    <p class="lead">Cinematic reels + a savable system. Replace files with the same names and the site updates itself.</p>
-    <div class="row">
-      <a class="btn primary" href="#niches" id="startBtn">Explore Niches</a>
-      <a class="btn" href="#reels">Cinematic Reels</a>
-      <a class="btn" href="#monetise" id="moneyBtn">Monetise</a>
-    </div>
-  </section>
-
-  <!-- REELS -->
-  <section id="reels" style="margin-top:36px">
-    <h2>Landscape Reels</h2>
-    <div class="reels" id="reelsWrap"></div>
-  </section>
-
-  <!-- SHOWCASE -->
-  <section class="tg-showcase" id="showcase">
-    <h2>User Showcase</h2>
-    <p class="lead" style="font-size:14px;color:#9aa0a8">Creations shared by the community (opt-in). Click a card to open the media.</p>
-    <div class="tg-grid" id="tgGrid"></div>
-  </section>
-
-  <footer style="opacity:.8;margin:60px 0 16px">© 2025 THEGRID</footer>
-</div>
-
-<!-- Customizer FAB + Drawer -->
-<button class="tg-fab" id="tgOpen">Customize</button>
-<div class="tg-drawer" id="tgPanel" role="dialog" aria-modal="true" aria-label="Customizer">
-  <h3>Customizer</h3>
-  <div class="tg-row"><label>Background</label><input id="tg_bg" type="color" value="#0B0D0F"></div>
-  <div class="tg-row"><label>Gold accent</label><input id="tg_gold" type="color" value="#E6C26E"></div>
-  <div class="tg-row"><label>Pattern</label><select id="tg_pattern"><option value="on">On</option><option value="off">Off</option></select></div>
-  <div class="tg-row"><label>Border radius</label><input id="tg_radius" type="number" min="0" max="40" value="20"></div>
-  <div class="tg-row"><label>Border style</label><select id="tg_border"><option value="soft">Soft</option><option value="ring">Gold ring</option></select></div>
-  <h3 style="margin-top:12px">Media</h3>
-  <div class="tg-row"><label>Hero video</label><input id="tg_heroVid" type="text" value="assets/video/gc_spin.mp4"></div>
-  <div class="tg-row"><label>Hero image</label><input id="tg_heroImg" type="text" value="assets/images/gc_logo.png"></div>
-  <div class="tg-drawer .btns">
-    <button class="tg-btn" id="tgReset">Reset</button>
-    <button class="tg-btn gold" id="tgSave">Save My View</button>
-    <button class="tg-btn" id="tgExport">Export Learn Pack</button>
-    <button class="tg-btn" id="tgClose">Close</button>
-  </div>
-  <hr style="border-color:#232834; margin:10px 0">
-  <div class="tg-row"><strong>Owner tools</strong> <span style="font-size:12px;color:#9aa3ad">(local unlock)</span></div>
-  <div class="tg-row"><input type="password" id="tg_key" placeholder="Owner passphrase"><button class="tg-btn" id="tgUnlock">Unlock</button></div>
-  <div id="tgOwner" style="display:none">
-    <div class="tg-drawer .btns">
-      <button class="tg-btn" id="tgUseMy">Set Featured = My View</button>
-      <button class="tg-btn" id="tgExportOwner">Export Featured JSON</button>
-      <button class="tg-btn" id="tgImportOwner">Import Featured JSON</button>
-    </div>
-    <p class="lead" style="font-size:12px;color:#9aa3ad">Export creates JSON you can commit as <code>Config/featured.json</code>. Import loads a JSON and applies locally.</p>
-  </div>
-</div>
-
-<!-- Admin Coach -->
-<button class="coach-fab" id="coachOpen">Admin Coach</button>
-<div class="coach" id="coach">
-  <header><h3>Admin Coach — Optimised Workflow</h3><button class="btn" id="coachClose" aria-label="Close">✕</button></header>
-  <div class="body">
-    <div class="row"><input type="password" id="coachKey" placeholder="Owner passphrase (local)"><button class="btn" id="coachUnlock">Unlock</button></div>
-    <div id="coachPane" style="display:none">
-      <div class="chk"><strong>Status:</strong> <span id="coachStatus" class="small">Checking…</span></div>
-      <div class="chk">Hero video <code id="pathVid">assets/video/gc_spin.mp4</code> <span id="okVid" class="small"></span></div>
-      <div class="chk">Hero image <code id="pathImg">assets/images/gc_logo.png</code> <span id="okImg" class="small"></span></div>
-      <div class="chk">Autoplay muted? <span id="okPlay" class="small"></span></div>
-      <div class="chk">Filenames clean? <span id="okNames" class="small"></span></div>
-      <hr style="border-color:#232834">
-      <div class="small" style="margin:6px 0 2px">Loop:</div>
-      <ol class="small" style="margin:6px 0 10px; padding-left:18px">
-        <li>Rename in Dropbox → fixed names (<code>gc_spin.mp4</code>, <code>gc_logo.png</code>).</li>
-        <li>Upload to GitHub → same folders.</li>
-        <li>Review hero (video → image fade).</li>
-        <li>Export Learn Pack (methods/tools + filenames).</li>
-        <li>(Optional) Export Featured JSON → commit to <code>Config/featured.json</code>.</li>
-      </ol>
-      <div class="row"><button class="btn gold" id="coachExportLearn">Export Learn Pack</button><button class="btn" id="coachExportFeatured">Export Featured JSON</button></div>
-      <div class="row"><input type="text" id="coachMethod" placeholder="Method (e.g., Runway Gen-3 + AE)"></div>
-      <div class="row"><input type="text" id="coachTools" placeholder="Tools (comma-separated)"></div>
-    </div>
-  </div>
-</div>
-
-<script>
-/* ====== Fixed defaults (works with Dropbox→GitHub workflow) ====== */
-const DEFAULTS = {
-  heroVideo: "assets/video/gc_spin.mp4",
-  heroImage: "assets/images/gc_logo.png",
-  ownerPassphrase: "GC-ADMIN-KEY" // ← change this locally
-};
-const LS_MYVIEW="tg_my_view_v1", LS_OWNER_OK="tg_owner_unlocked_v1";
-
-/* Greeting */
-(function(){ const h=new Date().getHours(); const t=h<12?"Good morning":h<18?"Good afternoon":"Good evening"; document.getElementById("greet").textContent = `${t} — THEGRID`; })();
-
-/* Confetti (self-cleaning) */
-(function(){
-  const canvas=document.getElementById('confetti'),ctx=canvas.getContext('2d'); let W,H,DPR;
-  function res(){DPR=Math.min(2,devicePixelRatio||1); W=canvas.width=innerWidth*DPR; H=canvas.height=innerHeight*DPR; canvas.style.width=innerWidth+'px'; canvas.style.height=innerHeight+'px';}
-  res(); addEventListener('resize',res,{passive:true});
-  function celebrate(ms=1200,count=160){
-    const start=performance.now(); const parts=[];
-    for(let i=0;i<count;i++) parts.push({x:W/2,y:H*.18,vx:(Math.random()*2-1)*6,vy:(Math.random()*-1-0.5)*7,g:.18,s:2+Math.random()*3,r:Math.random()*6.283,vr:(Math.random()*2-1)*.2,c:Math.random()<.7?'#ffd36e':(Math.random()<.5?'#e9c873':'#caa957')});
-    let raf; function step(t){ const k=(t-start)/ms; ctx.clearRect(0,0,W,H); for(const p of parts){ p.vy+=p.g; p.x+=p.vx; p.y+=p.vy; p.r+=p.vr;
-      ctx.save(); ctx.globalAlpha=Math.max(0,1-k); ctx.translate(p.x,p.y); ctx.rotate(p.r); ctx.fillStyle=p.c; ctx.fillRect(-p.s,-p.s*.4,p.s*2,p.s*.8); ctx.restore();}
-      if(k<1) raf=requestAnimationFrame(step); else { ctx.clearRect(0,0,W,H); cancelAnimationFrame(raf); } }
-    raf=requestAnimationFrame(step);
-  }
-  document.getElementById('joinBtn').addEventListener('click',()=>celebrate());
-  document.getElementById('moneyBtn')?.addEventListener('click',()=>celebrate());
-  document.getElementById('startBtn')?.addEventListener('click',()=>celebrate(1000,110));
-})();
-
-/* Apply hero media with fade: video first → image */
-function applyHero(videoPath, imagePath, forceMode){ // forceMode: 'video'|'image'|undefined
-  const vid=document.getElementById('heroVid'), img=document.getElementById('heroImg'), hint=document.getElementById('heroHint');
-  vid.classList.remove('show'); img.classList.remove('show'); hint.style.display='none';
-  const tryVideo=()=>fetch(videoPath,{method:'HEAD',cache:'no-store'}).then(r=>r.ok);
-  const tryImage=()=>fetch(imagePath,{method:'HEAD',cache:'no-store'}).then(r=>r.ok);
-  Promise.all([tryVideo(),tryImage()]).then(([hv,hi])=>{
-    if(forceMode==='image'){ hv=false; }
-    if(forceMode==='video' && !hv){ /* fall back */ }
-    if(hv){ vid.src=videoPath; vid.load(); vid.onloadeddata=()=>{ vid.classList.add('show'); vid.play().catch(()=>{}); if(hi){ setTimeout(()=>{ img.src=imagePath; img.onload=()=>img.classList.add('show'); }, 6000);} }; }
-    else if(hi){ img.src=imagePath; img.onload=()=>img.classList.add('show'); }
-    else { hint.style.display='block'; }
-  }).catch(()=>{ /* ignore */ });
-}
-
-/* Reels loader */
-function loadReels(mode){ // mode: auto|featured|my  (for now auto scans typical names)
-  const wrap=document.getElementById('reelsWrap'); wrap.innerHTML='';
-  const candidates = Array.from({length:12},(_,i)=>`assets/video/landscape_${i+1}.mp4`);
-  const test=url=>fetch(url,{method:'HEAD',cache:'no-store'}).then(r=>r.ok).catch(()=>false);
-  Promise.all(candidates.map(test)).then(exists=>{
-    const list=candidates.filter((_,i)=>exists[i]);
-    if(!list.length){ wrap.innerHTML='<div class="lead" style="font-size:14px;color:#9aa0a8">Add files like <code>assets/video/landscape_1.mp4</code> to auto-show reels.</div>'; return; }
-    list.forEach(u=>{ const v=document.createElement('video'); v.controls=true; v.playsInline=true; v.preload='metadata'; v.src=u; wrap.appendChild(v); });
-  });
-}
-
-/* Control bar logic */
-(function(){
-  const roleSel=document.getElementById('roleSel');
-  const ownerAuth=document.getElementById('ownerAuth');
-  const ownerTools=document.getElementById('ownerTools');
-  const ownerKey=document.getElementById('ownerKey');
-  const ownerUnlock=document.getElementById('ownerUnlock');
-  const heroPick=document.getElementById('heroPick');
-  const reelsPick=document.getElementById('reelsPick');
-  const saveMy=document.getElementById('saveMyView');
-
-  // init role
-  roleSel.addEventListener('change',()=>{ const v=roleSel.value; if(v==='owner'){ ownerAuth.style.display='flex'; } else { ownerAuth.style.display='none'; ownerTools.style.display='none'; }});
-  ownerUnlock.addEventListener('click',()=>{ if(ownerKey.value===DEFAULTS.ownerPassphrase){ localStorage.setItem(LS_OWNER_OK,'1'); ownerTools.style.display='flex'; alert('Owner tools unlocked (local).'); } else alert('Wrong passphrase'); });
-  if(localStorage.getItem(LS_OWNER_OK)==='1'){ ownerTools.style.display='flex'; ownerAuth.style.display='none'; roleSel.value='owner'; }
-
-  // initial hero + reels
-  applyHero(DEFAULTS.heroVideo, DEFAULTS.heroImage);
-  loadReels('auto');
-
-  heroPick.addEventListener('change',()=>{ const mode=heroPick.value; applyHero(DEFAULTS.heroVideo, DEFAULTS.heroImage, mode); });
-  reelsPick.addEventListener('change',()=>{ loadReels(reelsPick.value); });
-
-  // save my view (stores only preferences locally)
-  saveMy.addEventListener('click',()=>{
-    const s = JSON.parse(localStorage.getItem(LS_MYVIEW)||'{}');
-    s.heroMode = heroPick.value; s.reelsMode = reelsPick.value;
-    localStorage.setItem(LS_MYVIEW, JSON.stringify(s));
-    alert('Saved your view (local only).');
-  });
-
-  // owner export/reset
-  document.getElementById('ownerUseCurrent').addEventListener('click',()=>{
-    const s = JSON.parse(localStorage.getItem(LS_MYVIEW)||'{}');
-    const featured = { type:"thegrid_featured", version:1, theme:null, hero:{ video:DEFAULTS.heroVideo, image:DEFAULTS.heroImage }, view:{ heroMode:s.heroMode||'video', reelsMode:s.reelsMode||'auto' } };
-    downloadJSON(featured,'featured.json');
-    alert('Exported Featured JSON. Commit to Config/featured.json to set defaults for everyone.');
-  });
-  document.getElementById('ownerExport').addEventListener('click',()=>{
-    const featured = { type:"thegrid_featured", version:1, theme:null, hero:{ video:DEFAULTS.heroVideo, image:DEFAULTS.heroImage } };
-    downloadJSON(featured,'featured.json');
-  });
-  document.getElementById('ownerReset').addEventListener('click',()=>{ localStorage.removeItem(LS_MYVIEW); location.reload(); });
-})();
-
-/* Customizer drawer */
-(function(){
-  const openBtn=document.getElementById('tgOpen'), panel=document.getElementById('tgPanel');
-  const inputs={ bg:tg_bg, gold:tg_gold, pattern:tg_pattern, radius:tg_radius, border:tg_border, heroVid:tg_heroVid, heroImg:tg_heroImg };
-  const btns={ save:tgSave, reset:tgReset, close:tgClose, export:tgExport };
-  const owner={ keyIn:tg_key, unlock:tgUnlock, box:tgOwner, useMy:tgUseMy, ex:tgExportOwner, im:tgImportOwner };
-
-  openBtn.onclick=()=>panel.style.display='block'; btns.close.onclick=()=>panel.style.display='none';
-
-  function rgbaToHex(c){ if(!c) return null; if(c.startsWith('#')) return c; const m=c.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/i); if(!m) return null;
-    const r=(+m[1]).toString(16).padStart(2,'0'),g=(+m[2]).toString(16).padStart(2,'0'),b=(+m[3]).toString(16).padStart(2,'0'); return '#'+r+g+b; }
-
-  function applyTheme(s){
-    const r=document.documentElement;
-    if(s.bg)   r.style.setProperty('--bg', s.bg);
-    if(s.gold) r.style.setProperty('--gold', s.gold);
-    const rad=Math.max(0,Math.min(40,parseInt(s.radius||20,10)));
-    document.querySelectorAll('.hero, .hero-media, .btn, .cta, .chip').forEach(el=> el.style.borderRadius=rad+'px');
-    const ring = s.border==='ring' ? '0 0 0 1px rgba(246,203,92,.25) inset, 0 12px 34px rgba(246,203,92,.15)' : '';
-    document.querySelectorAll('.hero-media, .btn, .cta, .chip').forEach(el=> el.style.boxShadow=ring);
-    document.body.style.backgroundImage = s.pattern==='off' ? 'none' : 'radial-gradient(1200px 600px at 20% -10%, rgba(246,203,92,.08), transparent 60%)';
-  }
-  function applyMedia(s){ applyHero(s.heroVid||DEFAULTS.heroVideo, s.heroImg||DEFAULTS.heroImage, undefined); }
-
-  function loadMy(){
-    const s=JSON.parse(localStorage.getItem(LS_MYVIEW)||'{}');
-    const applied={ bg:s.bg||getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()||'#0B0D0F',
-      gold:s.gold||getComputedStyle(document.documentElement).getPropertyValue('--gold').trim()||'#E6C26E',
-      pattern:s.pattern||'on', radius:s.radius??20, border:s.border||'soft', heroVid:s.heroVid||DEFAULTS.heroVideo, heroImg:s.heroImg||DEFAULTS.heroImage };
-    inputs.bg.value=rgbaToHex(applied.bg)||'#0B0D0F'; inputs.gold.value=rgbaToHex(applied.gold)||'#E6C26E';
-    inputs.pattern.value=applied.pattern; inputs.radius.value=applied.radius; inputs.border.value=applied.border;
-    inputs.heroVid.value=applied.heroVid; inputs.heroImg.value=applied.heroImg;
-    applyTheme(applied); applyMedia(applied);
-  }
-  function saveMy(){
-    const s={ bg:inputs.bg.value, gold:inputs.gold.value, pattern:inputs.pattern.value, radius:inputs.radius.value, border:inputs.border.value,
-      heroVid:inputs.heroVid.value.trim(), heroImg:inputs.heroImg.value.trim() };
-    localStorage.setItem(LS_MYVIEW, JSON.stringify(s)); applyTheme(s); applyMedia(s);
-  }
-  btns.save.onclick=saveMy; btns.reset.onclick=()=>{ localStorage.removeItem(LS_MYVIEW); loadMy(); };
-
-  btns.export.onclick=()=>{ const s=JSON.parse(localStorage.getItem(LS_MYVIEW)||'{}');
-    const pack={ type:"thegrid_learn_pack", version:1, created_at:new Date().toISOString(), style:{bg:s.bg,gold:s.gold,pattern:s.pattern,radius:s.radius,border:s.border}, hero:{video:s.heroVid,image:s.heroImg}};
-    downloadJSON(pack,'thegrid_learn_pack.json'); };
-
-  owner.unlock.onclick=()=>{ if(owner.keyIn.value===DEFAULTS.ownerPassphrase){ localStorage.setItem(LS_OWNER_OK,'1'); owner.box.style.display='block'; alert('Owner tools unlocked (local only).'); } else alert('Wrong passphrase.'); };
-  if(localStorage.getItem(LS_OWNER_OK)==='1') owner.box.style.display='block';
-  owner.useMy.onclick=()=>{ const s=JSON.parse(localStorage.getItem(LS_MYVIEW)||'{}');
-    const featured={ type:"thegrid_featured", version:1, theme:{bg:s.bg,gold:s.gold,pattern:s.pattern,radius:s.radius,border:s.border}, hero:{video:s.heroVid,image:s.heroImg} };
-    downloadJSON(featured,'featured.json'); };
-  owner.ex.onclick=()=>{ const s=JSON.parse(localStorage.getItem(LS_MYVIEW)||'{}');
-    const featured={ type:"thegrid_featured", version:1, theme:{bg:s.bg,gold:s.gold,pattern:s.pattern,radius:s.radius,border:s.border}, hero:{video:s.heroVid,image:s.heroImg} };
-    downloadJSON(featured,'featured.json'); };
-  owner.im.onclick=()=>{ const inp=document.createElement('input'); inp.type='file'; inp.accept='application/json';
-    inp.onchange=()=>{ const f=inp.files[0]; if(!f) return; const reader=new FileReader();
-      reader.onload=()=>{ try{ const cfg=JSON.parse(reader.result);
-        if(cfg.theme){ localStorage.setItem(LS_MYVIEW, JSON.stringify({...cfg.theme, heroVid:cfg.hero?.video, heroImg:cfg.hero?.image})); loadMy(); alert('Imported to local view. Export & commit to Config/featured.json to make global.'); }
-        else alert('Invalid featured file.'); } catch(e){ alert('Could not read JSON.'); } };
-      reader.readAsText(f); }; inp.click(); };
-  function downloadJSON(obj,name){ const blob=new Blob([JSON.stringify(obj,null,2)],{type:'application/json'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=name; a.click(); URL.revokeObjectURL(url); }
-  loadMy();
-})();
-
-/* Admin Coach */
-(function(){
-  const COACH={ pass:DEFAULTS.ownerPassphrase, heroVideo:DEFAULTS.heroVideo, heroImage:DEFAULTS.heroImage };
-  const el={ open:coachOpen, box:coach, close:coachClose, key:coachKey, unlockBtn:coachUnlock, pane:coachPane, status:coachStatus, okVid:okVid, okImg:okImg, okPlay:okPlay, okNames:okNames, pVid:pathVid, pImg:pathImg, method:coachMethod, tools:coachTools, exportLearn:coachExportLearn, exportFeat:coachExportFeatured };
-  el.open.onclick=()=>el.box.style.display='block'; el.close.onclick=()=>el.box.style.display='none';
-  el.unlockBtn.onclick=()=>{ if(el.key.value===COACH.pass){ el.pane.style.display='block'; checkAll(); } else alert('Wrong passphrase'); };
-  async function exists(url){ try{ const r=await fetch(url,{method:'HEAD',cache:'no-store'}); return r.ok; }catch(e){ return false; } }
-  function cleanName(n){ return /^[a-z0-9._-]+$/i.test(n); }
-  async function checkAll(){
-    el.pVid.textContent=COACH.heroVideo; el.pImg.textContent=COACH.heroImage;
-    const hv=await exists(COACH.heroVideo); const hi=await exists(COACH.heroImage);
-    el.okVid.textContent = hv?"✓ found":"✗ missing"; el.okVid.className = hv?"ok small":"err small";
-    el.okImg.textContent = hi?"✓ found":"✗ missing"; el.okImg.className = hi?"ok small":"err small";
-    const hvEl=document.getElementById('heroVid'); const auto = hvEl && hvEl.muted===true;
-    el.okPlay.textContent = auto?"✓ muted autoplay ready":"✗ check video settings"; el.okPlay.className = auto?"ok small":"warn small";
-    const goodNames = cleanName(COACH.heroVideo.split('/').pop()) && cleanName(COACH.heroImage.split('/').pop());
-    el.okNames.textContent = goodNames?"✓ good":"✗ rename to simple (letters/numbers/._-)"; el.okNames.className = goodNames?"ok small":"warn small";
-    el.status.textContent="Checks complete";
-  }
-  function downloadJSON(obj,name){ const blob=new Blob([JSON.stringify(obj,null,2)],{type:'application/json'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=name; a.click(); URL.revokeObjectURL(url); }
-  el.exportLearn.onclick=()=>{ const pack={ type:"thegrid_learn_pack", version:1, created_at:new Date().toISOString(), method:el.method.value||"", tools:(el.tools.value||"").split(',').map(s=>s.trim()).filter(Boolean), files:{ video:COACH.heroVideo, image:COACH.heroImage } }; downloadJSON(pack,'thegrid_learn_pack.json'); };
-  el.exportFeat.onclick=()=>{ const featured={ type:"thegrid_featured", version:1, hero:{ video:COACH.heroVideo, image:COACH.heroImage } }; downloadJSON(featured,'featured.json'); };
-})();
-
-/* Showcase loader (optional) */
-(async function(){
-  try{
-    const res=await fetch('Data/showcase.json',{cache:'no-store'});
-    if(!res.ok) return;
-    const data=await res.json(); const grid=document.getElementById('tgGrid'); grid.innerHTML='';
-    (data.items||[]).forEach(item=>{
-      const card=document.createElement('div'); card.className='tg-card';
-      card.innerHTML = `<h4>${esc(item.title||'Untitled')}</h4><div class="meta">${esc(item.author||'Anon')} • ${esc(item.method||'–')} • ${esc((item.tools||[]).join(', '))}</div><div class="media"></div>`;
-      const m=card.querySelector('.media'); (item.media||[]).forEach(x=>{ if((x.type||'image')==='video'){ const v=document.createElement('video'); v.controls=true; v.playsInline=true; v.src=x.src; m.appendChild(v); } else { const im=document.createElement('img'); im.src=x.src; im.alt=item.title||'Image'; m.appendChild(im); } });
-      card.onclick=()=>{ const first=(item.media||[])[0]; if(first) window.open(first.src,'_blank'); };
-      grid.appendChild(card);
-    });
-  }catch(e){}
-  function esc(s){return (s||'').toString().replace(/[&<>"']/g,m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
-})();
-</script>
+  <!-- JS (logic lives here) -->
+  <script src="assets/js/confetti.js"></script>
+  <script src="assets/js/customizer.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/config-loader.js"></script>
 </body>
 </html>
