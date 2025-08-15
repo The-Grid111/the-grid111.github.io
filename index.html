@@ -1,386 +1,318 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>THEGRID — Black & Gold Performance Creativity</title>
-<meta name="theme-color" content="#0b0e12" />
-<link rel="preload" as="image" href="assets/images/gc_logo.png">
-<link rel="preload" as="video" href="assets/video/gc_logo_spin.mp4">
+<meta name="theme-color" content="#0b0d10">
 <style>
   :root{
-    --bg:#0b0e12; --panel:#0f1319; --ink:#e8e6df; --muted:#a7a4a0;
-    --gold:#f5d272; --gold-2:#caa14c; --ring:rgba(245,210,114,.25);
+    --bg:#0b0d10;
+    --panel:#0f1216;
+    --ink:#e9e4d1;
+    --muted:#c7c2ae;
+    --gold:#e8c265;
+    --gold-2:#f6d88a;
+    --ring: rgba(232,194,101,.25);
   }
   *{box-sizing:border-box}
   html,body{height:100%}
   body{
-    margin:0; color:var(--ink);
-    font:500 16px/1.55 ui-sans-serif,system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial;
-    background:var(--bg);
-    background-image:
-      radial-gradient(1200px 600px at 20% -10%, rgba(255,215,128,.07), transparent 60%),
-      radial-gradient(800px 400px at 80% -20%, rgba(255,215,128,.06), transparent 60%),
-      radial-gradient(100% 100% at 50% 0%, rgba(255,255,255,.02), transparent 60%);
+    margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial;
+    color:var(--ink); background:radial-gradient(1200px 700px at 20% -5%, #1b1f26 0%, #0b0d10 55%) no-repeat var(--bg);
   }
-  body::after{
-    content:""; position:fixed; inset:0; pointer-events:none; opacity:.07; mix-blend:soft-light;
-    background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity=".25"/></svg>');
-    background-size:160px 160px;
-  }
-  .wrap{max-width:1100px;margin:0 auto;padding:14px 16px}
-  /* Top */
-  header{position:sticky;top:0;z-index:5;background:linear-gradient(180deg, rgba(11,14,18,.85), rgba(11,14,18,.55) 60%, transparent);backdrop-filter:saturate(120%) blur(6px);border-bottom:1px solid rgba(245,210,114,.06)}
-  .row{display:flex;gap:12px;align-items:center;justify-content:space-between}
-  .brand{display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:.04em}
-  .badge{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:radial-gradient(120% 120% at 30% 20%, #1b1f27 0%, #0f1319 60%, #07090c 100%);box-shadow:0 0 0 1px rgba(245,210,114,.18),0 8px 24px rgba(0,0,0,.35),inset 0 0 24px rgba(245,210,114,.07);color:var(--gold);font-weight:900}
-  .chip{display:inline-flex;align-items:center;gap:.6rem;padding:.55rem .9rem;border-radius:999px;background:linear-gradient(180deg,#151b20,#0e1317);border:1px solid rgba(255,255,255,.08);box-shadow:0 0 0 1.5px var(--ring) inset,0 8px 30px rgba(0,0,0,.35)}
-  .cta{padding:.9rem 1.2rem;border-radius:999px;border:1px solid rgba(255,255,255,.1);font-weight:700;cursor:pointer}
-  .cta--gold{background:linear-gradient(180deg,#f6dc94,#d6b459);color:#1a1200;box-shadow:0 0 0 1.5px rgba(214,180,89,.55) inset,0 10px 25px rgba(214,180,89,.35)}
-  .cta--ghost{background:transparent;color:var(--ink)}
-  /* Hero */
-  .hero{padding:24px 0}
-  .panel{background:linear-gradient(180deg, rgba(255,223,128,.06), rgba(255,223,128,.02));border:1px solid rgba(245,210,114,.14);border-radius:24px;padding:18px;box-shadow:0 20px 80px rgba(0,0,0,.45),inset 0 1px 0 rgba(245,210,114,.08)}
-  .grid{display:grid;gap:18px}
-  @media(min-width:920px){ .grid{grid-template-columns:460px 1fr} }
-  .media{position:relative;aspect-ratio:1/1;border-radius:20px;overflow:hidden;background:#0a0d11;box-shadow:inset 0 0 0 1px rgba(245,210,114,.10),0 30px 100px rgba(0,0,0,.55)}
-  .logo-img,.logo-vid,.logo-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
-  .logo-vid{opacity:0;transition:opacity .9s ease;filter:saturate(104%) contrast(102%)}
-  .logo-img.fade{opacity:0;transition:opacity .9s ease}
-  .title{text-align:center;margin:14px 10px 6px}
-  .title h1{margin:0;line-height:1.05;font-weight:900;letter-spacing:.02em;font-size:clamp(28px,4.6vw,48px);background:linear-gradient(180deg,#ffe9a6 0%,#f5d272 35%,#caa14c 80%,#9a7b35 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 8px 32px rgba(245,210,114,.20)}
-  .lead{max-width:860px;margin:8px auto 0;text-align:center;color:var(--muted);font-size:clamp(14px,2.6vw,18px)}
-  .actions{display:flex;gap:14px;justify-content:center;margin:18px 0 6px;flex-wrap:wrap}
-  .pill{padding:12px 18px;border:1px solid rgba(245,210,114,.35);border-radius:999px;color:var(--gold);background:radial-gradient(120% 120% at 20% 10%, rgba(245,210,114,.22), rgba(245,210,114,.06));box-shadow:0 8px 28px rgba(245,210,114,.18);cursor:pointer;font-weight:800}
-  .pill.ghost{background:rgba(255,255,255,.02);color:var(--ink);border-color:rgba(245,210,114,.22)}
-  /* Sections */
-  main{margin:28px 0}
-  .section{padding:22px 0}
-  .section h2{margin:0 0 10px;font-size:clamp(22px,4.5vw,30px)}
-  .card{padding:14px;border-radius:16px;background:linear-gradient(180deg,#0f1418,#0b0f12);border:1px solid rgba(255,255,255,.06)}
-  /* Confetti */
-  #confetti{position:fixed;inset:0;pointer-events:none;z-index:60}
+  a{color:inherit; text-decoration:none}
+  .wrap{max-width:1100px; margin:0 auto; padding:20px 16px 80px}
 
-  /* Admin panel */
-  .admin-btn{position:fixed;right:14px;top:12px;z-index:60}
-  .admin-surface{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);display:none;z-index:100}
-  .admin-box{position:absolute;right:16px;top:56px;width:min(420px,90vw);background:var(--panel);border:1px solid rgba(255,255,255,.08);border-radius:16px;box-shadow:0 20px 80px rgba(0,0,0,.6);padding:14px}
-  .admin-row{display:flex;gap:10px;align-items:center;justify-content:space-between;margin:8px 0}
-  .admin-box h3{margin:4px 0 6px}
-  .admin-box label{font-size:14px;color:var(--muted)}
-  .admin-box input[type="text"]{width:100%;padding:8px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:#0c1216;color:var(--ink)}
-  .admin-box .switch{display:flex;align-items:center;gap:8px}
-  .admin-box .btns{display:flex;gap:10px;justify-content:flex-end;margin-top:10px}
-  .btn{padding:8px 12px;border:1px solid rgba(255,255,255,.1);border-radius:10px;background:#0e1418;color:var(--ink);cursor:pointer}
-  .btn.gold{background:linear-gradient(180deg,#f6dc94,#d6b459);color:#1a1200;border:none}
-  .reel-list{max-height:180px;overflow:auto;border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:8px}
-  .reel-item{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px dashed rgba(255,255,255,.06)}
-  .reel-item:last-child{border-bottom:none}
+  /* Top bar */
+  .top{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    position:sticky; top:0; padding:12px 0; background:linear-gradient(to bottom, rgba(11,13,16,.85), rgba(11,13,16,.65) 60%, transparent);
+    backdrop-filter: blur(6px); z-index:5;
+  }
+  .brand{
+    display:flex; align-items:center; gap:12px;
+  }
+  .pill{
+    display:inline-flex; align-items:center; gap:10px;
+    border:1px solid #2a2f37; background:#12161c; padding:10px 14px; border-radius:999px;
+    box-shadow:0 0 0 1px rgba(232,194,101,.08), 0 8px 22px rgba(232,194,101,.08) inset;
+    font-weight:700; letter-spacing:.2px;
+  }
+  .gc-badge{
+    width:34px; height:34px; display:grid; place-items:center;
+    border-radius:10px; background:linear-gradient(145deg,#1a1e24,#0d0f13); 
+    box-shadow: 0 0 0 1px rgba(232,194,101,.25), 0 6px 18px rgba(232,194,101,.10) inset;
+    color:#121212; font-weight:900;
+  }
+  .cta{
+    border:1px solid rgba(232,194,101,.55);
+    color:var(--gold-2); padding:10px 18px; border-radius:999px; font-weight:700;
+    background:radial-gradient(120% 120% at 20% 20%, rgba(232,194,101,.18), transparent 45%) , #0f1216;
+    box-shadow:0 0 0 1px rgba(232,194,101,.2) inset, 0 8px 24px rgba(232,194,101,.12);
+    transition:.2s transform,.2s box-shadow;
+  }
+  .cta:hover{transform:translateY(-1px); box-shadow:0 0 0 1px rgba(232,194,101,.3) inset, 0 12px 28px rgba(232,194,101,.18)}
+  
+  /* Hero card */
+  .hero{
+    margin-top:14px; padding:20px; border-radius:24px; background:linear-gradient(180deg,#0e1116,#0b0d10);
+    border:1px solid #191e26; box-shadow: 0 0 0 1px rgba(232,194,101,.13) inset, 0 18px 50px rgba(0,0,0,.45);
+  }
+  .screen{
+    position:relative; height:340px; border-radius:20px; 
+    border:1px solid #262b33; background:#0b0e12;
+    box-shadow: inset 0 0 0 1px rgba(232,194,101,.08), inset 0 0 40px rgba(0,0,0,.6);
+    overflow:hidden;
+  }
+  .layer{
+    position:absolute; inset:0; display:grid; place-items:center; opacity:0; transition:opacity .6s ease;
+  }
+  .layer.show{opacity:1}
+  .screen img{max-width:86%; height:auto; object-fit:contain; filter: drop-shadow(0 8px 40px rgba(232,194,101,.25));}
+  .screen video{width:100%; height:100%; object-fit:cover}
+
+  /* Headline */
+  h1{
+    margin:26px 0 6px; font-size: clamp(36px, 6vw, 56px); line-height:1.06; 
+    font-weight:900; letter-spacing:.3px; color:var(--gold-2);
+    text-shadow: 0 0 28px rgba(232,194,101,.15);
+  }
+  p.lead{
+    color:var(--muted); font-size: clamp(16px, 2.6vw, 18px); line-height:1.6; margin: 0 0 20px;
+  }
+
+  .btns{display:flex; flex-wrap:wrap; gap:14px}
+  .btn{
+    border:1px solid rgba(232,194,101,.22); background:#10141a; color:var(--ink);
+    padding:12px 18px; border-radius:18px; font-weight:700; letter-spacing:.2px;
+    box-shadow:0 10px 24px rgba(0,0,0,.28), 0 0 0 1px rgba(232,194,101,.10) inset;
+  }
+  .btn.gold{background:linear-gradient(180deg,#f4d585,#e3b95b); color:#1a1406; border-color:#e6cc86; box-shadow:0 12px 28px rgba(232,194,101,.2)}
+  .btn:hover{transform:translateY(-1px)}
+
+  /* Section */
+  section{margin-top:46px}
+  h2{font-size: clamp(26px, 4vw, 34px); margin:0 0 12px}
+  .hint{color:#9aa3ad; font-size:15px}
+
+  /* Admin switch (appears with ?admin=1) */
+  .admin{
+    display:none; gap:10px; align-items:center; margin:10px 0 2px;
+    color:#a6b0bb; font-size:14px;
+  }
+  .admin.show{display:flex}
+  select{background:#12161c; color:var(--ink); border:1px solid #27303a; border-radius:10px; padding:8px 10px}
+
+  /* Confetti canvas */
+  #confetti{position:fixed; inset:0; pointer-events:none; z-index:50}
+
+  @media (min-width: 900px){
+    .hero-grid{display:grid; grid-template-columns: 1.1fr .9fr; gap:26px; align-items:center}
+    .screen{height:420px}
+  }
 </style>
 </head>
 <body>
-  <header>
-    <div class="wrap">
-      <div class="row">
-        <div class="brand">
-          <div class="badge">GC</div>
-          <div id="greet" class="chip">Welcome — THEGRID</div>
-        </div>
-        <button class="cta cta--ghost" id="joinTop">Join Now</button>
-      </div>
+<canvas id="confetti"></canvas>
+
+<div class="wrap">
+  <div class="top">
+    <div class="brand">
+      <div class="gc-badge">GC</div>
+      <div id="greet" class="pill">Welcome — THEGRID</div>
     </div>
-  </header>
+    <a href="#join" class="cta" id="joinBtn">Join Now</a>
+  </div>
 
-  <section class="hero">
-    <div class="wrap">
-      <div class="panel">
-        <div class="grid">
-          <!-- HERO MEDIA (still → spin fade, with inline SVG fallback so it works even with no assets) -->
-          <div class="media" id="heroBox">
-            <!-- 1) Inline fallback (always works) -->
-            <svg class="logo-fallback" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet" aria-label="GC Logo Fallback">
-              <defs>
-                <radialGradient id="g1" cx="50%" cy="40%" r="60%">
-                  <stop offset="0%" stop-color="#f5d272" stop-opacity="0.95"/>
-                  <stop offset="55%" stop-color="#caa14c" stop-opacity="0.9"/>
-                  <stop offset="100%" stop-color="#111" stop-opacity="0.15"/>
-                </radialGradient>
-              </defs>
-              <rect width="100%" height="100%" fill="#0b0f12"/>
-              <circle cx="100" cy="100" r="86" fill="url(#g1)" />
-              <text x="50%" y="53%" text-anchor="middle" fill="#1a1200" font-size="86" font-weight="900" font-family="ui-sans-serif,system-ui">GC</text>
-            </svg>
+  <div class="hero">
+    <div class="admin" id="adminBar">
+      <span>Hero source:</span>
+      <select id="heroMode">
+        <option value="video">Video (gc_spin.mp4)</option>
+        <option value="image">Image (gc_logo.png)</option>
+      </select>
+      <span id="mediaNote" class="hint"></span>
+    </div>
 
-            <!-- 2) Real still logo (uses your PNG if present) -->
-            <img class="logo-img" id="logoImg" src="assets/images/gc_logo.png" alt="GC Logo" onerror="this.style.display='none'">
-
-            <!-- 3) Spinning logo video (uses your MP4 if present) -->
-            <video class="logo-vid" id="logoVid" playsinline muted loop preload="auto"
-                   src="assets/video/gc_logo_spin.mp4"></video>
-          </div>
-
-          <!-- HERO COPY -->
-          <div>
-            <div class="title"><h1>Black &amp; Gold Performance Creativity</h1></div>
-            <p class="lead">Signature niches, cinematic reels, and a savable system that learns from your inputs. Plug your save, sync with the site, and level up.</p>
-            <div class="actions">
-              <a class="pill" href="#niches" id="btnNiches">Explore Niches</a>
-              <a class="pill ghost" href="#reels" id="btnReels">Cinematic Reels</a>
-              <button class="pill ghost" id="btnMonetise">Monetise</button>
-            </div>
+    <div class="hero-grid">
+      <div class="screen" id="screen">
+        <!-- VIDEO LAYER -->
+        <div class="layer" id="Lvideo">
+          <video id="heroVideo" autoplay muted loop playsinline></video>
+        </div>
+        <!-- IMAGE LAYER -->
+        <div class="layer" id="Limage">
+          <img id="heroImage" alt="GC Logo" />
+        </div>
+        <!-- FALLBACK -->
+        <div class="layer show" id="Lhint">
+          <div class="hint" style="text-align:center; padding:18px">
+            Add <code>assets/video/gc_spin.mp4</code> or <code>assets/images/gc_logo.png</code><br/>
+            (use the “Add file → Upload files” button in GitHub).
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- SIGNATURE NICHES -->
-  <main class="wrap">
-    <section class="section" id="niches">
-      <h2>Signature Niches</h2>
-      <div class="card">
-        Drop content into <code>assets/images/</code> and <code>assets/video/</code> — it appears automatically in gallery sections.
+      <div>
+        <h1>Black &amp; Gold<br/>Performance Creativity</h1>
+        <p class="lead">
+          Signature niches, cinematic reels, and a savable system that learns from your inputs.
+          Plug your save, sync with the site, and level up.
+        </p>
+        <div class="btns">
+          <a class="btn gold" href="#niches" id="startBtn">Explore Niches</a>
+          <a class="btn" href="#reels">Cinematic Reels</a>
+          <a class="btn" href="#monetise" id="monetiseBtn">Monetise</a>
+        </div>
       </div>
-    </section>
-
-    <!-- REELS -->
-    <section class="section" id="reels">
-      <h2>Cinematic Landscape Reels</h2>
-      <div class="card" id="reelWrap">Drop 16:9 videos into <code>assets/video/landscape_#.mp4</code> — they’ll appear here on refresh.</div>
-    </section>
-
-    <!-- QUICK START -->
-    <section class="section" id="join">
-      <h2>Start in 20 Seconds</h2>
-      <ol>
-        <li>Pick a niche</li>
-        <li>Paste the prompt</li>
-        <li>Render — then save your result</li>
-      </ol>
-      <p><a class="cta cta--gold" href="#">Join Now</a></p>
-    </section>
-  </main>
-
-  <!-- Admin trigger -->
-  <button class="cta admin-btn" id="adminBtn">Admin</button>
-
-  <!-- Admin panel -->
-  <div class="admin-surface" id="adminSurface" aria-hidden="true">
-    <div class="admin-box" role="dialog" aria-modal="true" aria-label="Admin Panel">
-      <h3>Admin Panel</h3>
-      <div class="admin-row switch">
-        <label for="heroVideoToggle">Hero: Use Spinning Video</label>
-        <input type="checkbox" id="heroVideoToggle">
-      </div>
-
-      <div class="admin-row">
-        <label style="flex:1">Greeting – Morning</label>
-        <input type="text" id="gMorning" placeholder="Good morning, creator.">
-      </div>
-      <div class="admin-row">
-        <label style="flex:1">Greeting – Afternoon</label>
-        <input type="text" id="gAfternoon" placeholder="Good afternoon, innovator.">
-      </div>
-      <div class="admin-row">
-        <label style="flex:1">Greeting – Evening</label>
-        <input type="text" id="gEvening" placeholder="Good evening, visionary.">
-      </div>
-
-      <div class="admin-row" style="align-items:flex-start">
-        <label style="flex:1">Landscape Reels (tick to show)</label>
-      </div>
-      <div class="reel-list" id="reelList"><div class="reel-item">Scanning…</div></div>
-
-      <div class="btns">
-        <button class="btn" id="adminReset">Reset</button>
-        <button class="btn" id="adminExport">Export Save</button>
-        <button class="btn gold" id="adminSave">Save</button>
-        <button class="btn" id="adminClose">Close</button>
-      </div>
-      <p style="margin:8px 0 0;color:var(--muted);font-size:12px">Tip: change the admin password in the script (ADMIN_PASS).</p>
     </div>
   </div>
 
-  <canvas id="confetti"></canvas>
+  <section id="niches">
+    <h2>Signature Niches</h2>
+    <p class="hint">Drop content into <code>assets/images/</code> and <code>assets/video/</code> — it appears automatically in gallery sections later.</p>
+  </section>
+
+  <section id="reels">
+    <h2>Cinematic Landscape Reels</h2>
+    <p class="hint">Optional: upload <code>assets/video/landscape_#.mp4</code> to show 16:9 reels.</p>
+  </section>
+
+  <section id="monetise">
+    <h2>Monetisation &amp; Tiers</h2>
+    <p class="hint">We’ll hook your tiers later. For now, the confetti preview triggers on “Join Now” and “Monetise”.</p>
+  </section>
+
+  <footer style="margin-top:60px; color:#8e98a3; font-size:14px">
+    © 2025 THEGRID • <a href="terms.html">Terms</a> • <a href="privacy.html">Privacy</a>
+  </footer>
+</div>
 
 <script>
-  /* ===== CONFIG / ADMIN PASSWORD ===== */
-  const ADMIN_PASS = "GC-ADMIN"; // change this any time
-  const SAVE_KEY   = "thegrid_admin_save_v1";
-
-  /* Greeting */
+  /* Greeting pill */
   (function(){
-    const saved = JSON.parse(localStorage.getItem(SAVE_KEY) || "{}");
-    const gm = saved.greetings?.morning || "Good morning";
-    const ga = saved.greetings?.afternoon || "Good afternoon";
-    const ge = saved.greetings?.evening || "Good evening";
     const h = new Date().getHours();
-    const t = h<12?gm:h<18?ga:ge;
-    document.getElementById("greet").textContent = t + " — THEGRID";
+    const t = (h<5)?'Good night':(h<12)?'Good morning':(h<18)?'Good afternoon':'Good evening';
+    const el = document.getElementById('greet');
+    el.textContent = t + ' — THEGRID';
+    // toast on first load
+    if(!sessionStorage.getItem('tg_seen_greet')){
+      toast(t + '.', 2200);
+      sessionStorage.setItem('tg_seen_greet','1');
+    }
   })();
 
-  /* Still → Spin fade (respect admin toggle; graceful fallback if assets missing) */
-  (function(){
-    const saved = JSON.parse(localStorage.getItem(SAVE_KEY) || "{}");
-    const useVideo = saved.heroVideo !== false; // default true
-    const img=document.getElementById('logoImg');
-    const vid=document.getElementById('logoVid');
-    if(!vid) return;
-    if(!useVideo){ vid.remove(); return; }
-    let done=false;
-    function go(){ if(done) return; done=true; vid.style.opacity='1'; if(img) img.classList.add('fade'); try{ vid.play().catch(()=>{});}catch(e){} }
-    // Detect if the MP4 exists then fade
-    fetch(vid.currentSrc || vid.src, {method:'HEAD'}).then(r=>{
-      if(r.ok){ if(vid.readyState>=2) setTimeout(go,300); else vid.addEventListener('loadeddata', ()=>setTimeout(go,300), {once:true}); }
-    }).catch(()=>{});
-    setTimeout(go, 2500);
-  })();
+  function toast(msg, ms){
+    const d=document.createElement('div');
+    d.textContent=msg;
+    d.style.cssText="position:fixed;left:16px;top:14px;padding:10px 14px;border-radius:12px;background:#0f1216;border:1px solid #2a2f37;color:#e9e4d1;box-shadow:0 10px 22px rgba(0,0,0,.35);z-index:60";
+    document.body.appendChild(d);
+    setTimeout(()=>{d.style.opacity='0'; d.style.transition='opacity .35s';}, ms||1800);
+    setTimeout(()=>d.remove(), (ms||1800)+400);
+  }
 
-  /* Reels auto-attach if files exist & if admin selected them */
-  (function(){
-    const wrap=document.getElementById('reelWrap');
-    if(!wrap) return;
-    const saved = JSON.parse(localStorage.getItem(SAVE_KEY) || "{}");
-    const chosen = saved.reels || []; // array of URLs
-    if(!chosen.length){ return; }
-    wrap.innerHTML = "";
-    chosen.forEach(url=>{
-      const v=document.createElement('video');
-      v.src=url; v.controls=true; v.playsInline=true; v.preload='metadata';
-      v.style.width='100%'; v.style.borderRadius='14px'; v.style.border='1px solid rgba(255,255,255,.08)';
-      v.style.display='block'; v.style.background='black';
-      wrap.appendChild(v);
-    });
-  })();
+  /* Hero media logic + crossfade */
+  const imagePath = 'assets/images/gc_logo.png';
+  const videoPath = 'assets/video/gc_spin.mp4';
 
-  /* Gold confetti (short & sweet) */
+  const Lvideo = document.getElementById('Lvideo');
+  const Limage = document.getElementById('Limage');
+  const Lhint  = document.getElementById('Lhint');
+  const heroVideo = document.getElementById('heroVideo');
+  const heroImage = document.getElementById('heroImage');
+  const mediaNote = document.getElementById('mediaNote');
+
+  const adminBar = document.getElementById('adminBar');
+  const modeSel  = document.getElementById('heroMode');
+
+  // show admin switch if ?admin=1
+  const url = new URL(location.href);
+  if(url.searchParams.get('admin')==='1'){
+    adminBar.classList.add('show');
+  }
+
+  // Persisted preference
+  const savedMode = localStorage.getItem('tg_hero_mode') || 'video';
+  modeSel.value = savedMode;
+  modeSel.addEventListener('change', () => {
+    localStorage.setItem('tg_hero_mode', modeSel.value);
+    chooseHero();
+  });
+
+  // preload check
+  async function exists(path){
+    try{
+      const r = await fetch(path, {method:'HEAD', cache:'no-store'});
+      return r.ok;
+    }catch(e){ return false; }
+  }
+
+  async function chooseHero(){
+    const wantVideo = (modeSel.value==='video');
+    const hasVideo  = await exists(videoPath);
+    const hasImage  = await exists(imagePath);
+
+    // set sources if present
+    if(hasVideo){ heroVideo.src = videoPath; heroVideo.load(); }
+    if(hasImage){ heroImage.src = imagePath; }
+
+    // status hint
+    mediaNote.textContent = (!hasVideo && wantVideo) ? '(video not found, showing image if available)' :
+                            (!hasImage && !wantVideo) ? '(image not found, showing hint)' : '';
+
+    // decide layer visibility with crossfade
+    const show = (id)=>document.getElementById(id).classList.add('show');
+    const hide = (id)=>document.getElementById(id).classList.remove('show');
+
+    hide('Lvideo'); hide('Limage'); hide('Lhint');
+
+    if(wantVideo && hasVideo){
+      show('Lvideo');
+    }else if(hasImage){
+      show('Limage');
+    }else{
+      show('Lhint');
+    }
+  }
+  chooseHero();
+
+  /* Confetti — gold burst for CTAs */
   (function(){
-    const cvs=document.getElementById('confetti'),ctx=cvs.getContext('2d');
-    const DPR=window.devicePixelRatio||1;
-    function size(){ cvs.width=innerWidth*DPR; cvs.height=innerHeight*DPR; ctx.setTransform(DPR,0,0,DPR,0,0); }
-    size(); addEventListener('resize',size,{passive:true});
-    function burst(n=100,dur=1400){
-      const parts=Array.from({length:n},()=>({
-        x:innerWidth/2, y:innerHeight/3, r:1+Math.random()*3,
-        a:Math.random()*6.283, v:1+Math.random()*3, life:60+Math.random()*40,
-        col:["#f6dc94","#e8c56a","#caa84e","#ffd98f"][Math.floor(Math.random()*4)]
-      }));
-      const t0=performance.now();
-      (function loop(t){
-        ctx.clearRect(0,0,innerWidth,innerHeight);
-        parts.forEach(p=>{
-          p.x+=Math.cos(p.a)*p.v; p.y+=Math.sin(p.a)*p.v+0.4; p.life-=1;
-          ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,6.283); ctx.fillStyle=p.col; ctx.fill();
+    const c = document.getElementById('confetti');
+    const ctx = c.getContext('2d');
+    let W,H,parts=[],playing=false;
+    function resize(){ W = c.width = innerWidth; H = c.height = innerHeight; }
+    addEventListener('resize', resize, {passive:true}); resize();
+
+    function launch(color='#e8c265', n=120){
+      for(let i=0;i<n;i++){
+        parts.push({
+          x: W/2, y: H/3, vx:(Math.random()*6-3), vy:(Math.random()*-6-3),
+          g: .15 + Math.random()*.1, s: 3+Math.random()*3, a: 1,
+          color: color, rot: Math.random()*360, vr: (Math.random()*6-3)
         });
-        if(t-t0<dur) requestAnimationFrame(loop);
-      })(t0);
+      }
+      if(!playing){ requestAnimationFrame(tick); playing=true; setTimeout(()=>playing=false, 1400); }
     }
-    if(!sessionStorage.getItem('celebrated')){
-      sessionStorage.setItem('celebrated','1');
-      setTimeout(()=>burst(80,1300), 700);
+    function tick(){
+      ctx.clearRect(0,0,W,H);
+      parts.forEach(p=>{
+        p.vy += p.g; p.x += p.vx; p.y += p.vy; p.rot += p.vr; p.a -= .008;
+        ctx.save(); ctx.globalAlpha=Math.max(p.a,0);
+        ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180);
+        ctx.fillStyle=p.color;
+        ctx.fillRect(-p.s, -p.s, p.s*2, p.s*2);
+        ctx.restore();
+      });
+      parts = parts.filter(p=>p.a>0 && p.y<H+20);
+      if(playing) requestAnimationFrame(tick);
     }
-    document.getElementById('joinTop').addEventListener('click',()=>burst(120,1500));
-    document.getElementById('btnMonetise')?.addEventListener('click',()=>burst(120,1500));
-    document.getElementById('btnReels')?.addEventListener('click',()=>burst(90,1200));
+    // hook CTAs
+    document.getElementById('joinBtn').addEventListener('click', ()=>launch('#f6d88a', 160));
+    document.getElementById('monetiseBtn').addEventListener('click', ()=>launch('#d1b76a', 130));
+    document.getElementById('startBtn').addEventListener('click', ()=>launch('#f1d07c', 90));
   })();
-
-  /* Smooth anchor scroll */
-  document.querySelectorAll('a[href^="#"]').forEach(a=>{
-    a.addEventListener('click', e=>{
-      const id=a.getAttribute('href').slice(1), el=document.getElementById(id);
-      if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth',block:'start'}); }
-    });
-  });
-
-  /* ================= ADMIN PANEL LOGIC ================= */
-  const adminBtn = document.getElementById('adminBtn');
-  const surface  = document.getElementById('adminSurface');
-  const btnClose = document.getElementById('adminClose');
-  const btnSave  = document.getElementById('adminSave');
-  const btnReset = document.getElementById('adminReset');
-  const btnExport= document.getElementById('adminExport');
-  const toggleHero= document.getElementById('heroVideoToggle');
-  const gMorning = document.getElementById('gMorning');
-  const gAfternoon = document.getElementById('gAfternoon');
-  const gEvening = document.getElementById('gEvening');
-  const reelList = document.getElementById('reelList');
-
-  // Open with password
-  adminBtn.addEventListener('click', async ()=>{
-    const pass = prompt("Enter admin password");
-    if(pass !== ADMIN_PASS) return alert("Access denied");
-    await buildReelList();
-    loadSaveIntoPanel();
-    surface.style.display='block';
-    surface.setAttribute('aria-hidden','false');
-  });
-  btnClose.addEventListener('click', ()=>{
-    surface.style.display='none';
-    surface.setAttribute('aria-hidden','true');
-  });
-
-  // Build reel list by scanning known filenames
-  async function buildReelList(){
-    const candidates=[1,2,3,4,5,6,7,8,9,10].map(i=>`assets/video/landscape_${i}.mp4`);
-    const tests = await Promise.all(candidates.map(u=>fetch(u,{method:'HEAD',cache:'no-store'}).then(r=>r.ok).catch(()=>false)));
-    const saved = JSON.parse(localStorage.getItem(SAVE_KEY) || "{}");
-    const chosen = new Set(saved.reels||[]);
-    reelList.innerHTML="";
-    let any=false;
-    candidates.forEach((u,i)=>{
-      if(!tests[i]) return;
-      any=true;
-      const row = document.createElement('label');
-      row.className='reel-item';
-      const cb = document.createElement('input');
-      cb.type='checkbox'; cb.value=u; cb.checked = chosen.has(u);
-      const span=document.createElement('span'); span.textContent=u.replace('assets/video/','');
-      row.appendChild(cb); row.appendChild(span);
-      reelList.appendChild(row);
-    });
-    if(!any){ reelList.innerHTML = '<div class="reel-item" style="opacity:.7">No landscape_#.mp4 files found.</div>'; }
-  }
-
-  function loadSaveIntoPanel(){
-    const saved = JSON.parse(localStorage.getItem(SAVE_KEY) || "{}");
-    toggleHero.checked = saved.heroVideo !== false; // default true
-    gMorning.value = saved.greetings?.morning || "Good morning, creator.";
-    gAfternoon.value = saved.greetings?.afternoon || "Good afternoon, innovator.";
-    gEvening.value = saved.greetings?.evening || "Good evening, visionary.";
-  }
-
-  btnReset.addEventListener('click', ()=>{
-    if(!confirm("Reset to defaults?")) return;
-    localStorage.removeItem(SAVE_KEY);
-    alert("Reset. Reloading…");
-    location.reload();
-  });
-
-  btnExport.addEventListener('click', ()=>{
-    const saved = JSON.parse(localStorage.getItem(SAVE_KEY) || "{}");
-    const blob = {
-      saved_at: new Date().toISOString(),
-      data: saved
-    };
-    const txt = "THEGRID-ADMIN-SAVE\n" + JSON.stringify(blob, null, 2) + "\n/END";
-    navigator.clipboard.writeText(txt).then(()=>alert("Copied admin save to clipboard! Paste into Notes."));
-  });
-
-  btnSave.addEventListener('click', ()=>{
-    const picked = Array.from(reelList.querySelectorAll('input[type="checkbox"]:checked')).map(cb=>cb.value);
-    const data = {
-      heroVideo: !!toggleHero.checked,
-      greetings: {
-        morning: gMorning.value || "Good morning, creator.",
-        afternoon: gAfternoon.value || "Good afternoon, innovator.",
-        evening: gEvening.value || "Good evening, visionary."
-      },
-      reels: picked
-    };
-    localStorage.setItem(SAVE_KEY, JSON.stringify(data));
-    alert("Saved. Reloading with your settings…");
-    location.reload();
-  });
 </script>
 </body>
 </html>
