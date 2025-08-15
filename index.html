@@ -1,318 +1,207 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>THEGRID — Black & Gold Performance Creativity</title>
-<meta name="theme-color" content="#0b0d10">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%23000' stroke='%23d4af37' stroke-width='8'/%3E%3Ctext x='50' y='59' text-anchor='middle' font-size='46' fill='%23d4af37' font-family='Inter,system-ui,sans-serif'%3EGC%3C/text%3E%3C/svg%3E" />
+
 <style>
-  :root{
-    --bg:#0b0d10;
-    --panel:#0f1216;
-    --ink:#e9e4d1;
-    --muted:#c7c2ae;
-    --gold:#e8c265;
-    --gold-2:#f6d88a;
-    --ring: rgba(232,194,101,.25);
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial;
-    color:var(--ink); background:radial-gradient(1200px 700px at 20% -5%, #1b1f26 0%, #0b0d10 55%) no-repeat var(--bg);
-  }
-  a{color:inherit; text-decoration:none}
-  .wrap{max-width:1100px; margin:0 auto; padding:20px 16px 80px}
+:root{
+  --bg:#0b0d0f;
+  --panel:#0f1216;
+  --gold:#d4af37;
+  --gold-soft:#e9c86a;
+  --ink:#e9e6df;
+  --muted:#bfb8a3;
+  --ring:0 0 0 1px rgba(212,175,55,.35), 0 0 40px rgba(212,175,55,.12) inset;
+  --glow:0 12px 40px rgba(212,175,55,.18), 0 0 0 1px rgba(212,175,55,.18) inset;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:radial-gradient(1000px 450px at 50% -80px,rgba(212,175,55,.08),transparent 60%),var(--bg);color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
+a,button{font:inherit}
+.container{max-width:1100px;margin:0 auto;padding:20px}
+.topbar{display:flex;align-items:center;gap:12px;justify-content:space-between;margin:8px 0 18px}
+.badge{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(180deg,#12161b,#0c0f12);border-radius:999px;color:#f8f5ec;padding:10px 16px;box-shadow:var(--ring)}
+.brand-dot{width:34px;height:34px;border-radius:9px;background:#0c0f12;box-shadow:0 0 0 1px rgba(212,175,55,.35), inset 0 0 24px rgba(212,175,55,.25);display:grid;place-items:center;color:var(--gold);font-weight:700}
+.cta{padding:12px 20px;border-radius:999px;background:transparent;color:var(--gold);border:1px solid rgba(212,175,55,.45);box-shadow:var(--ring);cursor:pointer;transition:.25s}
+.cta:hover{box-shadow:var(--glow);transform:translateY(-1px)}
 
-  /* Top bar */
-  .top{
-    display:flex; align-items:center; justify-content:space-between; gap:12px;
-    position:sticky; top:0; padding:12px 0; background:linear-gradient(to bottom, rgba(11,13,16,.85), rgba(11,13,16,.65) 60%, transparent);
-    backdrop-filter: blur(6px); z-index:5;
-  }
-  .brand{
-    display:flex; align-items:center; gap:12px;
-  }
-  .pill{
-    display:inline-flex; align-items:center; gap:10px;
-    border:1px solid #2a2f37; background:#12161c; padding:10px 14px; border-radius:999px;
-    box-shadow:0 0 0 1px rgba(232,194,101,.08), 0 8px 22px rgba(232,194,101,.08) inset;
-    font-weight:700; letter-spacing:.2px;
-  }
-  .gc-badge{
-    width:34px; height:34px; display:grid; place-items:center;
-    border-radius:10px; background:linear-gradient(145deg,#1a1e24,#0d0f13); 
-    box-shadow: 0 0 0 1px rgba(232,194,101,.25), 0 6px 18px rgba(232,194,101,.10) inset;
-    color:#121212; font-weight:900;
-  }
-  .cta{
-    border:1px solid rgba(232,194,101,.55);
-    color:var(--gold-2); padding:10px 18px; border-radius:999px; font-weight:700;
-    background:radial-gradient(120% 120% at 20% 20%, rgba(232,194,101,.18), transparent 45%) , #0f1216;
-    box-shadow:0 0 0 1px rgba(232,194,101,.2) inset, 0 8px 24px rgba(232,194,101,.12);
-    transition:.2s transform,.2s box-shadow;
-  }
-  .cta:hover{transform:translateY(-1px); box-shadow:0 0 0 1px rgba(232,194,101,.3) inset, 0 12px 28px rgba(232,194,101,.18)}
-  
-  /* Hero card */
-  .hero{
-    margin-top:14px; padding:20px; border-radius:24px; background:linear-gradient(180deg,#0e1116,#0b0d10);
-    border:1px solid #191e26; box-shadow: 0 0 0 1px rgba(232,194,101,.13) inset, 0 18px 50px rgba(0,0,0,.45);
-  }
-  .screen{
-    position:relative; height:340px; border-radius:20px; 
-    border:1px solid #262b33; background:#0b0e12;
-    box-shadow: inset 0 0 0 1px rgba(232,194,101,.08), inset 0 0 40px rgba(0,0,0,.6);
-    overflow:hidden;
-  }
-  .layer{
-    position:absolute; inset:0; display:grid; place-items:center; opacity:0; transition:opacity .6s ease;
-  }
-  .layer.show{opacity:1}
-  .screen img{max-width:86%; height:auto; object-fit:contain; filter: drop-shadow(0 8px 40px rgba(232,194,101,.25));}
-  .screen video{width:100%; height:100%; object-fit:cover}
+.panel{background:linear-gradient(180deg,#111418,#0b0d10);border-radius:22px;padding:18px 18px 26px;box-shadow:0 0 0 1px rgba(212,175,55,.12), inset 0 -1px 0 rgba(255,255,255,.04)}
+.hero{display:grid;gap:22px;margin:6px 0 28px}
+.hero-media{position:relative;border-radius:20px;background:radial-gradient(700px 300px at 50% -90px,rgba(212,175,55,.1),transparent 60%),#0a0c0e;box-shadow:0 0 0 1px rgba(212,175,55,.15), inset 0 0 40px rgba(212,175,55,.15);padding:18px}
+.hero-frame{border-radius:16px;overflow:hidden;aspect-ratio:16/9;display:grid;place-items:center}
+.hero-frame video,.hero-frame img{width:100%;height:100%;object-fit:contain;background:transparent}
 
-  /* Headline */
-  h1{
-    margin:26px 0 6px; font-size: clamp(36px, 6vw, 56px); line-height:1.06; 
-    font-weight:900; letter-spacing:.3px; color:var(--gold-2);
-    text-shadow: 0 0 28px rgba(232,194,101,.15);
-  }
-  p.lead{
-    color:var(--muted); font-size: clamp(16px, 2.6vw, 18px); line-height:1.6; margin: 0 0 20px;
-  }
+.h1{font-weight:900;line-height:1.05;font-size:clamp(30px,4.6vw,54px);letter-spacing:.2px;margin:6px 0;color:var(--gold)}
+.sub{color:var(--muted);font-size:clamp(15px,1.8vw,18px);line-height:1.65;max-width:68ch}
+.actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px}
+.btn{padding:13px 20px;border-radius:999px;border:1px solid rgba(212,175,55,.4);background:rgba(212,175,55,.06);color:#fff;box-shadow:var(--ring);cursor:pointer;transition:.25s}
+.btn.primary{background:linear-gradient(180deg,#f6d77a,#d4af37);color:#141414;font-weight:800}
+.btn:hover{box-shadow:var(--glow);transform:translateY(-1px)}
+.note{color:#a9a39a;font-size:14px}
 
-  .btns{display:flex; flex-wrap:wrap; gap:14px}
-  .btn{
-    border:1px solid rgba(232,194,101,.22); background:#10141a; color:var(--ink);
-    padding:12px 18px; border-radius:18px; font-weight:700; letter-spacing:.2px;
-    box-shadow:0 10px 24px rgba(0,0,0,.28), 0 0 0 1px rgba(232,194,101,.10) inset;
-  }
-  .btn.gold{background:linear-gradient(180deg,#f4d585,#e3b95b); color:#1a1406; border-color:#e6cc86; box-shadow:0 12px 28px rgba(232,194,101,.2)}
-  .btn:hover{transform:translateY(-1px)}
+/* fades */
+.fade-in{opacity:0;transform:translateY(8px);animation:fadeIn .7s ease forwards}
+@keyframes fadeIn{to{opacity:1;transform:none}}
+.fade-swap-enter{animation:fadeSwapIn .6s ease forwards}
+.fade-swap-exit{animation:fadeSwapOut .5s ease forwards}
+@keyframes fadeSwapIn{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:scale(1)}}
+@keyframes fadeSwapOut{from{opacity:1}to{opacity:0}}
 
-  /* Section */
-  section{margin-top:46px}
-  h2{font-size: clamp(26px, 4vw, 34px); margin:0 0 12px}
-  .hint{color:#9aa3ad; font-size:15px}
-
-  /* Admin switch (appears with ?admin=1) */
-  .admin{
-    display:none; gap:10px; align-items:center; margin:10px 0 2px;
-    color:#a6b0bb; font-size:14px;
-  }
-  .admin.show{display:flex}
-  select{background:#12161c; color:var(--ink); border:1px solid #27303a; border-radius:10px; padding:8px 10px}
-
-  /* Confetti canvas */
-  #confetti{position:fixed; inset:0; pointer-events:none; z-index:50}
-
-  @media (min-width: 900px){
-    .hero-grid{display:grid; grid-template-columns: 1.1fr .9fr; gap:26px; align-items:center}
-    .screen{height:420px}
-  }
+.section{margin:34px 0}
+.section h2{font-size:26px;margin:0 0 8px}
+.footer{display:flex;justify-content:space-between;align-items:center;color:#9d9686;font-size:14px;margin:40px 0 16px}
 </style>
 </head>
+
 <body>
-<canvas id="confetti"></canvas>
-
-<div class="wrap">
-  <div class="top">
-    <div class="brand">
-      <div class="gc-badge">GC</div>
-      <div id="greet" class="pill">Welcome — THEGRID</div>
-    </div>
-    <a href="#join" class="cta" id="joinBtn">Join Now</a>
-  </div>
-
-  <div class="hero">
-    <div class="admin" id="adminBar">
-      <span>Hero source:</span>
-      <select id="heroMode">
-        <option value="video">Video (gc_spin.mp4)</option>
-        <option value="image">Image (gc_logo.png)</option>
-      </select>
-      <span id="mediaNote" class="hint"></span>
+  <div class="container">
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="brand-dot">GC</div>
+        <div id="greet" class="badge">Good day — THEGRID</div>
+      </div>
+      <button class="cta" id="joinBtn">Join Now</button>
     </div>
 
-    <div class="hero-grid">
-      <div class="screen" id="screen">
-        <!-- VIDEO LAYER -->
-        <div class="layer" id="Lvideo">
-          <video id="heroVideo" autoplay muted loop playsinline></video>
-        </div>
-        <!-- IMAGE LAYER -->
-        <div class="layer" id="Limage">
-          <img id="heroImage" alt="GC Logo" />
-        </div>
-        <!-- FALLBACK -->
-        <div class="layer show" id="Lhint">
-          <div class="hint" style="text-align:center; padding:18px">
-            Add <code>assets/video/gc_spin.mp4</code> or <code>assets/images/gc_logo.png</code><br/>
-            (use the “Add file → Upload files” button in GitHub).
-          </div>
+    <!-- HERO -->
+    <div class="panel hero fade-in">
+      <div class="hero-media">
+        <div class="hero-frame" id="heroFrame">
+          <!-- media injected by JS with graceful fallback -->
+          <div id="heroPlaceholder" class="note">Add <code>assets/video/gc_spin.mp4</code> or <code>assets/images/gc_logo.png</code></div>
         </div>
       </div>
 
       <div>
-        <h1>Black &amp; Gold<br/>Performance Creativity</h1>
-        <p class="lead">
+        <h1 class="h1">Black &amp; Gold Performance<br/>Creativity</h1>
+        <p class="sub">
           Signature niches, cinematic reels, and a savable system that learns from your inputs.
           Plug your save, sync with the site, and level up.
         </p>
-        <div class="btns">
-          <a class="btn gold" href="#niches" id="startBtn">Explore Niches</a>
-          <a class="btn" href="#reels">Cinematic Reels</a>
-          <a class="btn" href="#monetise" id="monetiseBtn">Monetise</a>
+        <div class="actions">
+          <button class="btn primary" id="nichesBtn">Explore Niches</button>
+          <button class="btn" id="reelsBtn">Cinematic Reels</button>
+          <button class="btn" id="monetiseBtn">Monetise</button>
         </div>
       </div>
     </div>
+
+    <!-- SECTIONS (placeholders you already had) -->
+    <div class="section">
+      <h2>Signature Niches</h2>
+      <p class="note">Drop content into <code>assets/images/</code> and <code>assets/video/</code> — it appears automatically in gallery sections later.</p>
+    </div>
+
+    <div class="section">
+      <h2>Cinematic Landscape Reels</h2>
+      <p class="note">Optional: upload <code>assets/video/landscape_#.mp4</code> to show 16:9 reels.</p>
+    </div>
+
+    <div class="section">
+      <h2>Monetisation &amp; Tiers</h2>
+      <p class="note">Confetti preview triggers on “Join Now” and “Monetise”.</p>
+    </div>
+
+    <div class="footer">
+      <div>© 2025 THEGRID</div>
+      <div><a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a></div>
+    </div>
   </div>
 
-  <section id="niches">
-    <h2>Signature Niches</h2>
-    <p class="hint">Drop content into <code>assets/images/</code> and <code>assets/video/</code> — it appears automatically in gallery sections later.</p>
-  </section>
-
-  <section id="reels">
-    <h2>Cinematic Landscape Reels</h2>
-    <p class="hint">Optional: upload <code>assets/video/landscape_#.mp4</code> to show 16:9 reels.</p>
-  </section>
-
-  <section id="monetise">
-    <h2>Monetisation &amp; Tiers</h2>
-    <p class="hint">We’ll hook your tiers later. For now, the confetti preview triggers on “Join Now” and “Monetise”.</p>
-  </section>
-
-  <footer style="margin-top:60px; color:#8e98a3; font-size:14px">
-    © 2025 THEGRID • <a href="terms.html">Terms</a> • <a href="privacy.html">Privacy</a>
-  </footer>
-</div>
-
 <script>
-  /* Greeting pill */
-  (function(){
-    const h = new Date().getHours();
-    const t = (h<5)?'Good night':(h<12)?'Good morning':(h<18)?'Good afternoon':'Good evening';
-    const el = document.getElementById('greet');
-    el.textContent = t + ' — THEGRID';
-    // toast on first load
-    if(!sessionStorage.getItem('tg_seen_greet')){
-      toast(t + '.', 2200);
-      sessionStorage.setItem('tg_seen_greet','1');
+/* ========= SIMPLE CONFIG: change filenames here if you ever use different names ========= */
+const GRID_CONFIG = {
+  logoVideo: "assets/video/gc_spin.mp4",
+  logoImage: "assets/images/gc_logo.png"
+};
+/* ======================================================================================== */
+
+/* greeting */
+(function(){
+  const h = new Date().getHours();
+  const t = h<12 ? "Good morning" : h<18 ? "Good afternoon" : "Good evening";
+  document.getElementById("greet").textContent = `${t} — THEGRID`;
+})();
+
+/* hero video→image swap with smooth fade + safe cleanup */
+(function(){
+  const frame = document.getElementById("heroFrame");
+  const ph    = document.getElementById("heroPlaceholder");
+
+  function showImage(){
+    const img = new Image();
+    img.src = GRID_CONFIG.logoImage;
+    img.alt = "GC Logo";
+    img.className = "fade-swap-enter";
+    img.onload = ()=>{ frame.innerHTML=""; frame.appendChild(img); };
+  }
+
+  function showVideo(){
+    const v = document.createElement("video");
+    v.src = GRID_CONFIG.logoVideo;
+    v.muted = true;
+    v.autoplay = true;
+    v.loop = true;
+    v.playsInline = true;
+    v.className = "fade-swap-enter";
+    v.onloadeddata = ()=>{ frame.innerHTML=""; frame.appendChild(v); v.play().catch(showImage); };
+    v.onerror = showImage;
+  }
+
+  /* try video first, then image, otherwise keep helper text */
+  fetch(GRID_CONFIG.logoVideo,{method:"HEAD"}).then(r=>{
+    if(r.ok){ showVideo(); } else {
+      return fetch(GRID_CONFIG.logoImage,{method:"HEAD"}).then(rr=> rr.ok ? showImage() : null);
     }
-  })();
-
-  function toast(msg, ms){
-    const d=document.createElement('div');
-    d.textContent=msg;
-    d.style.cssText="position:fixed;left:16px;top:14px;padding:10px 14px;border-radius:12px;background:#0f1216;border:1px solid #2a2f37;color:#e9e4d1;box-shadow:0 10px 22px rgba(0,0,0,.35);z-index:60";
-    document.body.appendChild(d);
-    setTimeout(()=>{d.style.opacity='0'; d.style.transition='opacity .35s';}, ms||1800);
-    setTimeout(()=>d.remove(), (ms||1800)+400);
-  }
-
-  /* Hero media logic + crossfade */
-  const imagePath = 'assets/images/gc_logo.png';
-  const videoPath = 'assets/video/gc_spin.mp4';
-
-  const Lvideo = document.getElementById('Lvideo');
-  const Limage = document.getElementById('Limage');
-  const Lhint  = document.getElementById('Lhint');
-  const heroVideo = document.getElementById('heroVideo');
-  const heroImage = document.getElementById('heroImage');
-  const mediaNote = document.getElementById('mediaNote');
-
-  const adminBar = document.getElementById('adminBar');
-  const modeSel  = document.getElementById('heroMode');
-
-  // show admin switch if ?admin=1
-  const url = new URL(location.href);
-  if(url.searchParams.get('admin')==='1'){
-    adminBar.classList.add('show');
-  }
-
-  // Persisted preference
-  const savedMode = localStorage.getItem('tg_hero_mode') || 'video';
-  modeSel.value = savedMode;
-  modeSel.addEventListener('change', () => {
-    localStorage.setItem('tg_hero_mode', modeSel.value);
-    chooseHero();
+  }).catch(()=>{
+    fetch(GRID_CONFIG.logoImage,{method:"HEAD"}).then(rr=> rr.ok ? showImage() : null);
   });
+})();
 
-  // preload check
-  async function exists(path){
-    try{
-      const r = await fetch(path, {method:'HEAD', cache:'no-store'});
-      return r.ok;
-    }catch(e){ return false; }
+/* Gold confetti — self-cleaning (no freeze or leftovers) */
+function popConfetti(){
+  // light-weight vanilla confetti
+  const N = 140;
+  const box = document.createElement("div");
+  box.style.position="fixed"; box.style.inset="0"; box.style.pointerEvents="none";
+  document.body.appendChild(box);
+
+  const frags=[];
+  for(let i=0;i<N;i++){
+    const s = document.createElement("i");
+    const size = 6+Math.random()*6;
+    s.style.position="absolute";
+    s.style.left = (Math.random()*100)+"vw";
+    s.style.top  = "-10px";
+    s.style.width=size+"px"; s.style.height=size+"px";
+    s.style.background = `linear-gradient(180deg,#f6d77a,#d4af37)`;
+    s.style.filter = "drop-shadow(0 2px 6px rgba(212,175,55,.35))";
+    s.style.transform = `rotate(${Math.random()*360}deg)`;
+    s.style.borderRadius="2px";
+    s.style.opacity=".95";
+    const dur = 900 + Math.random()*900;
+    const xDrift = (Math.random()*2-1)*40; // slight sideways
+    s.animate([
+      { transform:`translate(0,0) rotate(0deg)`, opacity:.95 },
+      { transform:`translate(${xDrift}px, 86vh) rotate(${120+Math.random()*240}deg)`, opacity:.0 }
+    ], { duration: dur, easing: "cubic-bezier(.2,.8,.2,1)", fill:"forwards" });
+    frags.push(s); box.appendChild(s);
   }
+  // hard cleanup after max duration
+  setTimeout(()=>{ box.remove(); frags.length=0; }, 2100);
+}
 
-  async function chooseHero(){
-    const wantVideo = (modeSel.value==='video');
-    const hasVideo  = await exists(videoPath);
-    const hasImage  = await exists(imagePath);
+document.getElementById("joinBtn").addEventListener("click", popConfetti);
+document.getElementById("monetiseBtn").addEventListener("click", popConfetti);
 
-    // set sources if present
-    if(hasVideo){ heroVideo.src = videoPath; heroVideo.load(); }
-    if(hasImage){ heroImage.src = imagePath; }
+/* anchors (no-op placeholders you can later wire) */
+document.getElementById("nichesBtn").onclick = ()=>window.scrollTo({top:document.body.scrollHeight*0.33,behavior:"smooth"});
+document.getElementById("reelsBtn").onclick  = ()=>window.scrollTo({top:document.body.scrollHeight*0.66,behavior:"smooth"});
 
-    // status hint
-    mediaNote.textContent = (!hasVideo && wantVideo) ? '(video not found, showing image if available)' :
-                            (!hasImage && !wantVideo) ? '(image not found, showing hint)' : '';
-
-    // decide layer visibility with crossfade
-    const show = (id)=>document.getElementById(id).classList.add('show');
-    const hide = (id)=>document.getElementById(id).classList.remove('show');
-
-    hide('Lvideo'); hide('Limage'); hide('Lhint');
-
-    if(wantVideo && hasVideo){
-      show('Lvideo');
-    }else if(hasImage){
-      show('Limage');
-    }else{
-      show('Lhint');
-    }
-  }
-  chooseHero();
-
-  /* Confetti — gold burst for CTAs */
-  (function(){
-    const c = document.getElementById('confetti');
-    const ctx = c.getContext('2d');
-    let W,H,parts=[],playing=false;
-    function resize(){ W = c.width = innerWidth; H = c.height = innerHeight; }
-    addEventListener('resize', resize, {passive:true}); resize();
-
-    function launch(color='#e8c265', n=120){
-      for(let i=0;i<n;i++){
-        parts.push({
-          x: W/2, y: H/3, vx:(Math.random()*6-3), vy:(Math.random()*-6-3),
-          g: .15 + Math.random()*.1, s: 3+Math.random()*3, a: 1,
-          color: color, rot: Math.random()*360, vr: (Math.random()*6-3)
-        });
-      }
-      if(!playing){ requestAnimationFrame(tick); playing=true; setTimeout(()=>playing=false, 1400); }
-    }
-    function tick(){
-      ctx.clearRect(0,0,W,H);
-      parts.forEach(p=>{
-        p.vy += p.g; p.x += p.vx; p.y += p.vy; p.rot += p.vr; p.a -= .008;
-        ctx.save(); ctx.globalAlpha=Math.max(p.a,0);
-        ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180);
-        ctx.fillStyle=p.color;
-        ctx.fillRect(-p.s, -p.s, p.s*2, p.s*2);
-        ctx.restore();
-      });
-      parts = parts.filter(p=>p.a>0 && p.y<H+20);
-      if(playing) requestAnimationFrame(tick);
-    }
-    // hook CTAs
-    document.getElementById('joinBtn').addEventListener('click', ()=>launch('#f6d88a', 160));
-    document.getElementById('monetiseBtn').addEventListener('click', ()=>launch('#d1b76a', 130));
-    document.getElementById('startBtn').addEventListener('click', ()=>launch('#f1d07c', 90));
-  })();
+/* OPTIONAL: updates board loader — you can drop any names into Data/updates.json, I’ll map later */
 </script>
 </body>
 </html>
