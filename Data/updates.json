@@ -1,39 +1,31 @@
 {
-  "sections": [
+  "now_shipping": [
     {
-      "title": "Now Shipping",
-      "items": [
-        {
-          "label": "Hero video support",
-          "detail": "Add assets/video/hero.mp4 to enable autoplay banner video.",
-          "date": "2025-08-12"
-        },
-        {
-          "label": "Signature Niches gallery",
-          "detail": "Drop images named grid_* into assets/images to populate cards.",
-          "date": "2025-08-12"
-        }
+      "title": "Black & Gold Hero",
+      "date": "2025-08-15",
+      "summary": "New hero with GC spin video + image fallback, gold UI, and clean confetti.",
+      "media": [
+        { "type": "image", "src": "assets/images/gc_logo.png" },
+        { "type": "video", "src": "assets/video/gc_spin.mp4" }
+      ],
+      "links": [
+        { "label": "View site", "href": "/" }
       ]
-    },
+    }
+  ],
+  "in_progress": [
     {
-      "title": "In Progress",
-      "items": [
-        {
-          "label": "Admin invites",
-          "detail": "Owner can paste invite codes from Data/thegrid-admin-invites.json.",
-          "date": "2025-08-13"
-        }
-      ]
-    },
+      "title": "Cinematic Landscape Reels",
+      "date": "2025-08-16",
+      "summary": "Auto-detect 16:9 MP4s named assets/video/landscape_#.mp4 and surface them in a reels strip.",
+      "media": []
+    }
+  ],
+  "planned": [
     {
-      "title": "Planned",
-      "items": [
-        {
-          "label": "Interactive menus + micro-animations",
-          "detail": "Smooth slide/fade transitions with prefers-reduced-motion support.",
-          "date": "2025-08-15"
-        }
-      ]
+      "title": "Membership tiers & confetti colors",
+      "summary": "Tier-colored celebrations (Gold, Platinum, etc.), short greetings, and subtle rewards.",
+      "media": []
     }
   ]
 }
