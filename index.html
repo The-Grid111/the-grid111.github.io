@@ -1,136 +1,155 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>THEGRID — Black & Gold</title>
-<link rel="preload" as="video" href="assets/video/gc_spin.mp4">
-<link rel="preload" as="image" href="assets/images/gc_logo.png">
-<link rel="stylesheet" href="assets/css/styles.css" />
-</head>
-<body>
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>THEGRID — Black & Gold</title><meta name="color-scheme" content="dark">
+<style>
+:root{--bg:#0b0d0f;--panel:#0f1216;--ring:#242a34;--text:#e9eaec;--muted:#a7abb1;--gold:#e6c26e;--radius:18px}
+*{box-sizing:border-box}html,body{margin:0;background:
+ radial-gradient(1000px 520px at 20% -10%, rgba(246,203,92,.08), transparent 55%),
+ radial-gradient(1200px 600px at 120% -10%, rgba(246,203,92,.06), transparent 60%),#0b0d0f;
+ color:var(--text);font:14px/1.5 ui-sans-serif,system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial}
+a{color:inherit;text-decoration:none}button,select,input{font:inherit;color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:18px 16px 80px}
+.top{display:flex;justify-content:space-between;align-items:center;margin:6px 0 12px}
+.chip{padding:10px 16px;border:1px solid #232a33;border-radius:999px;background:#11161c}
+.cta{padding:10px 18px;border-radius:999px;border:1px solid rgba(246,203,92,.45);
+     background:linear-gradient(180deg,#2a2a22,#15140d);color:var(--gold);cursor:pointer}
+.cta,.btn,.pill{transition:transform .08s ease, box-shadow .12s ease}.pressed{transform:translateY(1px) scale(.99)}
+.panel,.card{border:1px solid #232a33;border-radius:var(--radius);background:linear-gradient(180deg,#0f1216,#0c0f13);
+            box-shadow:inset 0 1px 0 rgba(255,255,255,.03), 0 16px 60px rgba(0,0,0,.45);padding:14px;margin:10px 0}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+select,.btn{background:#10151b;border:1px solid #232a33;border-radius:10px;color:#d5dbe4;padding:9px 12px}
+.btn.ghost{background:#0f141a}
+.hero{padding:16px}.hero-frame{aspect-ratio:16/9;border-radius:16px;background:#0b0f14;border:1px solid #232a33;overflow:hidden;display:grid;place-items:center}
+.hero-frame video,.hero-frame img{width:100%;height:100%;object-fit:cover;display:block}
+h1{font-size:42px;line-height:1.07;margin:10px 0 8px}.gold{color:var(--gold)}.lead{color:var(--muted);margin:0 0 12px}
+.actions{display:flex;gap:12px;flex-wrap:wrap}
+.small{color:#9aa3ad}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:9999}
 
-<!-- Confetti canvas -->
+/* Bottom sheets / modal */
+.sheet{position:fixed;left:0;right:0;bottom:0;translate:0 110%;transition:translate .3s ease;background:#0f1216;border-top:1px solid #232a33;box-shadow:0 -20px 60px rgba(0,0,0,.6);z-index:80}
+.sheet.open{translate:0 0}.sheet .inner{max-width:1080px;margin:0 auto;padding:14px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:10px}.col-4{grid-column:span 4}.col-8{grid-column:span 8}
+.stack{display:flex;flex-direction:column;gap:6px}
+input[type="text"],input[type="color"],input[type="range"],select{background:#0e1116;border:1px solid #232a33;border-radius:10px;padding:10px}
+.btn-row{display:flex;gap:10px;margin-top:8px}
+
+dialog{border:none;padding:0;background:transparent}
+dialog::backdrop{background:rgba(0,0,0,.55)}
+.modal{width:min(900px,96vw);max-height:80vh;overflow:auto;background:#0e1116;border:1px solid #232a33;border-radius:16px;box-shadow:0 16px 60px rgba(0,0,0,.55)}
+.modal-head{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid #1b2028}
+.modal-body{padding:12px 14px}
+.grid-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.tile{border:1px solid #232a33;border-radius:12px;overflow:hidden;background:#0e1319}
+.tile .cap{padding:8px 10px;font-size:12px;color:#aab4bf;border-top:1px solid #1b2028}
+.placeholder{display:grid;place-items:center;color:#9aa3ad;font-size:13px;background:repeating-conic-gradient(from 0deg,#141922 0 15deg,#10151b 15deg 30deg)}
+</style>
+</head><body>
 <canvas id="confetti" aria-hidden="true"></canvas>
 
 <div class="wrap">
-  <!-- Top bar -->
-  <header class="topbar">
+  <header class="top">
     <div class="chip" id="greet">Welcome — THEGRID</div>
-    <a class="cta" id="joinBtn" href="#join">Join Now</a>
+    <!-- Confetti only when data-event="join" or "purchase" -->
+    <a class="cta" id="joinBtn" data-event="join" data-tier="gold">Join Now</a>
   </header>
 
-  <!-- Quick controls -->
-  <section class="controls card">
+  <section class="panel">
     <div class="row">
-      <label>Role:
-        <select id="roleSel">
-          <option>User (My View)</option>
-          <option>Admin (My View)</option>
-        </select>
-      </label>
-      <label>Hero:
-        <select id="heroSel">
-          <option value="auto" selected>Auto</option>
-          <option value="video">Video</option>
-          <option value="image">Image</option>
-          <option value="off">Off</option>
-        </select>
-      </label>
-      <button id="saveView" class="btn">Save My View</button>
+      <label>Role:</label>
+      <select id="roleSel"><option>User</option><option selected>Admin</option></select>
+      <label>Hero:</label>
+      <select id="heroSel"><option selected>Auto</option><option>Video</option><option>Image</option><option>Off</option></select>
+      <button class="btn" id="saveView">Save My View</button>
     </div>
     <div class="row">
-      <label>Reels set:
-        <select id="reelsSel">
-          <option value="auto">Auto (landscape_*.mp4)</option>
-          <option value="cinematic">Cinematic (hero_1.*)</option>
-          <option value="natural">Natural (natural_1.*)</option>
-          <option value="interaction">Interaction (interaction_1.*)</option>
-        </select>
-      </label>
-      <button id="openLib" class="btn ghost">Open Library</button>
+      <label>Reels:</label>
+      <select id="reelsSel"><option selected>Auto (landscape_*.mp4)</option><option>interaction_*.mp4</option><option>natural_*.mp4</option></select>
+      <button class="btn ghost" id="openLib">Open Library</button>
+      <button class="btn ghost" id="openCustomize">Customize</button>
     </div>
   </section>
 
-  <!-- Hero -->
-  <section class="hero card">
-    <div class="hero-frame" id="heroFrame" aria-label="Hero media">
-      <!-- JS will insert <video> or <img> here -->
-    </div>
-  </section>
+  <section class="card hero"><div id="heroBox" class="hero-frame"></div></section>
 
-  <!-- Pitch + Actions -->
-  <section class="pitch card">
-    <h1><span class="gold">Black & Gold</span><br/>Performance Creativity</h1>
-    <p>Cinematic reels + a savable system. Replace files with the same names and the site updates itself.</p>
+  <section class="card">
+    <h1><span class="gold">Black & Gold</span><br>Performance Creativity</h1>
+    <p class="lead">Cinematic reels + a savable system. Swap files with the same names and the site updates itself.</p>
     <div class="actions">
-      <button class="btn gold" id="btnNiches">Explore Niches</button>
-      <button class="btn" id="btnReels">Cinematic Reels</button>
-      <button class="btn ghost" id="btnMonetise">Monetise</button>
-      <button class="btn outline" id="openCustomizer">Customize</button>
+      <button class="pill btn" id="reelsBtn">Cinematic Reels</button>
+      <button class="pill btn" id="buyBasic"  data-event="purchase" data-tier="basic">Buy Basic</button>
+      <button class="pill btn" id="buySilver" data-event="purchase" data-tier="silver">Buy Silver</button>
+      <button class="pill btn" id="monetiseBtn" data-event="purchase" data-tier="gold">Monetise</button>
     </div>
+    <div class="small">© THEGRID · <a href="#">Terms</a> · <a href="#">Privacy</a></div>
   </section>
-
-  <!-- Customizer (admin-only UI) -->
-  <aside id="customPanel" class="panel" hidden>
-    <div class="panel-head">
-      <h3>Customizer</h3>
-      <button id="closeCustomizer" class="icon">✕</button>
-    </div>
-    <div class="panel-body">
-      <label class="stack">Background
-        <input type="color" id="bgColor" value="#0b0d0f">
-      </label>
-      <label class="stack">Gold accent
-        <input type="color" id="goldColor" value="#e6c26e">
-      </label>
-      <label class="stack">Pattern
-        <select id="patternSel">
-          <option value="on" selected>On</option>
-          <option value="off">Off</option>
-        </select>
-      </label>
-      <label class="stack">Border radius
-        <input type="range" id="radius" min="0" max="28" value="20">
-      </label>
-      <label class="stack">Border style
-        <select id="borderStyle">
-          <option value="soft" selected>Soft</option>
-          <option value="hard">Hard</option>
-        </select>
-      </label>
-      <hr/>
-      <h4>Media</h4>
-      <label class="stack">Hero video path
-        <input id="heroVideoPath" value="assets/video/gc_spin.mp4">
-      </label>
-      <label class="stack">Hero image path
-        <input id="heroImagePath" value="assets/images/gc_logo.png">
-      </label>
-      <div class="panel-actions">
-        <button id="applyTheme" class="btn gold">Apply</button>
-        <button id="saveTheme" class="btn">Save to this device</button>
-      </div>
-      <p class="note">Tip: export from Runway/CapCut to <code>assets/video/</code> as <code>*.mp4</code> or to <code>assets/images/</code> as <code>*.jpg/png</code>. Keep your file names; the site will pick them up.</p>
-    </div>
-  </aside>
-
-  <!-- Library (lightweight showcase) -->
-  <aside id="libPanel" class="panel" hidden>
-    <div class="panel-head">
-      <h3>Library</h3>
-      <button id="closeLib" class="icon">✕</button>
-    </div>
-    <div class="panel-body grid" id="libGrid">
-      <!-- JS attempts to load known names; missing files are skipped -->
-    </div>
-  </aside>
-
-  <footer class="foot">
-    <small>© <span id="year"></span> THEGRID • <a href="terms.html">Terms</a> • <a href="privacy.html">Privacy</a></small>
-  </footer>
 </div>
 
-<script src="assets/js/main.js"></script>
-</body>
-</html>
+<!-- Customize (admin only when Role=Admin) -->
+<div id="customSheet" class="sheet" aria-hidden="true">
+  <div class="inner">
+    <h3>Customize</h3>
+    <div class="grid">
+      <div class="col-4 stack"><label>Background</label><input type="color" id="bgPick" value="#0b0d0f"></div>
+      <div class="col-4 stack"><label>Gold</label><input type="color" id="goldPick" value="#e6c26e"></div>
+      <div class="col-4 stack"><label>Pattern</label><select id="patternSel"><option value="on" selected>On</option><option value="off">Off</option></select></div>
+      <div class="col-4 stack"><label>Radius</label><input type="range" id="radius" min="8" max="28" value="18"></div>
+      <div class="col-8 stack"><label>Hero video path</label><input type="text" id="heroVideo" value="assets/video/gc_spin.mp4"></div>
+      <div class="col-8 stack"><label>Hero image path</label><input type="text" id="heroImage" value="assets/images/gc_logo.png"></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn" id="applyTheme">Apply</button>
+      <button class="btn" id="saveTheme">Save to this device</button>
+      <button class="btn ghost" id="closeCustomize">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Library -->
+<dialog id="libDialog"><div class="modal">
+  <div class="modal-head"><h3>Content Library</h3><button class="btn sm" id="closeLib">Close</button></div>
+  <div class="modal-body">
+    <h4>Videos</h4><div id="vGrid" class="grid-tiles"></div>
+    <h4 style="margin-top:12px">Images</h4><div id="iGrid" class="grid-tiles"></div>
+  </div>
+</div></dialog>
+
+<script>
+(()=>{const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+// greeting
+(function(){const h=(new Date).getHours();$('#greet').textContent=(h<12?'Good morning':h<18?'Good afternoon':'Good evening')+' — THEGRID'})();
+
+// -------- Confetti (join/purchase only, burst from button, tier-scaled) --------
+const C=$('#confetti');let X,CPS=[],RAF=null,L=0;function fit(){const d=devicePixelRatio||1,w=innerWidth,h=innerHeight;C.width=w*d;C.height=h*d;C.style.width=w+'px';C.style.height=h+'px';X=C.getContext('2d');X.setTransform(d,0,0,d,0,0)}fit();addEventListener('resize',fit,{passive:true});
+function burstFrom(x,y,t){const k={basic:1,silver:1.4,gold:2}[t]||1, cols=t==='gold'?['#e6c26e','#f6e3a4','#fff2ce']:t==='silver'?['#cbd3df','#e8edf5','#ffffff']:['#d0d7e3','#f0f4fa','#ffffff'];for(let i=0;i<160*k;i++){const a=Math.random()*6.283,s=3+Math.random()*6*k;CPS.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-6*k,g:.25,r:2+Math.random()*3,life:180+Math.random()*80,col:cols[(Math.random()*cols.length)|0]})}if(!RAF)RAF=requestAnimationFrame(loop)}
+function loop(t){if(!L)L=t;const dt=Math.min(32,t-L)/16.6667;L=t;X.clearRect(0,0,C.width,C.height);for(const p of CPS){p.vy+=p.g*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.life-=dt;X.globalAlpha=Math.max(0,Math.min(1,p.life/180));X.fillStyle=p.col;X.beginPath();X.arc(p.x,p.y,p.r,0,6.283);X.fill()}CPS=CPS.filter(p=>p.life>0&&p.y<C.height+12);if(CPS.length)RAF=requestAnimationFrame(loop);else{cancelAnimationFrame(RAF);RAF=null;L=0}}
+document.addEventListener('click',e=>{const b=e.target.closest('a,button');if(!b)return;b.classList.add('pressed');setTimeout(()=>b.classList.remove('pressed'),120);const ev=b.dataset.event;if(ev==='join'||ev==='purchase'){const t=b.dataset.tier||'basic',r=b.getBoundingClientRect();burstFrom(r.left+r.width/2,r.top+r.height/2,t)}},{passive:true});
+
+// -------- Hero (video → image → placeholder) --------
+const heroBox=$('#heroBox');function placeholder(txt){const d=document.createElement('div');d.className='placeholder';d.textContent=txt;d.style.width='100%';d.style.height='100%';return d}
+async function setHero(mode){const v1=$('#heroVideo').value.trim()||'assets/video/gc_spin.mp4',v2=v1.replace('/video/','/videos/');const i1=$('#heroImage').value.trim()||'assets/images/gc_logo.png',i2=i1.replace('/images/','/image/');
+  heroBox.innerHTML='';
+  if(mode==='Off'){heroBox.append(placeholder('Hero off'));return}
+  if(mode==='Image'){const img=new Image();img.src=i1;img.onerror=()=>{const alt=new Image();alt.src=i2;alt.onerror=()=>heroBox.append(placeholder('Logo missing'));heroBox.append(alt)};heroBox.append(img);return}
+  const v=document.createElement('video');Object.assign(v,{muted:true,autoplay:true,loop:true,playsInline:true});v.src=v1;v.oncanplay=()=>v.play().catch(()=>{});v.onerror=()=>{const vAlt=document.createElement('video');Object.assign(vAlt,{muted:true,autoplay:true,loop:true,playsInline:true});vAlt.src=v2;vAlt.oncanplay=()=>vAlt.play().catch(()=>{});vAlt.onerror=()=>{const img=new Image();img.src=i1;img.onerror=()=>{const imgAlt=new Image();imgAlt.src=i2;imgAlt.onerror=()=>heroBox.append(placeholder('Media missing'));heroBox.append(imgAlt)};heroBox.append(img)};heroBox.append(vAlt)};heroBox.append(v)}
+const heroSel=$('#heroSel');heroSel.addEventListener('change',e=>setHero(e.target.value));setHero(heroSel.value);
+
+// -------- Save/Restore View (local only) --------
+$('#saveView').onclick=()=>{const v={role:$('#roleSel').value,hero:$('#heroSel').value,reels:$('#reelsSel').value,bg:getComputedStyle(document.documentElement).getPropertyValue('--bg').trim(),gold:getComputedStyle(document.documentElement).getPropertyValue('--gold').trim(),pat:$('#patternSel')?.value,rad:$('#radius')?.value,hv:$('#heroVideo').value,hi:$('#heroImage').value};localStorage.setItem('thegrid:view',JSON.stringify(v))};
+(function(){try{const v=JSON.parse(localStorage.getItem('thegrid:view')||'{}');if(v.role)$('#roleSel').value=v.role;if(v.hero){$('#heroSel').value=v.hero;setHero(v.hero)};if(v.reels)$('#reelsSel').value=v.reels;if(v.bg)document.documentElement.style.setProperty('--bg',v.bg);if(v.gold)document.documentElement.style.setProperty('--gold',v.gold);if(v.pat)$('#patternSel').value=v.pat;if(v.rad)$('#radius').value=v.rad;if(v.hv)$('#heroVideo').value=v.hv;if(v.hi)$('#heroImage').value=v.hi}catch{}})();
+
+// -------- Customize (only when Role=Admin) --------
+const sheet=$('#customSheet');function syncAdmin(){const isAdmin=$('#roleSel').value==='Admin';$('#openCustomize').style.display=isAdmin?'inline-block':'none'}syncAdmin();$('#roleSel').onchange=()=>syncAdmin();
+$('#openCustomize').onclick=()=>{sheet.classList.add('open');sheet.setAttribute('aria-hidden','false')};
+$('#closeCustomize').onclick=()=>{sheet.classList.remove('open');sheet.setAttribute('aria-hidden','true')};
+function applyTheme(){const bg=$('#bgPick').value,g=$('#goldPick').value,pat=$('#patternSel').value,rad=$('#radius').value;document.documentElement.style.setProperty('--bg',bg);document.documentElement.style.setProperty('--gold',g);document.body.style.background=pat==='off'?'#0b0d0f':'radial-gradient(1000px 520px at 20% -10%, rgba(246,203,92,.08), transparent 55%), radial-gradient(1200px 600px at 120% -10%, rgba(246,203,92,.06), transparent 60%), #0b0d0f';document.documentElement.style.setProperty('--radius',rad+'px');setHero($('#heroSel').value)}
+$('#applyTheme').onclick=applyTheme;$('#saveTheme').onclick=()=>{applyTheme();const s=JSON.parse(localStorage.getItem('thegrid:view')||'{}');s.bg=$('#bgPick').value;s.gold=$('#goldPick').value;s.pat=$('#patternSel').value;s.rad=$('#radius').value;s.hv=$('#heroVideo').value;s.hi=$('#heroImage').value;localStorage.setItem('thegrid:view',JSON.stringify(s))};
+
+// -------- Library (auto-skip missing) --------
+const vids=['assets/video/gc_spin.mp4','assets/videos/gc_spin.mp4','assets/video/hero_1.mp4','assets/video/interaction_1.mp4','assets/video/natural_1.mp4','assets/video/pour_1.mp4','assets/video/spread_1.mp4','assets/video/transform_1.mp4'];
+const imgs=['assets/images/gc_logo.png','assets/images/logo.png','assets/image/gc_logo.png','assets/images/hero_1.jpg','assets/images/hero_2.jpg','assets/images/hero_3.jpg','assets/images/grid_interaction_1.jpg','assets/images/grid_natural_1.jpg','assets/images/grid_pour_1.jpg','assets/images/grid_spread_1.jpg','assets/images/grid_transform_1.jpg'];
+function tileVideo(src){const el=document.createElement('div');el.className='tile';const v=document.createElement('video');Object.assign(v,{src,muted:true,loop:true,playsInline:true});v.oncanplay=()=>v.play().catch(()=>{});v.onerror=()=>el.remove();v.style.width='100%';v.style.height='140px';v.style.objectFit='cover';const cap=document.createElement('div');cap.className='cap';cap.textContent=src.split('/').pop();el.append(v,cap);el.onclick=()=>{$('#heroVideo').value=src;$('#heroSel').value='Video';setHero('Video')};return el}
+function tileImage(src){const el=document.createElement('div');el.className='tile';const i=new Image();i.src=src;i.loading='lazy';i.onerror=()=>el.remove();i.style.width='100%';i.style.height='140px';i.style.objectFit='cover';const cap=document.createElement('div');cap.className='cap';cap.textContent=src.split('/').pop();el.append(i,cap);el.onclick=()=>{$('#heroImage').value=src;$('#heroSel').value='Image';setHero('Image')};return el}
+$('#openLib').onclick=()=>{const d=$('#libDialog'),vg=$('#vGrid'),ig=$('#iGrid');vg.innerHTML='';ig.innerHTML='';vids.forEach(s=>vg.appendChild(tileVideo(s)));imgs.forEach(s=>ig.appendChild(tileImage(s)));d.showModal()};$('#closeLib').onclick=()=>$('#libDialog').close();
+})();</script>
+</body></html>
