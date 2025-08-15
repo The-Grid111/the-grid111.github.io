@@ -1,211 +1,171 @@
-/* THEGRID – main.js (drop-in replacement)
-   - Admin-only Customiser: open/close reliably (button, X, ESC, outside click, swipe-down)
-   - Confetti: full-screen, smooth, auto-cleans; scales for big purchases
-*/
-document.addEventListener("DOMContentLoaded", () => {
-  /* ---------- ADMIN GATE (temporary) ---------- */
-  // Toggle this to false to hide the customiser for non-admins.
-  const IS_ADMIN = true;
+/* THEGRID – UX glue (no HTML edits needed) */
+(() => {
+  // ---------- Confetti Engine (self-clearing, non-freezing) ----------
+  const makeConfetti = (() => {
+    let canvas, ctx, raf, particles = [], active = false;
+    const colors = ["#ffd166","#f6c35c","#e6b24d","#f4e3b0","#fff3d1","#f2c078","#f7d07a","#ffecb3"];
 
-  /* ---------- ELEMENTS ---------- */
-  const libOpen   = document.getElementById("libOpen");
-  const libPanel  = document.getElementById("libPanel");
-  const confettiC = document.getElementById("confetti");
-  const greet     = document.getElementById("greet");
-
-  // Inject a close button in the panel if one isn’t there
-  let libClose = document.getElementById("libClose");
-  if (libPanel && !libClose) {
-    libClose = document.createElement("button");
-    libClose.id = "libClose";
-    libClose.className = "lib-btn gold";
-    libClose.textContent = "Close";
-    const bar = document.createElement("div");
-    bar.className = "lib-actions";
-    bar.appendChild(libClose);
-    libPanel.prepend(bar);
-  }
-
-  // Hide customiser if not admin
-  if (!IS_ADMIN) {
-    if (libOpen)  libOpen.style.display = "none";
-    if (libPanel) libPanel.style.display = "none";
-  }
-
-  /* ---------- CUSTOMISER OPEN/CLOSE ---------- */
-  let panelOpen = false;
-  const openPanel = () => {
-    if (!libPanel) return;
-    libPanel.style.display = "block";
-    libPanel.setAttribute("aria-hidden", "false");
-    panelOpen = true;
-  };
-  const closePanel = () => {
-    if (!libPanel) return;
-    libPanel.style.display = "none";
-    libPanel.setAttribute("aria-hidden", "true");
-    panelOpen = false;
-  };
-
-  if (libOpen)  libOpen.addEventListener("click", openPanel);
-  if (libClose) libClose.addEventListener("click", closePanel);
-
-  // Click outside the panel closes it
-  document.addEventListener("click", (e) => {
-    if (!panelOpen || !libPanel) return;
-    const inside = libPanel.contains(e.target) || (libOpen && libOpen.contains(e.target));
-    if (!inside) closePanel();
-  });
-
-  // ESC closes
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && panelOpen) closePanel();
-  });
-
-  // Swipe-down on mobile closes
-  let touchY = null;
-  document.addEventListener("touchstart", (e) => {
-    if (!panelOpen) return;
-    touchY = e.touches[0].clientY;
-  }, {passive:true});
-  document.addEventListener("touchmove", (e) => {
-    if (!panelOpen || touchY === null) return;
-    const dy = e.touches[0].clientY - touchY;
-    if (dy > 40) { touchY = null; closePanel(); }
-  }, {passive:true});
-  document.addEventListener("touchend", () => (touchY = null));
-
-  /* ---------- GREETING ---------- */
-  if (greet) {
-    const hour = new Date().getHours();
-    const msg =
-      hour < 5  ? "Good night"   :
-      hour < 12 ? "Good morning" :
-      hour < 17 ? "Good afternoon" :
-                  "Good evening";
-    greet.textContent = `${msg} — THEGRID`;
-  }
-
-  /* ---------- CONFETTI ENGINE ---------- */
-  // Smooth, full-screen, mobile-friendly.
-  if (!confettiC) return;
-
-  const ctx = confettiC.getContext("2d");
-  let dpr = Math.max(1, window.devicePixelRatio || 1);
-  let W, H;
-  const resize = () => {
-    dpr = Math.max(1, window.devicePixelRatio || 1);
-    W = confettiC.clientWidth;
-    H = confettiC.clientHeight;
-    confettiC.width  = Math.floor(W * dpr);
-    confettiC.height = Math.floor(H * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  };
-  // Make canvas cover the viewport
-  const fitCanvasToViewport = () => {
-    confettiC.style.position = "fixed";
-    confettiC.style.left = "0";
-    confettiC.style.top = "0";
-    confettiC.style.width = "100vw";
-    confettiC.style.height = "100vh";
-    confettiC.style.pointerEvents = "none";
-    confettiC.style.zIndex = "9999";
-  };
-  fitCanvasToViewport();
-  resize();
-  window.addEventListener("resize", resize);
-
-  const GOLD = ["#FFD166", "#F6E27A", "#EAC14D", "#F2C94C", "#FFF3B0"];
-  const PASTELS = ["#FDE2E4","#E2F0CB","#CDE7F0","#FFF1B6","#EAD7F6"];
-  const COLORS = GOLD.concat(PASTELS);
-
-  let rafId = null;
-  let particles = [];
-
-  function spawnBurst(x, y, {power = 1, spread = Math.PI * 2, rings = 1} = {}) {
-    // scale particle count by viewport and "power"
-    const base = Math.min(260, Math.round((W + H) / 6));
-    const total = Math.max(60, Math.round(base * power));
-    for (let i = 0; i < total; i++) {
-      const angle = (i / total) * spread + (Math.random() * 0.5);
-      const speed = 4 + Math.random() * (6 + 3 * power);
-      particles.push({
-        x, y,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed - (3 + power), // initial “pop”
-        g: 0.18 + Math.random() * 0.08,            // gravity
-        fr: 0.985,                                 // friction
-        w: 4 + Math.random() * 6,
-        h: 2 + Math.random() * 4,
-        r: Math.random() * Math.PI,
-        vr: (Math.random() - 0.5) * 0.3,
-        life: 1,                                   // 1 -> 0
-        decay: 0.007 + Math.random() * 0.012,
-        color: COLORS[(Math.random() * COLORS.length) | 0]
-      });
-    }
-    if (!rafId) loop();
-  }
-
-  function loop() {
-    rafId = requestAnimationFrame(loop);
-    ctx.clearRect(0, 0, W, H);
-
-    for (let i = particles.length - 1; i >= 0; i--) {
-      const p = particles[i];
-      p.vx *= p.fr;
-      p.vy = p.vy * p.fr + p.g;
-      p.x  += p.vx;
-      p.y  += p.vy;
-      p.r  += p.vr;
-      p.life -= p.decay;
-
-      // render
-      if (p.life <= 0 || p.y > H + 40) {
-        particles.splice(i, 1);
-        continue;
+    const spawn = (count, power = 1) => {
+      const { innerWidth: w, innerHeight: h } = window;
+      for (let i=0;i<count;i++){
+        particles.push({
+          x: w/2 + (Math.random() - 0.5) * 80,
+          y: h/2 - 40,
+          vx: (Math.random() - 0.5) * (6*power),
+          vy: -Math.random() * (8*power) - 4,
+          g: 0.25,
+          r: 2 + Math.random()*3,
+          a: 1,
+          rot: Math.random()*Math.PI*2,
+          vr: (Math.random()-0.5)*0.2,
+          c: colors[(Math.random()*colors.length)|0]
+        });
       }
-      ctx.globalAlpha = Math.max(0, p.life);
-      ctx.save();
-      ctx.translate(p.x, p.y);
-      ctx.rotate(p.r);
-      ctx.fillStyle = p.color;
-      ctx.fillRect(-p.w * 0.5, -p.h * 0.5, p.w, p.h);
-      ctx.restore();
-    }
+    };
 
-    // Stop the loop when no particles remain (prevents freezing)
-    if (particles.length === 0) {
-      cancelAnimationFrame(rafId);
-      rafId = null;
-      ctx.clearRect(0, 0, W, H);
-    }
-  }
+    const loop = () => {
+      raf = requestAnimationFrame(loop);
+      const { innerWidth: w, innerHeight: h } = window;
+      canvas.width = w; canvas.height = h;
+      ctx.clearRect(0,0,w,h);
 
-  // Utility: get element center in viewport
-  function centerOf(el) {
-    const b = el.getBoundingClientRect();
-    return { x: b.left + b.width / 2, y: b.top + b.height / 2 };
-  }
+      particles.forEach(p=>{
+        p.vy += p.g;
+        p.x += p.vx; p.y += p.vy;
+        p.rot += p.vr;
+        if (p.y > h+40) p.a -= 0.03;  // fade out off-screen
+      });
+      particles = particles.filter(p=>p.a>0);
 
-  // Attach to celebratory buttons
-  const celebrateButtons = [
-    ...document.querySelectorAll("[data-confetti], .cta, #joinBtn, #monetiseBtn")
-  ];
-  celebrateButtons.forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      const { x, y } = centerOf(btn);
-      // Tiered power: data-confetti="tiny|small|normal|big|huge|luxe"
-      const tier = (btn.getAttribute("data-confetti") || "normal").toLowerCase();
-      const powerMap = { tiny:.4, small:.7, normal:1, big:1.6, huge:2.2, luxe:3 };
-      const power = powerMap[tier] ?? 1;
-      spawnBurst(x, y, { power });
-    });
-  });
+      particles.forEach(p=>{
+        ctx.globalAlpha = p.a;
+        ctx.fillStyle = p.c;
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.fillRect(-p.r, -p.r, p.r*2, p.r*2);
+        ctx.restore();
+      });
 
-  // Expose a simple API for future events (optional)
-  window.TheGridConfetti = {
-    celebrateAt(x, y, power = 1) { spawnBurst(x, y, { power }); },
-    celebrateFull(power = 1.8) { spawnBurst(W / 2, H / 3, { power }); }
+      if (!particles.length) stop();
+    };
+
+    const start = () => {
+      if (active) return;
+      active = true;
+      canvas = document.createElement('canvas');
+      canvas.id = "confetti";
+      Object.assign(canvas.style, {
+        position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 9999
+      });
+      document.body.appendChild(canvas);
+      ctx = canvas.getContext('2d');
+      loop();
+      window.addEventListener('resize', resize, { passive:true });
+      resize();
+    };
+    const stop = () => {
+      if (!active) return;
+      cancelAnimationFrame(raf);
+      active = false;
+      canvas?.remove();
+      window.removeEventListener('resize', resize);
+    };
+    const resize = () => {
+      if (!canvas) return;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    return (power = 1) => {
+      if (!active) start();
+      spawn(160 * power, power);
+      // hard-stop after 4s even if tab frozen
+      setTimeout(stop, 4000);
+    };
+  })();
+
+  // ---------- Helpers ----------
+  const smoothScrollTo = (sel) => {
+    const el = document.querySelector(sel);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
-});
+
+  // ---------- Wire up existing buttons/links (no HTML changes) ----------
+  const hookButtons = () => {
+    const clickers = [
+      { q: 'a[href*="join"] , a:contains("Join Now")', confetti: 2.2 },
+      { q: 'a:contains("Monetise"), a:contains("Monetize")', confetti: 1.8, scroll: '#pricing,#monetise,#monetize' },
+      { q: 'a:contains("Explore Niches")', confetti: 1.2, scroll: '#niches,#signature-niches' },
+      { q: 'a:contains("Cinematic Reels")', confetti: 1.2, scroll: '#reels,#landscape-reels' },
+      { q: 'button:contains("Customize"), a:contains("Customize")', confetti: 0.8 }
+    ];
+
+    // :contains polyfill
+    const matchContains = (el, text) =>
+      (el.textContent || '').trim().toLowerCase().includes(text.toLowerCase());
+
+    // build final node list for every rule and attach once
+    clickers.forEach(rule => {
+      const nodes = Array.from(document.querySelectorAll(rule.q.split(',').map(s=>s.trim()).map(s=>{
+        // convert :contains selector manually
+        if (!s.includes(':contains')) return s;
+        return s.split(':contains')[0] || '*';
+      }).join(',')))
+      .filter(n => {
+        const clauses = rule.q.split(',');
+        return clauses.some(cl=>{
+          const m = cl.match(/:contains\("?(.*?)"?\)/i);
+          if (!m) return n.matches(cl);
+          const base = cl.split(':contains')[0] || '*';
+          return (base==='*' || n.matches(base)) && matchContains(n, m[1]);
+        });
+      });
+
+      nodes.forEach(n=>{
+        if (n.__hooked) return;
+        n.__hooked = true;
+        n.addEventListener('click', (e)=>{
+          makeConfetti(rule.confetti || 1);
+          if (rule.scroll) {
+            e.preventDefault();
+            const targets = rule.scroll.split(',');
+            const first = targets.map(s=>s.trim()).map(s=>document.querySelector(s)).find(Boolean);
+            if (first) first.scrollIntoView({ behavior:"smooth" });
+          }
+        }, { passive:false });
+      });
+    });
+  };
+
+  // ---------- Hero auto source (video → image fallback) ----------
+  const initHero = async () => {
+    const hero = document.querySelector('#hero, .hero, .card video, .card img'); // tolerant
+    if (!hero) return;
+
+    const tryVideo = async (src) => new Promise((res, rej) => {
+      const v = document.createElement('video');
+      v.src = src; v.muted = true; v.playsInline = true; v.autoplay = true; v.loop = true;
+      v.addEventListener('canplay', ()=>res(v));
+      v.addEventListener('error', rej);
+    });
+
+    try {
+      const v = await tryVideo('assets/video/gc_spin.mp4');
+      hero.replaceWith(v);
+      v.play().catch(()=>{});
+    } catch {
+      const img = document.createElement('img');
+      img.src = 'assets/images/gc_logo.png';
+      img.alt = 'GC';
+      img.style.width = '100%';
+      hero.replaceWith(img);
+    }
+  };
+
+  // ---------- Boot ----------
+  document.addEventListener('DOMContentLoaded', () => {
+    hookButtons();
+    initHero();
+  });
+})();
